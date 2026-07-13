@@ -12,10 +12,8 @@
         const root = getRoot();
         if (!root) return;
 
-        // 移除loading状态
         root.dataset.state = '';
 
-        // 注入样式
         const style = document.createElement('style');
         style.textContent = `
             [data-dlgithub-root="dlgh-cover"] {
@@ -139,4 +137,92 @@
                 opacity: 0.5;
             }
 
-            [data-dlgithub-root="dlgh-cover"] .co
+            [data-dlgithub-root="dlgh-cover"] .cover-footer {
+                margin-top: 18px;
+                font-size: 0.55em;
+                color: #5a4a30;
+                letter-spacing: 3px;
+                opacity: 0.35;
+            }
+
+            @media (max-width: 480px) {
+                [data-dlgithub-root="dlgh-cover"] {
+                    padding: 28px 16px 36px;
+                    min-height: 320px;
+                }
+                [data-dlgithub-root="dlgh-cover"] .cover-title {
+                    font-size: 1.6em;
+                    letter-spacing: 4px;
+                }
+                [data-dlgithub-root="dlgh-cover"] .cover-awaken {
+                    font-size: 0.78em;
+                    padding: 12px;
+                }
+                [data-dlgithub-root="dlgh-cover"] .cover-btn {
+                    padding: 12px 32px;
+                    font-size: 0.9em;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        let particlesHtml = '';
+        for (let i = 0; i < 24; i++) {
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            const tx = (Math.random() - 0.5) * 120;
+            const ty = (Math.random() - 0.5) * 120;
+            const dur = 5 + Math.random() * 8;
+            const size = 2 + Math.random() * 4;
+            particlesHtml += `<span style="left:${x}%;top:${y}%;--tx:${tx}px;--ty:${ty}px;animation-duration:${dur}s;width:${size}px;height:${size}px;"></span>`;
+        }
+
+        root.innerHTML = `
+            <div class="cover-bg-particles">${particlesHtml}</div>
+            <div class="cover-content">
+                <div class="cover-title">✦ 魂 师 觉 醒 ✦</div>
+                <div class="cover-subtitle">—— 斗罗大陆Ⅲ · 龙王传说 ——</div>
+                <div class="cover-awaken">
+                    一股暖融融的力量从你胸口深处涌起，<br>
+                    像一簇被压抑了太久的火苗，终于找到了出口。<br>
+                    <span class="hl">你的武魂，正在回应你的呼吸。</span>
+                </div>
+                <button class="cover-btn" id="coverEnterBtn">⚔ 踏入魂师世界</button>
+                <div class="cover-footer">✦ 命运已在你手中 ✦</div>
+            </div>
+        `;
+
+        const btn = root.querySelector('#coverEnterBtn');
+        if (btn) {
+            btn.addEventListener('click', function() {
+                const textarea = document.querySelector('textarea[data-id="sendTextarea"], textarea#send_textarea, textarea.chat-input');
+                if (textarea) {
+                    textarea.value = '【角色创建】';
+                    textarea.dispatchEvent(new Event('input', { bubbles: true }));
+                    const sendBtn = document.querySelector('button[data-id="sendButton"], button#send_button, button.send-button');
+                    if (sendBtn) {
+                        setTimeout(function() { sendBtn.click(); }, 300);
+                    }
+                } else {
+                    navigator.clipboard.writeText('【角色创建】').then(function() {
+                        alert('请在输入框中输入 【角色创建】 以继续');
+                    }).catch(function() {
+                        prompt('请在输入框中输入 【角色创建】 以继续', '【角色创建】');
+                    });
+                }
+            });
+        }
+
+        root.dataset.state = '';
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', render);
+    } else {
+        render();
+    }
+
+    if (typeof window !== 'undefined') {
+        window.__dlgh_cover_loaded = true;
+    }
+})();
