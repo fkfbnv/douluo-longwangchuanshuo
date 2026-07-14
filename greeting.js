@@ -1,4 +1,4 @@
-// ========== greeting.js - 斗罗大陆III 龙王传说 魂师觉醒 v7.0（夜空诗意美化版） ==========
+// ========== greeting.js - 斗罗大陆III 龙王传说 魂师觉醒 v7.1（修复事件 & 滚动） ==========
 (function(){
 "use strict";
 
@@ -723,7 +723,7 @@ const styleEl=document.createElement('style');
 styleEl.textContent=styleText;
 document.head.appendChild(styleEl);
 
-// ===== HTML 结构（保持原功能，美化标题和提示） =====
+// ===== HTML 结构（移除所有 onclick 内联事件） =====
 const htmlContent=`
 <div class="soul-app-container">
 <div id="app">
@@ -740,17 +740,17 @@ const htmlContent=`
 
 <!-- 分步导航 -->
 <div class="step-nav">
-  <button class="step-btn" id="stepPrev" onclick="goPrevStep()">◀</button>
+  <button class="step-btn" id="stepPrev">◀</button>
   <span class="step-info"><span class="current" id="stepCurrent">1</span>/<span class="total" id="stepTotal">6</span> · <span id="stepName">基础信息</span></span>
-  <button class="step-btn step-btn-primary" id="stepNext" onclick="goNextStep()">▶</button>
+  <button class="step-btn step-btn-primary" id="stepNext">▶</button>
 </div>
 
 <!-- 进度条 -->
 <div class="tb">
   <div class="p">觉醒进度 <span id="pct">0</span>%<div class="pb"><div id="pbar" style="width:0%" class="pbar-low"></div></div></div>
   <div class="tool-group">
-    <button class="bm bm-gold" id="btnRandom" onclick="randomGenerate()">🎲</button>
-    <button class="bm bm-danger" id="btnClearAll" onclick="clearAll()">🗑</button>
+    <button class="bm bm-gold" id="btnRandom">🎲</button>
+    <button class="bm bm-danger" id="btnClearAll">🗑</button>
   </div>
 </div>
 <div class="soul-comment" id="soulComment">✦ 输入魂力等级，查看修炼评语 ✦</div>
@@ -837,9 +837,9 @@ const htmlContent=`
   <!-- 特殊能力：三级分类 -->
   <div class="fd"><label>特殊能力</label>
     <div class="special-tier" id="specialTier">
-      <span class="tier-tag t1 active" data-tier="normal" onclick="switchSpecialTier('normal')">普通级</span>
-      <span class="tier-tag t2" data-tier="rare" onclick="switchSpecialTier('rare')">稀有级</span>
-      <span class="tier-tag t3" data-tier="divine" onclick="switchSpecialTier('divine')">神级</span>
+      <span class="tier-tag t1 active" data-tier="normal">普通级</span>
+      <span class="tier-tag t2" data-tier="rare">稀有级</span>
+      <span class="tier-tag t3" data-tier="divine">神级</span>
     </div>
     <select id="st"></select>
     <div id="stDesc" style="font-size:.55em;color:#94a3b8;margin-top:2px;padding:2px 6px;background:rgba(0,0,0,0.15);border-radius:4px;min-height:18px;font-style:italic;"></div>
@@ -875,7 +875,7 @@ const htmlContent=`
 <!-- 底部：只有导出人设 -->
 <div class="btn-row">
   <div class="btn-wrap">
-    <button class="btn-export-persona" id="btnExportPersona" onclick="showExport()">📋 导出玩家人设</button>
+    <button class="btn-export-persona" id="btnExportPersona">📋 导出玩家人设</button>
   </div>
 </div>
 </div></div>
@@ -884,7 +884,7 @@ const htmlContent=`
 <div id="awakenOverlay"><div class="content"><div class="title">✦ 武魂觉醒仪式 ✦</div><div class="divider"></div><div class="lines" id="awakenLines"><div class="line dim" data-delay="0">━━━━━━━━━━━━━━━━━━━━</div><div class="line" data-delay="300">🔮 检测到魂力波动...</div><div class="line" data-delay="600">⚡ 魂力正在沸腾...</div><div class="line" data-delay="900">🌿 武魂开始共鸣...</div><div class="line" data-delay="1200">🔥 血脉之力觉醒...</div><div class="line" data-delay="1500">✨ 魂环生成中...</div><div class="line" data-delay="1800">🌟 命运之轮转动...</div><div class="line dim" data-delay="2100">━━━━━━━━━━━━━━━━━━━━</div><div class="line hl" data-delay="2400">✅ 觉醒完成 · 档案已铸就</div></div><div class="close-hint" id="closeHint">✦ 点击任意处关闭 ✦</div></div></div>
 
 <!-- 天命弹窗 -->
-<div id="fateModal"><div class="card"><div class="title">🎲 天命所归</div><div class="body" id="fateBody">加载中...</div><div class="actions"><button class="bm bm-gold" id="fateCopy" onclick="fateCopy()">📋 复制</button><button class="bm" id="fateClose" onclick="fateClose()">✕ 关闭</button></div></div></div>
+<div id="fateModal"><div class="card"><div class="title">🎲 天命所归</div><div class="body" id="fateBody">加载中...</div><div class="actions"><button class="bm bm-gold" id="fateCopy">📋 复制</button><button class="bm" id="fateClose">✕ 关闭</button></div></div></div>
 `;
 
 const root=document.querySelector('[data-dlgithub-root="dlgh-greeting"]');
@@ -997,7 +997,7 @@ function showToast(text,isError){
   toast._timer=setTimeout(function(){toast.className='';},2000);
 }
 
-// ===== 分步导航（极简版 - 参考别人的成功模式）=====
+// ===== 分步导航 =====
 function showPane(n){
   if(n<1)n=1;
   if(n>totalSteps)n=totalSteps;
@@ -1018,7 +1018,7 @@ function showPane(n){
     if(idx+1===n){
       sec.style.display='block';
       sec.classList.add('active');
-      setTimeout(function(){sec.scrollIntoView({block:'start',behavior:'smooth'});},120);
+      // 移除了 scrollIntoView，避免与触摸滚动冲突
     }else{
       sec.style.display='none';
       sec.classList.remove('active');
@@ -1205,63 +1205,149 @@ function clearAll(){
   currentTier='normal';document.querySelectorAll('.special-tier .tier-tag').forEach(function(t){t.classList.toggle('active',t.dataset.tier===currentTier);});renderSpecialOptions();
 }
 
-// ===== 事件绑定 =====
+// ===== 事件绑定（全部使用 addEventListener，无内联） =====
 function bindEvents(){
+  // 标题点击展开/折叠
   document.getElementById('mainTitle').addEventListener('click',function(){
     var first=document.querySelector('.sec details');var isOpen=first?first.hasAttribute('open'):false;
     var details=document.querySelectorAll('.sec details');
     details.forEach(function(d){if(isOpen)d.removeAttribute('open');else d.setAttribute('open','open');});
     showToast(isOpen?'📂 全部收起':'📂 全部展开');
   });
+
+  // 分步导航
+  document.getElementById('stepPrev').addEventListener('click',goPrevStep);
+  document.getElementById('stepNext').addEventListener('click',goNextStep);
+
+  // 随机生成
+  document.getElementById('btnRandom').addEventListener('click',randomGenerate);
+  // 清空
+  document.getElementById('btnClearAll').addEventListener('click',clearAll);
+  // 导出
+  document.getElementById('btnExportPersona').addEventListener('click',showExport);
+
+  // 特殊能力等级切换
+  document.querySelectorAll('.special-tier .tier-tag').forEach(function(tag){
+    tag.addEventListener('click',function(){
+      var tier=this.dataset.tier;
+      switchSpecialTier(tier);
+    });
+  });
+
+  // 特殊能力选择变化
   fields.st.addEventListener('change',function(){updateSpecialDesc();updateSpecialWeapon();saveDraft();});
+
+  // 武魂类型变化
   fields.mst.addEventListener('change',function(){
     toggleDualSoul();updateInnateOptions();updateRolePosition();
     if(getSel('mst')==='神级武魂'){fields.isp.value='20级（神赐）';}
     saveDraft();updateProgress();
   });
+
+  // 血脉类型
   fields.bl.addEventListener('change',function(){toggleCustomBlood();saveDraft();updateProgress();});
+
+  // 出身地
   fields.og_select.addEventListener('change',function(){fields.og.value=this.value;updateCamp();saveDraft();updateProgress();});
+
+  // 魂力输入
   fields.csr.addEventListener('input',function(){
     updateSoulTitle();updateSoulComment();updateSpiritLevel();updateRingInfo();
     saveDraft();updateProgress();
     var lv=getVal('csr');if(lv){showToast('魂力：'+lv+'级 → '+getSoulTitle(lv));}
   });
+
+  // 斗铠等级
   fields.bal.addEventListener('change',function(){updateArmorGrade();saveDraft();updateProgress();});
+
+  // 斗铠部件
   armorCountInput.addEventListener('input',function(){updateArmorPercent();saveDraft();updateProgress();});
+
+  // 机甲等级
   fields.mechaLevel.addEventListener('change',function(){updateMechaCustom();saveDraft();updateProgress();});
+
+  // 自动保存所有输入
   var autoSave=function(){saveDraft();updateProgress();updatePreview();};
   var inputs=document.querySelectorAll('input, textarea, select');
-  for(var i=0;i<inputs.length;i++){inputs[i].addEventListener('input',autoSave);inputs[i].addEventListener('change',autoSave);}
+  inputs.forEach(function(el){
+    el.addEventListener('input',autoSave);
+    el.addEventListener('change',autoSave);
+  });
+
+  // 字段提示（焦点显示）
   document.querySelectorAll('input, textarea, select').forEach(function(el){
     el.addEventListener('focus',function(){
-      var label=this.closest('.fd');if(label){var lbl=label.querySelector('label');if(lbl){fieldIndicator.textContent=lbl.textContent.trim().replace(/[🔹◆◈]/g,'').trim();fieldIndicator.classList.add('show');clearTimeout(fieldIndicator._timer);fieldIndicator._timer=setTimeout(function(){fieldIndicator.classList.remove('show');},1500);}}
-      setTimeout(function(){el.scrollIntoView({block:'center',behavior:'smooth'});},250);
+      var label=this.closest('.fd');
+      if(label){
+        var lbl=label.querySelector('label');
+        if(lbl){
+          fieldIndicator.textContent=lbl.textContent.trim().replace(/[🔹◆◈]/g,'').trim();
+          fieldIndicator.classList.add('show');
+          clearTimeout(fieldIndicator._timer);
+          fieldIndicator._timer=setTimeout(function(){fieldIndicator.classList.remove('show');},1500);
+        }
+      }
+      // 移除了自动滚动，避免干扰
     });
   });
-  $('btnAddRing').addEventListener('click',function(){
+
+  // 魂环添加
+  document.getElementById('btnAddRing').addEventListener('click',function(){
     if(rings.length>=9){showToast('最多9个魂环',true);return;}
-    rings.push({year:'百年',name:'',effect:''});localStorage.setItem('soul_rings_v7',JSON.stringify(rings));
-    renderRings();updateRingInfo();updateProgress();saveDraft();showToast('已添加魂环');
+    rings.push({year:'百年',name:'',effect:''});
+    localStorage.setItem('soul_rings_v7',JSON.stringify(rings));
+    renderRings();updateRingInfo();updateProgress();saveDraft();
+    showToast('已添加魂环');
   });
-  $('btnSyncRings').addEventListener('click',function(){syncRingsToLevel();});
-  $('btnCopyExport').addEventListener('click',function(){copyToClipboard(exportPreview.value);showToast('已复制！');});
+
+  // 魂环自动同步
+  document.getElementById('btnSyncRings').addEventListener('click',function(){syncRingsToLevel();});
+
+  // 复制导出
+  document.getElementById('btnCopyExport').addEventListener('click',function(){copyToClipboard(exportPreview.value);showToast('已复制！');});
+
+  // 天命弹窗
+  document.getElementById('fateCopy').addEventListener('click',fateCopy);
+  document.getElementById('fateClose').addEventListener('click',fateClose);
   fateModal.addEventListener('click',function(e){if(e.target===fateModal)fateModal.classList.remove('active');});
+
+  // details 摘要点击（阻止默认，实现平滑切换）
   document.querySelectorAll('.sec details').forEach(function(detail){
     var summary=detail.querySelector('summary');
-    if(summary){summary.addEventListener('click',function(e){e.preventDefault();var isOpen=detail.hasAttribute('open');if(isOpen)detail.removeAttribute('open');else detail.setAttribute('open','open');});}
+    if(summary){
+      summary.addEventListener('click',function(e){
+        e.preventDefault();
+        var isOpen=detail.hasAttribute('open');
+        if(isOpen)detail.removeAttribute('open');
+        else detail.setAttribute('open','open');
+      });
+    }
   });
+
+  // 导出预览框自动选中
   exportPreview.addEventListener('focus',function(){this.select();});
 }
 
 // ===== 初始化 =====
 function init(){
   renderSpecialOptions();
-  updateInnateOptions();initRings();loadDraft();toggleDualSoul();toggleCustomBlood();
-  updateSoulTitle();updateSoulComment();updateArmorGrade();updateRolePosition();updateCamp();
-  updateSpiritLevel();updateMechaCustom();updateArmorPercent();
-  bindEvents();updateProgress();updatePreview();
-  // 如果 loadDraft 已经调用了 showPane(1)，这里不再重复调用
-  // 但为了保证首次加载显示第一步，如果没有数据则显示第一步
+  updateInnateOptions();
+  initRings();
+  loadDraft();
+  toggleDualSoul();
+  toggleCustomBlood();
+  updateSoulTitle();
+  updateSoulComment();
+  updateArmorGrade();
+  updateRolePosition();
+  updateCamp();
+  updateSpiritLevel();
+  updateMechaCustom();
+  updateArmorPercent();
+  bindEvents();
+  updateProgress();
+  updatePreview();
+  // 确保第一步显示
   setTimeout(function(){
     var secs=document.querySelectorAll('.sec');
     var hasActive=false;
@@ -1272,16 +1358,6 @@ function init(){
 }
 
 init();
-
-// ===== 【修复关键】将内联 onclick 所需的函数暴露到全局 =====
-window.goNextStep = goNextStep;
-window.goPrevStep = goPrevStep;
-window.randomGenerate = randomGenerate;
-window.clearAll = clearAll;
-window.showExport = showExport;
-window.switchSpecialTier = switchSpecialTier;
-window.fateCopy = fateCopy;
-window.fateClose = fateClose;
 
 })();
 })();
