@@ -1,4 +1,4 @@
-// ========== greeting.js - 斗罗大陆III 龙王传说 魂师觉醒 v5.1 FINAL ==========
+// ========== greeting.js - 斗罗大陆III 龙王传说 魂师觉醒 v5.2 FINAL ==========
 (function(){
 "use strict";
 const styleText=`
@@ -532,73 +532,114 @@ function clearAll(){
   toggleDualSoul();toggleCustomBlood();updateSoulTitle();updateSoulComment();updateArmorGrade();
   updateProgress();updatePreview();updateRingInfo();showToast('🗑 已清空');
 }
+
+// ★★★★★ 修复：使用 onclick 直接绑定，确保可靠 ★★★★★
 function bindEvents(){
-  document.getElementById('mainTitle').addEventListener('click',function(){
-    var first=document.querySelector('.sec details');var isOpen=first?first.hasAttribute('open'):false;
-    var details=document.querySelectorAll('.sec details');
-    details.forEach(function(d){if(isOpen)d.removeAttribute('open');else d.setAttribute('open','open');});
-    showToast(isOpen?'📂 全部收起':'📂 全部展开');
+  // 标题点击
+  document.getElementById('mainTitle').addEventListener('click', function(){
+    var first = document.querySelector('.sec details');
+    var isOpen = first ? first.hasAttribute('open') : false;
+    var details = document.querySelectorAll('.sec details');
+    details.forEach(function(d){ if(isOpen) d.removeAttribute('open'); else d.setAttribute('open','open'); });
+    showToast(isOpen ? '📂 全部收起' : '📂 全部展开');
   });
-  document.getElementById('stepPrev').addEventListener('click',function(){if(currentStep>1)goToStep(currentStep-1);});
-  document.getElementById('stepNext').addEventListener('click',function(){
-    if(currentStep===totalSteps){
+
+  // ★ 改用 onclick 直接绑定，更可靠 ★
+  var stepPrev = document.getElementById('stepPrev');
+  var stepNext = document.getElementById('stepNext');
+
+  stepPrev.onclick = function(){
+    if(currentStep > 1) goToStep(currentStep - 1);
+  };
+
+  stepNext.onclick = function(){
+    if(currentStep === totalSteps){
       showAwakenAnimation();
     }else{
-      goToStep(currentStep+1);
+      goToStep(currentStep + 1);
     }
+  };
+
+  // 其他字段事件
+  fields.mst.addEventListener('change', function(){
+    toggleDualSoul(); updateInnateOptions(); updateRolePosition();
+    if(getSel('mst') === '神级武魂'){ fields.isp.value = '20级（神赐）'; }
+    saveDraft(); updateProgress();
   });
-  fields.mst.addEventListener('change',function(){
-    toggleDualSoul();updateInnateOptions();updateRolePosition();
-    if(getSel('mst')==='神级武魂'){fields.isp.value='20级（神赐）';}
-    saveDraft();updateProgress();
+  fields.bl.addEventListener('change', function(){ toggleCustomBlood(); updateSpecialAbility(); saveDraft(); updateProgress(); });
+  fields.og_select.addEventListener('change', function(){ fields.og.value = this.value; updateCamp(); saveDraft(); updateProgress(); });
+  fields.st.addEventListener('change', function(){
+    if(this.value === '自定义'){ fields.stCustomWrap.style.display = 'block'; fields.stCustom.focus(); } else { fields.stCustomWrap.style.display = 'none'; }
+    updateSpecialAbility(); saveDraft(); updateProgress();
   });
-  fields.bl.addEventListener('change',function(){toggleCustomBlood();updateSpecialAbility();saveDraft();updateProgress();});
-  fields.og_select.addEventListener('change',function(){fields.og.value=this.value;updateCamp();saveDraft();updateProgress();});
-  fields.st.addEventListener('change',function(){
-    if(this.value==='自定义'){fields.stCustomWrap.style.display='block';fields.stCustom.focus();}else{fields.stCustomWrap.style.display='none';}
-    updateSpecialAbility();saveDraft();updateProgress();
+  fields.csr.addEventListener('input', function(){
+    updateSoulTitle(); updateSoulComment(); updateSpiritLevel(); updateRingInfo();
+    saveDraft(); updateProgress();
+    var lv = getVal('csr');
+    if(lv){ showToast('魂力：'+lv+'级 → '+getSoulTitle(lv)); }
   });
-  fields.csr.addEventListener('input',function(){
-    updateSoulTitle();updateSoulComment();updateSpiritLevel();updateRingInfo();
-    saveDraft();updateProgress();var lv=getVal('csr');if(lv){showToast('魂力：'+lv+'级 → '+getSoulTitle(lv));}
-  });
-  fields.bal.addEventListener('change',function(){updateArmorGrade();saveDraft();updateProgress();});
-  armorCountInput.addEventListener('input',function(){updateArmorPercent();saveDraft();updateProgress();});
-  fields.mechaLevel.addEventListener('change',function(){updateMechaCustom();saveDraft();updateProgress();});
-  var autoSave=function(){saveDraft();updateProgress();updatePreview();};
-  var inputs=document.querySelectorAll('input, textarea, select');
-  for(var i=0;i<inputs.length;i++){inputs[i].addEventListener('input',autoSave);inputs[i].addEventListener('change',autoSave);}
+  fields.bal.addEventListener('change', function(){ updateArmorGrade(); saveDraft(); updateProgress(); });
+  armorCountInput.addEventListener('input', function(){ updateArmorPercent(); saveDraft(); updateProgress(); });
+  fields.mechaLevel.addEventListener('change', function(){ updateMechaCustom(); saveDraft(); updateProgress(); });
+
+  // 自动保存
+  var autoSave = function(){ saveDraft(); updateProgress(); updatePreview(); };
+  var inputs = document.querySelectorAll('input, textarea, select');
+  for(var i=0; i<inputs.length; i++){
+    inputs[i].addEventListener('input', autoSave);
+    inputs[i].addEventListener('change', autoSave);
+  }
+
+  // 焦点提示
   document.querySelectorAll('input, textarea, select').forEach(function(el){
-    el.addEventListener('focus',function(){
-      var label=this.closest('.fd');if(label){var lbl=label.querySelector('label');if(lbl){fieldIndicator.textContent=lbl.textContent.trim().replace(/[🔹◆◈]/g,'').trim();fieldIndicator.classList.add('show');clearTimeout(fieldIndicator._timer);fieldIndicator._timer=setTimeout(function(){fieldIndicator.classList.remove('show');},1500);}}
-      setTimeout(function(){el.scrollIntoView({block:'center',behavior:'smooth'});},250);
+    el.addEventListener('focus', function(){
+      var label = this.closest('.fd');
+      if(label){ var lbl = label.querySelector('label'); if(lbl){ fieldIndicator.textContent = lbl.textContent.trim().replace(/[🔹◆◈]/g,'').trim(); fieldIndicator.classList.add('show'); clearTimeout(fieldIndicator._timer); fieldIndicator._timer = setTimeout(function(){ fieldIndicator.classList.remove('show'); }, 1500); } }
+      setTimeout(function(){ el.scrollIntoView({ block:'center', behavior:'smooth' }); }, 250);
     });
   });
-  $('btnExportPersona').addEventListener('click',showExport);
-  $('btnClearAll').addEventListener('click',clearAll);
-  $('btnRandom').addEventListener('click',randomGenerate);
-  $('btnCopyExport').addEventListener('click',function(){copyToClipboard(exportPreview.value);showToast('已复制！');});
-  $('btnAddRing').addEventListener('click',function(){
-    if(rings.length>=9){showToast('最多9个魂环',true);return;}
-    rings.push({year:'百年',name:'',effect:''});localStorage.setItem('soul_rings_v5',JSON.stringify(rings));
-    renderRings();updateRingInfo();updateProgress();saveDraft();showToast('已添加魂环');
+
+  // 按钮
+  $('btnExportPersona').addEventListener('click', showExport);
+  $('btnClearAll').addEventListener('click', clearAll);
+  $('btnRandom').addEventListener('click', randomGenerate);
+  $('btnCopyExport').addEventListener('click', function(){ copyToClipboard(exportPreview.value); showToast('已复制！'); });
+  $('btnAddRing').addEventListener('click', function(){
+    if(rings.length >= 9){ showToast('最多9个魂环', true); return; }
+    rings.push({ year:'百年', name:'', effect:'' });
+    localStorage.setItem('soul_rings_v5', JSON.stringify(rings));
+    renderRings(); updateRingInfo(); updateProgress(); saveDraft();
+    showToast('已添加魂环');
   });
-  $('btnSyncRings').addEventListener('click',function(){syncRingsToLevel();});
-  $('fateCopy').addEventListener('click',function(){copyToClipboard(fateBody.textContent);showToast('已复制天命！');});
-  $('fateClose').addEventListener('click',function(){fateModal.classList.remove('active');});
-  fateModal.addEventListener('click',function(e){if(e.target===fateModal)fateModal.classList.remove('active');});
+  $('btnSyncRings').addEventListener('click', function(){ syncRingsToLevel(); });
+
+  // 天命弹窗
+  $('fateCopy').addEventListener('click', function(){ copyToClipboard(fateBody.textContent); showToast('已复制天命！'); });
+  $('fateClose').addEventListener('click', function(){ fateModal.classList.remove('active'); });
+  fateModal.addEventListener('click', function(e){ if(e.target === fateModal) fateModal.classList.remove('active'); });
+
+  // 折叠面板
   document.querySelectorAll('.sec details').forEach(function(detail){
-    var summary=detail.querySelector('summary');
-    if(summary){summary.addEventListener('click',function(e){e.preventDefault();var isOpen=detail.hasAttribute('open');if(isOpen)detail.removeAttribute('open');else detail.setAttribute('open','open');});}
+    var summary = detail.querySelector('summary');
+    if(summary){
+      summary.addEventListener('click', function(e){
+        e.preventDefault();
+        var isOpen = detail.hasAttribute('open');
+        if(isOpen) detail.removeAttribute('open');
+        else detail.setAttribute('open','open');
+      });
+    }
   });
-  exportPreview.addEventListener('focus',function(){this.select();});
+
+  exportPreview.addEventListener('focus', function(){ this.select(); });
 }
+
 function init(){
-  updateInnateOptions();initRings();loadDraft();toggleDualSoul();toggleCustomBlood();
-  updateSoulTitle();updateSoulComment();updateArmorGrade();updateRolePosition();updateCamp();
-  updateSpiritLevel();updateSpecialAbility();updateMechaCustom();updateArmorPercent();
-  bindEvents();updateProgress();updatePreview();goToStep(1);
-  setTimeout(function(){showToast('✦ 魂导终端已启动 · 开始你的觉醒之旅 ✦');},600);
+  updateInnateOptions(); initRings(); loadDraft(); toggleDualSoul(); toggleCustomBlood();
+  updateSoulTitle(); updateSoulComment(); updateArmorGrade(); updateRolePosition(); updateCamp();
+  updateSpiritLevel(); updateSpecialAbility(); updateMechaCustom(); updateArmorPercent();
+  bindEvents(); updateProgress(); updatePreview(); goToStep(1);
+  setTimeout(function(){ showToast('✦ 魂导终端已启动 · 开始你的觉醒之旅 ✦'); }, 600);
 }
 init();
 })();
