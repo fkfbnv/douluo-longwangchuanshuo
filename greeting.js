@@ -1,21 +1,39 @@
-// ========== greeting.js - 斗罗大陆III 龙王传说 魂师觉醒 v3.0 ==========
+// ========== greeting.js - 斗罗大陆III 龙王传说 魂师觉醒 v4.0 ==========
 (function () {
   "use strict";
 
   const styleText = `
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 .soul-app-container{font-family:system-ui,'Microsoft YaHei',sans-serif;background:radial-gradient(ellipse at 50% 0,#1c1308 0,#0d0804 55%,#060302 100%);background-attachment:fixed;color:#e8dcc8;line-height:1.6;padding:8px 8px 20px;display:flex;justify-content:center;}
-#app{max-width:560px;width:100%;padding:16px 14px 120px 14px;background:linear-gradient(170deg,#1c130a,#23180d 30%,#1a1008 60%,#140c05);border:2px solid #7a5c2e;border-radius:14px;box-shadow:0 0 40px rgba(180,130,40,.18),0 8px 32px rgba(0,0,0,.55),inset 0 0 20px rgba(120,70,20,.08);position:relative;z-index:1;overflow:hidden;}
+#app{max-width:560px;width:100%;padding:16px 14px 140px 14px;background:linear-gradient(170deg,#1c130a,#23180d 30%,#1a1008 60%,#140c05);border:2px solid #7a5c2e;border-radius:14px;box-shadow:0 0 40px rgba(180,130,40,.18),0 8px 32px rgba(0,0,0,.55),inset 0 0 20px rgba(120,70,20,.08);position:relative;z-index:1;overflow:hidden;}
 #app::before{content:'';position:absolute;top:-1px;left:-30%;right:-30%;height:2px;background:linear-gradient(90deg,transparent,#b5343a,#f0d68a,#b5343a,transparent);opacity:.8;border-radius:0 0 50% 50%;}
-h1{text-align:center;color:#dc3545;font-size:1.8em;font-weight:700;letter-spacing:8px;text-shadow:0 0 18px rgba(220,50,60,.5),0 2px 8px rgba(0,0,0,.6);font-family:'STKaiti','KaiTi','楷体',serif;cursor:pointer;min-height:44px;display:flex;align-items:center;justify-content:center;gap:10px;user-select:none;transition:.3s;position:relative;}
-h1:hover{text-shadow:0 0 30px rgba(220,50,60,.7),0 2px 12px rgba(0,0,0,.6);}
-h1 .hint{font-size:.28em;color:#7a6a50;letter-spacing:1px;font-weight:300;opacity:.5;}
-h1 .hint:hover{opacity:.8;}
-.subtitle{text-align:center;font-size:.7em;color:#b5a080;margin:-4px 0 10px 0;letter-spacing:8px;font-style:italic;opacity:.7;}
-.awakening{text-align:center;font-size:.82em;color:#d4c5a0;padding:12px 14px;margin-bottom:12px;background:rgba(180,130,40,.06);border:1px solid rgba(180,130,40,.15);border-radius:8px;line-height:1.9;letter-spacing:1px;font-style:italic;}
-.awakening .highlight{color:#f0d68a;font-style:normal;font-weight:600;}
-.tb{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;align-items:center;}
-.tb .p{flex:1;min-width:60px;font-size:.72em;color:#b5a080;font-weight:300;letter-spacing:1px;}
+/* === 标题花纹 === */
+.title-wrap{text-align:center;margin-bottom:6px;position:relative;}
+.title-ornament{color:#f0d68a;font-size:.55em;letter-spacing:10px;opacity:.5;font-weight:300;margin-bottom:2px;}
+.title-ornament span{display:inline-block;animation:ornamentPulse 3s ease-in-out infinite;}
+.title-ornament span:nth-child(1){animation-delay:0s;}
+.title-ornament span:nth-child(2){animation-delay:0.5s;}
+.title-ornament span:nth-child(3){animation-delay:1s;}
+.title-ornament span:nth-child(4){animation-delay:1.5s;}
+.title-ornament span:nth-child(5){animation-delay:2s;}
+@keyframes ornamentPulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+h1{text-align:center;color:#dc3545;font-size:2.2em;font-weight:700;letter-spacing:12px;text-shadow:0 0 30px rgba(220,50,60,.5),0 0 60px rgba(220,50,60,.2),0 2px 12px rgba(0,0,0,.6);font-family:'STKaiti','KaiTi','楷体',serif;cursor:pointer;min-height:44px;display:flex;align-items:center;justify-content:center;user-select:none;transition:.3s;position:relative;transform:scale(1);}
+h1:hover{transform:scale(1.02);text-shadow:0 0 40px rgba(220,50,60,.7),0 0 80px rgba(220,50,60,.3),0 2px 16px rgba(0,0,0,.6);}
+h1:active{transform:scale(.97);}
+.title-divider{text-align:center;color:#f0d68a;font-size:.35em;letter-spacing:6px;opacity:.3;margin-top:-2px;font-weight:300;}
+.subtitle{text-align:center;font-size:.7em;color:#b5a080;margin:4px 0 10px 0;letter-spacing:8px;font-style:italic;opacity:.7;}
+/* === 分步导航 === */
+.step-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0 10px 0;padding:6px 10px;background:rgba(0,0,0,.3);border-radius:8px;border:1px solid rgba(180,130,40,.08);}
+.step-nav .step-btn{background:rgba(255,255,255,.04);border:1px solid rgba(180,130,40,.15);color:#b5a080;border-radius:6px;padding:4px 12px;font-size:.7em;cursor:pointer;transition:.2s;touch-action:manipulation;min-height:30px;display:flex;align-items:center;gap:4px;}
+.step-nav .step-btn:hover{background:rgba(255,255,255,.08);border-color:#d4a745;color:#f0d68a;}
+.step-nav .step-btn:disabled{opacity:.2;cursor:default;pointer-events:none;}
+.step-nav .step-btn:active{transform:scale(.92);}
+.step-nav .step-info{font-size:.7em;color:#b5a080;letter-spacing:1px;flex:1;text-align:center;}
+.step-nav .step-info .current{color:#f0d68a;font-weight:600;}
+.step-nav .step-info .total{color:#5a4a30;}
+/* === 进度条 === */
+.tb{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;align-items:center;}
+.tb .p{flex:1;min-width:60px;font-size:.7em;color:#b5a080;font-weight:300;letter-spacing:1px;}
 .tb .p span{color:#f0d68a;font-weight:600;}
 .pb{width:100%;height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-top:2px;}
 .pb div{height:100%;border-radius:2px;transition:width .6s ease;}
@@ -23,19 +41,22 @@ h1 .hint:hover{opacity:.8;}
 .pb .pbar-mid{background:linear-gradient(90deg,#c8963e,#f0d68a);}
 .pb .pbar-high{background:linear-gradient(90deg,#4ac9b0,#6ee7b7);}
 .tool-group{display:flex;gap:3px;align-items:center;flex-shrink:0;flex-wrap:wrap;}
-.bm{padding:3px 8px;font-size:.62em;border-radius:4px;border:1px solid rgba(180,130,40,.2);background:rgba(255,255,255,.04);color:#c4b090;cursor:pointer;transition:.2s;touch-action:manipulation;font-weight:300;letter-spacing:0.5px;white-space:nowrap;min-height:28px;min-width:28px;display:inline-flex;align-items:center;justify-content:center;}
+.bm{padding:3px 8px;font-size:.6em;border-radius:4px;border:1px solid rgba(180,130,40,.2);background:rgba(255,255,255,.04);color:#c4b090;cursor:pointer;transition:.2s;touch-action:manipulation;font-weight:300;letter-spacing:0.5px;white-space:nowrap;min-height:28px;min-width:28px;display:inline-flex;align-items:center;justify-content:center;}
 .bm:active{transform:scale(.92);background:rgba(255,255,255,.08);}
 .bm:hover{background:rgba(255,255,255,.08);border-color:#d4a745;color:#f0d68a;}
 .bm.bm-gold{background:rgba(200,150,50,.12);border-color:#d4a745;color:#f0d68a;}
 .bm.bm-gold:hover{background:rgba(200,150,50,.2);}
 .bm.bm-danger{background:rgba(200,50,50,.12);border-color:#a04040;color:#dc6a6a;}
 .bm.bm-danger:hover{background:rgba(200,50,50,.2);}
+.awakening{text-align:center;font-size:.82em;color:#d4c5a0;padding:10px 14px;margin-bottom:10px;background:rgba(180,130,40,.06);border:1px solid rgba(180,130,40,.15);border-radius:8px;line-height:1.9;letter-spacing:1px;font-style:italic;}
+.awakening .highlight{color:#f0d68a;font-style:normal;font-weight:600;}
+/* === 按钮 === */
 .btn-export-persona{flex:1;padding:8px 10px;background:rgba(255,255,255,.04);color:#b5a080;border:1px solid rgba(180,130,40,.15);border-radius:12px;font-size:.7em;font-weight:400;letter-spacing:1px;cursor:pointer;transition:.2s;touch-action:manipulation;text-align:center;min-height:40px;}
 .btn-export-persona:active{transform:scale(.95);background:rgba(255,255,255,.06);}
 .btn-export-persona:hover{border-color:rgba(180,130,40,.3);color:#f0d68a;}
 .btn-row{position:fixed;bottom:0;left:0;right:0;z-index:100;background:linear-gradient(180deg,transparent 0%,rgba(20,12,5,.95) 30%,#140c05 100%);padding:8px 12px 12px 12px;display:flex;flex-direction:row;align-items:center;gap:8px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid rgba(180,130,40,.12);}
 .btn-row .btn-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;}
-.btn-row .btn-wrap .label{font-size:.5em;color:#5a4a30;letter-spacing:2px;}
+.btn-row .btn-wrap .label{font-size:.45em;color:#5a4a30;letter-spacing:2px;}
 .btn-awaken{width:100%;padding:12px 0;background:linear-gradient(180deg,#c94045,#9b282d);color:#fff;border:1px solid #d47050;border-radius:12px;font-size:.95em;font-weight:700;letter-spacing:3px;cursor:pointer;transition:transform .15s,box-shadow .25s,background .25s;box-shadow:0 4px 20px rgba(180,50,55,.3),inset 0 1px 3px rgba(255,255,255,.1);text-shadow:0 1px 3px rgba(0,0,0,.4);touch-action:manipulation;text-align:center;min-height:44px;position:relative;overflow:hidden;}
 .btn-awaken:hover{background:linear-gradient(180deg,#da5258,#b03338);transform:translateY(-1px);box-shadow:0 6px 28px rgba(200,55,60,.4);}
 .btn-awaken:active{transform:scale(.96);}
@@ -43,6 +64,7 @@ h1 .hint:hover{opacity:.8;}
 .btn-awaken .particles{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;}
 .btn-awaken .particles span{position:absolute;width:6px;height:6px;background:#ffd700;border-radius:50%;box-shadow:0 0 10px #ffd700;animation:particleFly 1.2s ease-out forwards;opacity:0;}
 @keyframes particleFly{0%{opacity:1;transform:translate(0,0) scale(1);}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0);}}
+/* === 折叠面板 === */
 .sec{margin:4px 0;}
 .sec details{display:block;border-radius:6px;}
 .sec summary{color:#f0d68a;font-size:.85em;font-weight:500;padding:6px 8px 6px 22px;border-bottom:1px solid rgba(160,110,30,.12);letter-spacing:2px;position:relative;cursor:pointer;user-select:none;transition:background .2s;border-radius:6px;display:flex;align-items:center;gap:6px;list-style:none;min-height:38px;}
@@ -58,28 +80,29 @@ h1 .hint:hover{opacity:.8;}
 .sec summary .badge.b-empty{background:rgba(255,255,255,.04);color:#5a4a30;border:1px solid rgba(255,255,255,.04);}
 .sec .sb{padding:4px 2px 2px;}
 .sec .sb .in{overflow:hidden;}
-.fd{margin-bottom:6px;}
-.fd label{display:block;margin-bottom:1px;color:#e8dcc8;font-size:.72em;font-weight:400;letter-spacing:1px;}
+.fd{margin-bottom:5px;}
+.fd label{display:block;margin-bottom:1px;color:#e8dcc8;font-size:.7em;font-weight:400;letter-spacing:1px;}
 .fd label sm{color:#7a6a50;font-size:.65em;margin-left:3px;font-weight:300;}
 .fd .label-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
 .fd .label-row .tag{font-size:.5em;padding:1px 6px;border-radius:6px;font-weight:400;}
-.rw{display:flex;gap:8px;flex-wrap:wrap;}
-.rw .fd{flex:1;min-width:70px;}
-.rw .fd.half{flex:0 0 calc(50% - 4px);}
-.rw .fd.third{flex:0 0 calc(33.33% - 6px);}
-input,textarea,select{width:100%;padding:6px 10px;background:#1f150b;color:#e8dcc8;border:1px solid #4a3418;border-radius:6px;font-size:.8em;font-family:inherit;transition:border .3s,box-shadow .3s;box-shadow:inset 0 1px 4px rgba(0,0,0,.35);min-height:38px;-webkit-appearance:none;appearance:none;}
+.rw{display:flex;gap:6px;flex-wrap:wrap;}
+.rw .fd{flex:1;min-width:60px;}
+.rw .fd.half{flex:0 0 calc(50% - 3px);}
+.rw .fd.third{flex:0 0 calc(33.33% - 4px);}
+input,textarea,select{width:100%;padding:5px 8px;background:#1f150b;color:#e8dcc8;border:1px solid #4a3418;border-radius:6px;font-size:.78em;font-family:inherit;transition:border .3s,box-shadow .3s;box-shadow:inset 0 1px 4px rgba(0,0,0,.35);min-height:34px;-webkit-appearance:none;appearance:none;}
 input:focus,textarea:focus,select:focus{outline:none;border-color:#d4a745;box-shadow:0 0 20px rgba(200,150,50,.12),inset 0 1px 6px rgba(200,150,40,.05);background:#261a0e;}
-textarea{resize:vertical;min-height:36px;line-height:1.5;}
-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%23d4a745'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:32px;cursor:pointer;touch-action:manipulation;font-size:15px;}
+textarea{resize:vertical;min-height:32px;line-height:1.5;}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%23d4a745'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px;cursor:pointer;touch-action:manipulation;font-size:15px;}
 select option{background:#1f150b;color:#e8dcc8;}
 .ta{overflow:hidden;max-height:0;opacity:0;transition:max-height .35s ease,opacity .25s ease,margin .25s ease;margin-top:0;}
-.ta.ac{max-height:380px;opacity:1;margin-top:6px;}
-.ta .ib{background:rgba(180,120,30,.05);border:1px dashed rgba(180,130,40,.2);border-radius:6px;padding:8px 10px;}
-.hl{background:rgba(180,120,30,.04);border:1px solid rgba(180,130,40,.08);border-radius:6px;padding:4px 8px;margin-bottom:6px;}
+.ta.ac{max-height:380px;opacity:1;margin-top:4px;}
+.ta .ib{background:rgba(180,120,30,.05);border:1px dashed rgba(180,130,40,.2);border-radius:6px;padding:6px 8px;}
+.hl{background:rgba(180,120,30,.04);border:1px solid rgba(180,130,40,.08);border-radius:6px;padding:4px 8px;margin-bottom:4px;}
 .hl .hl-title{font-size:.65em;color:#b5a080;font-weight:300;letter-spacing:2px;margin-bottom:2px;}
 .hl .hl-content{display:flex;gap:4px;flex-wrap:wrap;align-items:center;}
+/* === 魂环 === */
 .ring-group{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:2px;}
-.ring-item{display:flex;align-items:center;gap:3px;font-size:.65em;color:#b5a080;padding:2px 5px;border-radius:4px;background:rgba(255,255,255,.02);flex-wrap:wrap;}
+.ring-item{display:flex;align-items:center;gap:3px;font-size:.6em;color:#b5a080;padding:2px 4px;border-radius:4px;background:rgba(255,255,255,.02);flex-wrap:wrap;}
 .ring-item .dot{width:12px;height:12px;border-radius:50%;border:1px solid rgba(255,255,255,.1);flex-shrink:0;animation:ringPulse 2s ease-in-out infinite;}
 .ring-item .dot.white{background:#e8e8e8;box-shadow:0 0 8px rgba(232,232,232,.3);}
 .ring-item .dot.yellow{background:#f0d68a;box-shadow:0 0 12px rgba(240,214,138,.4);}
@@ -87,104 +110,113 @@ select option{background:#1f150b;color:#e8dcc8;}
 .ring-item .dot.black{background:#2a2a2a;border-color:#5a4a30;box-shadow:0 0 12px rgba(42,42,42,.3);}
 .ring-item .dot.red{background:#dc3545;box-shadow:0 0 14px rgba(220,53,69,.5);}
 .ring-item .dot.gold{background:#ffd700;box-shadow:0 0 18px rgba(255,215,0,.6);}
-@keyframes ringPulse{0%,100%{transform:scale(1);opacity:.8;}50%{transform:scale(1.2);opacity:1;}}
-.ring-item select,.ring-item input{min-height:28px;font-size:.75em;padding:2px 6px;width:auto;min-width:50px;flex:1;}
-.ring-item .ring-del{font-size:.5em;padding:0 4px;min-height:20px;min-width:20px;background:rgba(200,50,50,.1);border-color:#5a2a2a;color:#a06060;}
+@keyframes ringPulse{0%,100%{transform:scale(1);opacity:.8;}50%{transform:scale(1.15);opacity:1;}}
+.ring-item select,.ring-item input{min-height:24px;font-size:.7em;padding:1px 4px;width:auto;min-width:40px;flex:1;}
+.ring-item .ring-del{font-size:.5em;padding:0 4px;min-height:18px;min-width:18px;background:rgba(200,50,50,.1);border-color:#5a2a2a;color:#a06060;}
 .ring-item .ring-del:hover{background:rgba(200,50,50,.2);}
-.part-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
-.part-grid .part-item{display:flex;align-items:center;gap:4px;font-size:.65em;color:#b5a080;padding:2px 4px;border-radius:4px;background:rgba(255,255,255,.02);cursor:pointer;transition:.2s;touch-action:manipulation;min-height:26px;}
-.part-grid .part-item:active{transform:scale(.95);}
-.part-grid .part-item .pcheck{width:14px;height:14px;border:1px solid #4a3418;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s;background:transparent;color:transparent;font-size:8px;}
-.part-grid .part-item.done .pcheck{background:#4ac9b0;border-color:#4ac9b0;color:#1a1008;}
-.part-grid .part-item.done{color:#e8dcc8;}
-#msg{text-align:center;margin-top:8px;color:#5cdb8b;font-weight:500;font-size:.8em;display:none;animation:f .3s;letter-spacing:1px;padding:6px 10px;border-radius:6px;background:rgba(0,0,0,.3);}
+.ring-hint{font-size:.6em;color:#7a6a50;text-align:center;margin:2px 0;letter-spacing:1px;}
+.ring-hint .match{color:#4ac9b0;}
+.ring-hint .mismatch{color:#dc6a6a;}
+/* === 其他 === */
+#msg{text-align:center;margin-top:6px;color:#5cdb8b;font-weight:500;font-size:.75em;display:none;animation:f .3s;letter-spacing:1px;padding:4px 10px;border-radius:6px;background:rgba(0,0,0,.3);}
 #msg.error{color:#f08080;}
 @keyframes f{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 #cd{position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;}
-.fb{text-align:center;margin-top:10px;font-size:.55em;color:#5a4a30;letter-spacing:4px;opacity:.4;font-style:italic;padding-bottom:4px;}
-.fb span{display:inline-block;border:1px solid rgba(180,130,40,.1);padding:2px 12px;border-radius:20px;background:rgba(0,0,0,.2);}
-.icon-user,.icon-face,.icon-soul,.icon-shield,.icon-pin,.icon-ghost,.icon-drop,.icon-wave,.icon-gear,.icon-compass,.icon-star,.icon-quote{width:14px;height:14px;fill:#f0d68a;vertical-align:middle;margin-right:2px;flex-shrink:0;}
-.export-area{margin-top:8px;padding:8px 10px;background:rgba(0,0,0,.35);border-radius:6px;border:1px solid rgba(180,130,40,.12);display:none;}
+.fb{text-align:center;margin-top:8px;font-size:.5em;color:#5a4a30;letter-spacing:4px;opacity:.4;font-style:italic;padding-bottom:4px;}
+.fb span{display:inline-block;border:1px solid rgba(180,130,40,.1);padding:2px 10px;border-radius:20px;background:rgba(0,0,0,.2);}
+.icon-user,.icon-face,.icon-soul,.icon-shield,.icon-pin,.icon-ghost,.icon-drop,.icon-wave,.icon-gear,.icon-compass,.icon-star,.icon-quote{width:13px;height:13px;fill:#f0d68a;vertical-align:middle;margin-right:2px;flex-shrink:0;}
+.export-area{margin-top:6px;padding:6px 8px;background:rgba(0,0,0,.35);border-radius:6px;border:1px solid rgba(180,130,40,.12);display:none;}
 .export-area.show{display:block;}
-.export-area .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;flex-wrap:wrap;gap:4px;}
-.export-area .header span{font-size:.65em;color:#b5a080;}
-.export-area textarea{font-family:monospace;font-size:.65em;min-height:60px;background:#0d0804;color:#c4b090;padding:4px 8px;width:100%;resize:vertical;border-color:#3a2a18;min-height:36px;}
-.export-area .footer{font-size:.55em;color:#6a5a40;margin-top:2px;text-align:right;}
-.export-area .btn-group{display:flex;gap:4px;flex-wrap:wrap;}
-#fieldIndicator{position:fixed;bottom:68px;left:50%;transform:translateX(-50%);background:rgba(20,12,5,.92);border:1px solid rgba(180,130,40,.2);border-radius:16px;padding:3px 14px;font-size:.6em;color:#b5a080;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99;backdrop-filter:blur(4px);white-space:nowrap;max-width:80%;overflow:hidden;text-overflow:ellipsis;}
+.export-area .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;flex-wrap:wrap;gap:4px;}
+.export-area .header span{font-size:.6em;color:#b5a080;}
+.export-area textarea{font-family:monospace;font-size:.6em;min-height:50px;background:#0d0804;color:#c4b090;padding:4px 6px;width:100%;resize:vertical;border-color:#3a2a18;min-height:32px;}
+.export-area .footer{font-size:.5em;color:#6a5a40;margin-top:2px;text-align:right;}
+#fieldIndicator{position:fixed;bottom:68px;left:50%;transform:translateX(-50%);background:rgba(20,12,5,.92);border:1px solid rgba(180,130,40,.2);border-radius:16px;padding:3px 14px;font-size:.55em;color:#b5a080;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99;backdrop-filter:blur(4px);white-space:nowrap;max-width:80%;overflow:hidden;text-overflow:ellipsis;}
 #fieldIndicator.show{opacity:1;}
-.soul-title{text-align:center;margin:2px 0 6px;font-size:.5em;color:#5a4a30;letter-spacing:6px;opacity:.5;}
-/* 觉醒动画遮罩 */
-#awakenOverlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;background:rgba(0,0,0,.9);display:none;justify-content:center;align-items:center;flex-direction:column;padding:20px;}
-#awakenOverlay.active{display:flex;animation:ao .4s;}
-@keyframes ao{from{opacity:0}to{opacity:1}}
-#awakenOverlay .content{max-width:420px;width:100%;text-align:center;}
-#awakenOverlay .title{color:#f0d68a;font-size:1.4em;font-weight:700;letter-spacing:10px;font-family:'STKaiti','KaiTi','楷体',serif;margin-bottom:16px;text-shadow:0 0 30px rgba(240,214,138,.2);}
-#awakenOverlay .lines{text-align:left;padding:8px 0;}
-#awakenOverlay .lines .line{color:#d4c5a0;font-size:.88em;line-height:2.0;letter-spacing:2px;opacity:0;transform:translateY(6px);transition:opacity .4s ease,transform .4s ease;font-family:'STKaiti','KaiTi','楷体',serif;}
-#awakenOverlay .lines .line.show{opacity:1;transform:translateY(0);}
-#awakenOverlay .lines .line.hl{color:#f0d68a;font-weight:600;}
-#awakenOverlay .lines .line.dim{color:#7a6a50;font-size:.75em;letter-spacing:4px;}
-#awakenOverlay .divider{width:50%;height:1px;background:linear-gradient(90deg,transparent,#f0d68a,transparent);margin:10px auto;opacity:.3;}
-#awakenOverlay .close-hint{color:#5a4a30;font-size:.6em;margin-top:12px;letter-spacing:2px;opacity:0;transition:opacity .8s ease;}
-#awakenOverlay .close-hint.show{opacity:.5;}
-/* 天命预览弹窗 */
-#fateModal{position:fixed;top:0;left:0;right:0;bottom:0;z-index:998;background:rgba(0,0,0,.85);display:none;justify-content:center;align-items:center;padding:16px;}
-#fateModal.active{display:flex;animation:ao .3s;}
-#fateModal .card{max-width:420px;width:100%;background:linear-gradient(170deg,#1c130a,#23180d 30%,#1a1008 60%,#140c05);border:2px solid #7a5c2e;border-radius:14px;padding:20px 18px;box-shadow:0 0 60px rgba(180,130,40,.15);max-height:80vh;overflow-y:auto;}
-#fateModal .card .title{color:#f0d68a;font-size:1.1em;font-weight:700;letter-spacing:4px;text-align:center;border-bottom:1px solid rgba(180,130,40,.15);padding-bottom:10px;margin-bottom:12px;}
-#fateModal .card .body{color:#d4c5a0;font-size:.78em;line-height:1.8;white-space:pre-wrap;background:rgba(0,0,0,.2);border-radius:6px;padding:10px 12px;max-height:50vh;overflow-y:auto;font-family:monospace;}
-#fateModal .card .actions{display:flex;gap:8px;margin-top:12px;justify-content:center;}
-#fateModal .card .actions .bm{flex:1;padding:8px;font-size:.7em;justify-content:center;}
-/* 预览卡片 */
-#previewCard{margin-top:8px;padding:8px 10px;background:rgba(0,0,0,.25);border-radius:6px;border-left:3px solid #d4a745;display:none;}
+.soul-comment{font-size:.55em;color:#7a6a50;text-align:center;margin-top:2px;min-height:18px;letter-spacing:1px;transition:opacity .3s;opacity:.6;}
+.soul-comment.active{color:#f0d68a;opacity:1;}
+/* === 预览 === */
+#previewCard{margin-top:6px;padding:6px 8px;background:rgba(0,0,0,.25);border-radius:6px;border-left:3px solid #d4a745;display:none;}
 #previewCard.show{display:block;}
-#previewCard .preview-label{font-size:.55em;color:#7a6a50;letter-spacing:2px;margin-bottom:2px;}
-#previewCard .preview-content{color:#d4c5a0;font-size:.78em;line-height:1.6;font-style:italic;padding:4px 0;}
+#previewCard .preview-label{font-size:.5em;color:#7a6a50;letter-spacing:2px;margin-bottom:1px;}
+#previewCard .preview-content{color:#d4c5a0;font-size:.72em;line-height:1.5;font-style:italic;padding:2px 0;}
 #previewCard .preview-content .pname{color:#f0d68a;font-weight:600;font-style:normal;}
 #previewCard .preview-content .pspirit{color:#4ac9b0;font-style:normal;}
-/* 魂力评语 */
-.soul-comment{font-size:.6em;color:#7a6a50;text-align:center;margin-top:2px;min-height:20px;letter-spacing:1px;transition:opacity .3s;opacity:.6;}
-.soul-comment.active{color:#f0d68a;opacity:1;}
+/* === 觉醒动画 === */
+#awakenOverlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;background:rgba(0,0,0,.92);display:none;justify-content:center;align-items:center;flex-direction:column;padding:20px;}
+#awakenOverlay.active{display:flex;animation:ao .4s;}
+@keyframes ao{from{opacity:0}to{opacity:1}}
+#awakenOverlay .content{max-width:400px;width:100%;text-align:center;}
+#awakenOverlay .title{color:#f0d68a;font-size:1.4em;font-weight:700;letter-spacing:10px;font-family:'STKaiti','KaiTi','楷体',serif;margin-bottom:14px;text-shadow:0 0 40px rgba(240,214,138,.2);}
+#awakenOverlay .lines{text-align:left;padding:6px 0;}
+#awakenOverlay .lines .line{color:#d4c5a0;font-size:.85em;line-height:2.0;letter-spacing:2px;opacity:0;transform:translateY(6px);transition:opacity .4s ease,transform .4s ease;font-family:'STKaiti','KaiTi','楷体',serif;}
+#awakenOverlay .lines .line.show{opacity:1;transform:translateY(0);}
+#awakenOverlay .lines .line.hl{color:#f0d68a;font-weight:600;}
+#awakenOverlay .lines .line.dim{color:#7a6a50;font-size:.7em;letter-spacing:4px;}
+#awakenOverlay .divider{width:50%;height:1px;background:linear-gradient(90deg,transparent,#f0d68a,transparent);margin:8px auto;opacity:.3;}
+#awakenOverlay .close-hint{color:#5a4a30;font-size:.55em;margin-top:10px;letter-spacing:2px;opacity:0;transition:opacity .8s ease;}
+#awakenOverlay .close-hint.show{opacity:.5;}
+/* === 天命弹窗 === */
+#fateModal{position:fixed;top:0;left:0;right:0;bottom:0;z-index:998;background:rgba(0,0,0,.85);display:none;justify-content:center;align-items:center;padding:16px;}
+#fateModal.active{display:flex;animation:ao .3s;}
+#fateModal .card{max-width:400px;width:100%;background:linear-gradient(170deg,#1c130a,#23180d 30%,#1a1008 60%,#140c05);border:2px solid #7a5c2e;border-radius:14px;padding:18px 16px;box-shadow:0 0 60px rgba(180,130,40,.15);max-height:80vh;overflow-y:auto;}
+#fateModal .card .title{color:#f0d68a;font-size:1em;font-weight:700;letter-spacing:4px;text-align:center;border-bottom:1px solid rgba(180,130,40,.15);padding-bottom:8px;margin-bottom:10px;}
+#fateModal .card .body{color:#d4c5a0;font-size:.72em;line-height:1.7;white-space:pre-wrap;background:rgba(0,0,0,.2);border-radius:6px;padding:8px 10px;max-height:45vh;overflow-y:auto;font-family:monospace;}
+#fateModal .card .actions{display:flex;gap:6px;margin-top:10px;justify-content:center;}
+#fateModal .card .actions .bm{flex:1;padding:6px;font-size:.65em;justify-content:center;}
+/* === 第二职业 === */
+.secondary-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.secondary-grid .fd{flex:1;min-width:0;}
+/* === 斗铠部件计数 === */
+.count-input{display:flex;align-items:center;gap:6px;}
+.count-input input{width:60px;text-align:center;min-height:32px;font-size:.85em;}
+.count-input .count-label{font-size:.7em;color:#b5a080;}
+/* === 特殊能力等级 === */
+.special-tier{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:2px;}
+.special-tier .tier-tag{font-size:.5em;padding:1px 8px;border-radius:8px;background:rgba(255,255,255,.04);color:#5a4a30;border:1px solid rgba(255,255,255,.04);}
+.special-tier .tier-tag.t1{color:#7a7a7a;border-color:rgba(255,255,255,.05);}
+.special-tier .tier-tag.t2{color:#f0d68a;border-color:rgba(240,214,138,.15);background:rgba(240,214,138,.05);}
+.special-tier .tier-tag.t3{color:#ff6b6b;border-color:rgba(255,107,107,.2);background:rgba(255,107,107,.05);}
+/* === 响应式 === */
 @media(max-width:480px){
-  #app{padding:12px 10px 110px 10px;border-radius:10px;}
-  h1{font-size:1.3em;letter-spacing:4px;min-height:36px;}
-  h1 .hint{font-size:.25em;}
-  .sec summary{font-size:.78em;padding:5px 6px 5px 18px;min-height:34px;letter-spacing:1px;}
+  #app{padding:10px 8px 120px 8px;border-radius:10px;}
+  h1{font-size:1.6em;letter-spacing:6px;min-height:36px;}
+  .title-ornament{font-size:.45em;letter-spacing:6px;}
+  .title-divider{font-size:.3em;letter-spacing:4px;}
+  .sec summary{font-size:.75em;padding:4px 6px 4px 18px;min-height:32px;letter-spacing:1px;}
   .sec summary::before{left:4px;font-size:.4em;}
-  .rw{flex-direction:column;gap:3px;}
+  .rw{flex-direction:column;gap:2px;}
   .rw .fd.half,.rw .fd.third{flex:1;}
-  input,textarea,select{font-size:.75em;padding:5px 8px;min-height:34px;}
-  .btn-awaken{font-size:.85em;padding:10px 0;min-height:40px;max-width:100%;letter-spacing:2px;}
+  input,textarea,select{font-size:.72em;padding:4px 6px;min-height:30px;}
+  .btn-awaken{font-size:.82em;padding:8px 0;min-height:38px;max-width:100%;letter-spacing:2px;}
   .subtitle{font-size:.6em;letter-spacing:4px;}
-  .awakening{font-size:.72em;padding:8px 10px;}
-  .bm{font-size:.55em;padding:2px 5px;min-height:24px;min-width:24px;}
-  .icon-user,.icon-face,.icon-soul,.icon-shield,.icon-pin,.icon-wave,.icon-drop,.icon-ghost,.icon-gear,.icon-compass,.icon-star,.icon-quote{width:12px;height:12px;margin-right:1px;}
-  .btn-row{padding:6px 8px 10px 8px;gap:6px;}
-  .btn-export-persona{font-size:.6em;padding:6px 8px;min-height:34px;}
-  .part-grid{grid-template-columns:1fr 1fr;}
-  #awakenOverlay .title{font-size:1.1em;letter-spacing:6px;}
-  #awakenOverlay .lines .line{font-size:.76em;line-height:1.8;}
-  #fateModal .card{padding:14px 12px;}
-  #fateModal .card .body{font-size:.7em;padding:8px 10px;}
-  .ring-item{font-size:.6em;padding:1px 4px;}
-  .ring-item select,.ring-item input{font-size:.65em;min-height:24px;padding:1px 4px;}
+  .awakening{font-size:.7em;padding:6px 10px;margin-bottom:8px;}
+  .bm{font-size:.5em;padding:2px 5px;min-height:24px;min-width:24px;}
+  .icon-user,.icon-face,.icon-soul,.icon-shield,.icon-pin,.icon-wave,.icon-drop,.icon-ghost,.icon-gear,.icon-compass,.icon-star,.icon-quote{width:11px;height:11px;margin-right:1px;}
+  .btn-row{padding:4px 6px 8px 6px;gap:4px;}
+  .btn-export-persona{font-size:.55em;padding:4px 6px;min-height:30px;}
+  .step-nav{padding:4px 6px;gap:4px;}
+  .step-nav .step-btn{font-size:.6em;padding:2px 8px;min-height:24px;}
+  .step-nav .step-info{font-size:.6em;}
+  .ring-item{font-size:.55em;padding:1px 3px;}
+  .ring-item select,.ring-item input{font-size:.6em;min-height:20px;padding:1px 3px;}
   .fd label{font-size:.65em;}
-  .tb .p{font-size:.65em;min-width:50px;}
-  .soul-comment{font-size:.55em;}
-  #previewCard .preview-content{font-size:.7em;}
-  .btn-row .btn-wrap .label{font-size:.45em;}
+  .tb .p{font-size:.6em;min-width:40px;}
+  .soul-comment{font-size:.5em;min-height:16px;}
+  #previewCard .preview-content{font-size:.65em;}
+  .btn-row .btn-wrap .label{font-size:.4em;}
+  .count-input input{width:50px;min-height:28px;}
+  .secondary-grid{grid-template-columns:1fr 1fr;gap:4px;}
 }
 @media(max-width:380px){
-  .btn-awaken{font-size:.78em;padding:8px 0;min-height:36px;letter-spacing:1px;}
-  .part-grid{grid-template-columns:1fr;}
-  .ring-item{flex-wrap:wrap;}
+  .btn-awaken{font-size:.72em;padding:6px 0;min-height:34px;letter-spacing:1px;}
+  .step-nav .step-btn{font-size:.5em;padding:1px 6px;min-height:20px;}
+  .secondary-grid{grid-template-columns:1fr;}
 }
 @media(min-width:481px){
-  .rw.compact{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
-  .rw.compact .fd{flex:1;}
+  .rw.compact{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
 }
-input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-item,.ring-item select,.ring-item input{touch-action:manipulation;}
+input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.ring-item select,.ring-item input,.step-btn{touch-action:manipulation;}
   `;
   const styleEl = document.createElement('style');
   styleEl.textContent = styleText;
@@ -194,17 +226,25 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
 <div class="soul-app-container">
 <div id="app">
 <div id="fieldIndicator"></div>
-<h1 id="mainTitle">魂 师 觉 醒 <span class="hint">✦ 点击切换全部</span></h1>
-<p class="subtitle">—— 斗罗大陆Ⅲ · 龙王传说 ——</p>
-<div class="awakening">
-  一股暖融融的力量从你胸口深处涌起，<br>
-  像一簇被压抑了太久的火苗，终于找到了出口。<br>
-  你眼前忽然亮了——<br>
-  不是光线，是某种从你体内生长出来的光。<br>
-  <span class="highlight">你的武魂，正在回应你的呼吸。</span>
+
+<!-- ===== 标题 ===== -->
+<div class="title-wrap">
+  <div class="title-ornament"><span>✧</span> <span>❖</span> <span>✧</span> <span>❖</span> <span>✧</span></div>
+  <h1 id="mainTitle">魂 师 觉 醒</h1>
+  <div class="title-divider">━━━ ✦ ━━━</div>
 </div>
+<p class="subtitle">—— 斗罗大陆Ⅲ · 龙王传说 ——</p>
+
+<!-- ===== 分步导航 ===== -->
+<div class="step-nav">
+  <button class="step-btn" id="stepPrev">◀ 上一项</button>
+  <span class="step-info"><span class="current" id="stepCurrent">1</span> / <span class="total" id="stepTotal">4</span> · <span id="stepName">基础信息</span></span>
+  <button class="step-btn" id="stepNext">下一项 ▶</button>
+</div>
+
+<!-- ===== 进度条 ===== -->
 <div class="tb">
-  <div class="p">已填 <span id="pct">0</span>/<span id="totalFields">24</span><div class="pb"><div id="pbar" style="width:0%" class="pbar-low"></div></div></div>
+  <div class="p">已填 <span id="pct">0</span>/<span id="totalFields">0</span><div class="pb"><div id="pbar" style="width:0%" class="pbar-low"></div></div></div>
   <div class="tool-group">
     <button class="bm bm-gold" id="btnRandom">🎲 天命</button>
     <button class="bm bm-danger" id="btnClearAll">🗑 归无</button>
@@ -212,8 +252,8 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
 </div>
 <div class="soul-comment" id="soulComment">✦ 输入魂力等级，查看修炼评语 ✦</div>
 
-<!-- 模块1：基础信息 -->
-<div class="sec">
+<!-- ===== 模块1：基础信息 ===== -->
+<div class="sec" data-step="1" data-stepname="基础信息">
   <details open>
     <summary>
       <svg class="icon-user" viewBox="0 0 24 24"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg>
@@ -234,8 +274,8 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
   </details>
 </div>
 
-<!-- 模块2：武魂与魂力 -->
-<div class="sec">
+<!-- ===== 模块2：武魂与魂力 ===== -->
+<div class="sec" data-step="2" data-stepname="武魂与魂力">
   <details>
     <summary>
       <svg class="icon-soul" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7z"/></svg>
@@ -258,9 +298,13 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
         <input type="text" id="soulTitle" readonly style="color:#f0d68a;font-weight:600;background:#0d0804;border-color:#4a3418;cursor:default;">
       </div></div>
       <div class="fd"><label>精神力境界</label><select id="sp"><option value="灵元境">灵元境</option><option value="灵通境">灵通境</option><option value="灵海境">灵海境</option><option value="灵渊境">灵渊境</option><option value="灵域境">灵域境</option><option value="神元境">神元境</option><option value="神王境">神王境</option><option value="未知/未测定">未知/未测定</option></select></div>
-      <div class="hl"><div class="hl-title">✦ 魂环配置</div>
+      <div class="hl"><div class="hl-title">✦ 魂环配置 <span id="ringMatchInfo" style="font-weight:400;font-size:.8em;color:#7a6a50;"></span></div>
         <div id="ringContainer"><div class="ring-group" id="ringGroup"></div></div>
-        <div style="margin-top:3px;"><button class="bm" id="btnAddRing" style="font-size:.55em;padding:2px 8px;">➕ 添加魂环</button></div>
+        <div style="margin-top:2px;display:flex;gap:4px;flex-wrap:wrap;align-items:center;">
+          <button class="bm" id="btnAddRing" style="font-size:.5em;padding:1px 6px;">➕ 添加魂环</button>
+          <button class="bm" id="btnSyncRings" style="font-size:.5em;padding:1px 6px;border-color:rgba(74,201,176,.2);color:#4ac9b0;">🔄 自动配环</button>
+          <span style="font-size:.5em;color:#5a4a30;margin-left:4px;">当前 <span id="ringCountDisplay">0</span> 环</span>
+        </div>
       </div>
       <div class="rw"><div class="fd"><label>血脉类型</label><select id="bl"><option value="无特殊血脉">无特殊血脉</option><option value="金龙王血脉">金龙王血脉</option><option value="银龙王血脉">银龙王血脉</option><option value="龙族血脉">龙族血脉</option><option value="海神血脉">海神血脉</option><option value="修罗血脉">修罗血脉</option><option value="天使血脉">天使血脉</option><option value="凤凰血脉">凤凰血脉</option><option value="泰坦血脉">泰坦血脉</option><option value="自定血脉">自定血脉</option></select></div>
       <div class="fd"><label>血脉觉醒程度</label><select id="bll"><option value="未觉醒">未觉醒</option><option value="初步觉醒">初步觉醒</option><option value="部分觉醒">部分觉醒</option><option value="深度觉醒">深度觉醒</option><option value="完全觉醒">完全觉醒</option><option value="返祖/巅峰">返祖/巅峰</option></select></div></div>
@@ -273,8 +317,8 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
   </details>
 </div>
 
-<!-- 模块3：装备与战力 -->
-<div class="sec">
+<!-- ===== 模块3：装备与战力 ===== -->
+<div class="sec" data-step="3" data-stepname="装备与战力">
   <details>
     <summary>
       <svg class="icon-shield" viewBox="0 0 24 24"><path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5L12 2zm0 2.18l6 2.25v4.66c0 4.14-2.94 7.99-6 9.01-3.06-1.02-6-4.87-6-9.01V6.43l6-2.25z"/></svg>
@@ -288,25 +332,37 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       </div></div>
       <div class="rw"><div class="fd"><label>斗铠侧重</label><select id="bat"><option value="均衡型">均衡型</option><option value="力量型">力量型</option><option value="敏捷型">敏捷型</option><option value="防御型">防御型</option><option value="爆发型">爆发型</option><option value="控制型">控制型</option><option value="不适用">不适用</option></select></div>
       <div class="fd"><label>斗铠品级</label>
-        <div id="armorGrade" style="padding:4px 8px;border-radius:4px;background:#0d0804;border:1px solid #4a3418;min-height:34px;display:flex;align-items:center;gap:6px;font-size:.8em;color:#b5a080;">选择等级后显示</div>
+        <div id="armorGrade" style="padding:4px 8px;border-radius:4px;background:#0d0804;border:1px solid #4a3418;min-height:30px;display:flex;align-items:center;gap:6px;font-size:.75em;color:#b5a080;">选择等级后显示</div>
       </div></div>
-      <div class="fd"><label>斗铠部件 <sm>(点击标记完成)</sm></label>
-        <div class="part-grid" id="armorParts"></div>
-        <div style="margin-top:2px;font-size:.65em;color:#7a6a50;">完成：<span id="armorCount">0</span>/11</div>
+      <div class="fd"><label>斗铠部件完成数 <sm>(0-11)</sm></label>
+        <div class="count-input">
+          <input type="number" id="armorCountInput" min="0" max="11" value="0" placeholder="0">
+          <span class="count-label">/ 11 件</span>
+          <span id="armorPercent" style="font-size:.65em;color:#4ac9b0;min-width:36px;">0%</span>
+        </div>
       </div>
       <div class="hl"><div class="hl-title">✦ 魂骨</div>
         <div class="rw"><div class="fd"><label>魂骨部位</label><select id="bonePart"><option value="无">无</option><option value="头部魂骨">头部魂骨</option><option value="躯干魂骨">躯干魂骨</option><option value="左臂魂骨">左臂魂骨</option><option value="右臂魂骨">右臂魂骨</option><option value="左腿魂骨">左腿魂骨</option><option value="右腿魂骨">右腿魂骨</option><option value="外附魂骨">外附魂骨</option></select></div>
       <div class="fd"><label>魂骨年限</label><select id="boneYear"><option value="无">无</option><option value="百年魂骨">百年魂骨</option><option value="千年魂骨">千年魂骨</option><option value="万年魂骨">万年魂骨</option><option value="十万年魂骨">十万年魂骨</option><option value="百万年魂骨">百万年魂骨</option></select></div></div></div>
-      <div class="rw"><div class="fd"><label>机甲等级</label><select id="mechaLevel"><option value="无">无</option><option value="1级机甲师">1级机甲师</option><option value="2级机甲师">2级机甲师</option><option value="3级机甲师">3级机甲师</option><option value="4级机甲师">4级机甲师</option><option value="5级机甲师">5级机甲师</option><option value="6级机甲师">6级机甲师</option><option value="7级机甲师">7级机甲师</option><option value="8级机甲师">8级机甲师</option><option value="9级机甲师">9级机甲师</option></select></div>
-      <div class="fd"><label>魂导器</label><input type="text" id="soulDevice" placeholder="如：储物魂导器"></div></div>
-      <div class="fd"><label>传说武器</label><input type="text" id="legendWeapon" placeholder="如：黄金龙枪、海神三叉戟"></div>
+      <div class="hl"><div class="hl-title">✦ 第二职业</div>
+        <div class="secondary-grid">
+          <div class="fd"><label>职业类型</label><select id="secondProf"><option value="无">无</option><option value="锻造">锻造</option><option value="机甲设计">机甲设计</option><option value="机甲制造">机甲制造</option><option value="机甲修理">机甲修理</option></select></div>
+          <div class="fd"><label>等级 <sm>(1-9)</sm></label><select id="secondLevel"><option value="1">1级</option><option value="2">2级</option><option value="3">3级</option><option value="4">4级</option><option value="5">5级</option><option value="6">6级</option><option value="7">7级</option><option value="8">8级</option><option value="9">9级</option></select></div>
+        </div>
+      </div>
+      <div class="rw"><div class="fd"><label>机甲等级</label>
+        <select id="mechaLevel"><option value="无">无</option><option value="黄级初阶">黄级初阶</option><option value="黄级中阶">黄级中阶</option><option value="黄级高阶">黄级高阶</option><option value="紫级初阶">紫级初阶</option><option value="紫级中阶">紫级中阶</option><option value="紫级高阶">紫级高阶</option><option value="黑级初阶">黑级初阶</option><option value="黑级中阶">黑级中阶</option><option value="黑级高阶">黑级高阶</option><option value="红级（自定义）">红级（自定义）</option></select>
+      </div>
+      <div class="fd" id="mechaCustomWrap" style="display:none;"><label>红级自定义名称</label><input type="text" id="mechaCustom" placeholder="如：龙神级"></div></div>
+      <div class="rw"><div class="fd"><label>魂导器</label><input type="text" id="soulDevice" placeholder="如：储物魂导器"></div>
+      <div class="fd"><label>传说武器</label><input type="text" id="legendWeapon" placeholder="如：黄金龙枪"></div></div>
       <div class="fd" style="margin-top:4px;"><label>斗铠描述</label><input type="text" id="badesc" placeholder="银甲金纹…"></div>
     </div></div>
   </details>
 </div>
 
-<!-- 模块4：背景与故事 -->
-<div class="sec">
+<!-- ===== 模块4：背景与故事 ===== -->
+<div class="sec" data-step="4" data-stepname="背景与故事">
   <details>
     <summary>
       <svg class="icon-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -316,7 +372,28 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
     <div class="sb"><div class="in">
       <div class="fd"><label>性格特质</label><textarea id="pt" rows="2" placeholder="冷静、执着、重情义"></textarea></div>
       <div class="fd"><label>特殊能力</label>
-        <select id="st"><option value="无">无</option><option value="天生神力">天生神力</option><option value="剑感">剑感</option><option value="元素亲和">元素亲和</option><option value="精神感知">精神感知</option><option value="自愈体质">自愈体质</option><option value="龙族感应">龙族感应</option><option value="空间感知">空间感知</option><option value="战斗直觉">战斗直觉</option><option value="钢铁意志">钢铁意志</option><option value="自定义">自定义</option></select>
+        <div class="special-tier">
+          <span class="tier-tag t1">普通</span>
+          <span class="tier-tag t2">稀有</span>
+          <span class="tier-tag t3">神级</span>
+        </div>
+        <select id="st">
+          <option value="无">无</option>
+          <option value="天生神力">天生神力</option>
+          <option value="剑感">剑感</option>
+          <option value="钢铁意志">钢铁意志</option>
+          <option value="战斗直觉">战斗直觉</option>
+          <option value="元素亲和">元素亲和</option>
+          <option value="精神感知">精神感知</option>
+          <option value="自愈体质">自愈体质</option>
+          <option value="龙族感应">龙族感应</option>
+          <option value="空间感知">空间感知</option>
+          <option value="海神传承">海神传承</option>
+          <option value="修罗传承">修罗传承</option>
+          <option value="天使传承">天使传承</option>
+          <option value="罗刹传承">罗刹传承</option>
+          <option value="自定义">自定义</option>
+        </select>
         <div id="stCustomWrap" style="display:none;margin-top:3px;"><input type="text" id="stCustom" placeholder="输入特殊能力名称"></div>
       </div>
       <div class="fd"><label>主要魂灵</label><input type="text" id="ssn" placeholder="如：草蛇"></div>
@@ -329,7 +406,7 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
   </details>
 </div>
 
-<!-- 开场白预览 -->
+<!-- ===== 预览 ===== -->
 <div id="previewCard" class="">
   <div class="preview-label">✦ 开场白预览（实时）</div>
   <div class="preview-content" id="previewContent">
@@ -339,15 +416,15 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
 </div>
 
 <div id="exportArea" class="export-area">
-  <div class="header"><span>📋 复制下方文本到「玩家人设」中</span><button class="bm" id="btnCopyExport" style="font-size:.55em;">📋 复制</button></div>
-  <textarea id="exportPreview" rows="5" readonly></textarea>
+  <div class="header"><span>📋 复制下方文本到「玩家人设」中</span><button class="bm" id="btnCopyExport" style="font-size:.5em;">📋 复制</button></div>
+  <textarea id="exportPreview" rows="4" readonly></textarea>
   <div class="footer">⏱ 导出时间：<span id="exportTime">—</span></div>
 </div>
 <div id="msg"></div>
 <textarea id="cd"></textarea>
 <div class="fb"><span>✦ 命运已在你手中 ✦</span></div>
 
-<!-- 底部按钮 - 水平并排 -->
+<!-- ===== 底部按钮 ===== -->
 <div class="btn-row">
   <div class="btn-wrap">
     <button class="btn-export-persona" id="btnExportPersona">📋 玩家人设</button>
@@ -364,7 +441,7 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
 </div>
 </div>
 
-<!-- 觉醒动画遮罩 -->
+<!-- ===== 觉醒动画 ===== -->
 <div id="awakenOverlay">
   <div class="content">
     <div class="title">✦ 武魂觉醒仪式 ✦</div>
@@ -384,7 +461,7 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
   </div>
 </div>
 
-<!-- 天命预览弹窗 -->
+<!-- ===== 天命弹窗 ===== -->
 <div id="fateModal">
   <div class="card">
     <div class="title">🎲 天命所归</div>
@@ -414,7 +491,9 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       coreCount: $('coreCount'), domain: $('domain'),
       ban: $('ban'), bal: $('bal'), bat: $('bat'), badesc: $('badesc'), armorGrade: $('armorGrade'),
       bonePart: $('bonePart'), boneYear: $('boneYear'),
-      mechaLevel: $('mechaLevel'), soulDevice: $('soulDevice'), legendWeapon: $('legendWeapon'),
+      mechaLevel: $('mechaLevel'), mechaCustom: $('mechaCustom'), mechaCustomWrap: $('mechaCustomWrap'),
+      soulDevice: $('soulDevice'), legendWeapon: $('legendWeapon'),
+      secondProf: $('secondProf'), secondLevel: $('secondLevel'),
       og: $('og'), og_select: $('og_select'), fc: $('fc'), fbg: $('fbg'), orgIdentity: $('orgIdentity'),
       pt: $('pt'), st: $('st'), stCustom: $('stCustom'), stCustomWrap: $('stCustomWrap'),
       ssn: $('ssn'), sst: $('sst'), ssy: $('ssy'), ess: $('ess'),
@@ -425,14 +504,18 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
     var msg = $('msg'), cd = $('cd');
     var exportArea = $('exportArea'), exportPreview = $('exportPreview'), exportTime = $('exportTime');
     var fieldIndicator = $('fieldIndicator');
-    var armorParts = $('armorParts'), armorCount = $('armorCount');
+    var armorCountInput = $('armorCountInput'), armorPercent = $('armorPercent');
     var ringContainer = $('ringContainer');
     var awakenOverlay = $('awakenOverlay');
     var fateModal = $('fateModal'), fateBody = $('fateBody');
     var soulComment = $('soulComment');
     var previewCard = $('previewCard'), previewName = $('previewName'), previewSpirit = $('previewSpirit'), previewGreeting = $('previewGreeting');
     var particlesContainer = $('particlesContainer');
-    var STORAGE_KEY = 'soul_archive_v3';
+    var STORAGE_KEY = 'soul_archive_v4';
+
+    // 步骤
+    var stepNames = ['基础信息', '武魂与魂力', '装备与战力', '背景与故事'];
+    var currentStep = 1;
 
     function getVal(id) { var el = fields[id]; return el ? (el.value || '').trim() : ''; }
     function getLines(id) { return getVal(id).split('\n').map(function(s){return s.trim();}).filter(function(s){return s!=='';}); }
@@ -459,7 +542,23 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       return '未知';
     }
 
-    // 魂力评语
+    // 魂力对应环数
+    function getRingCount(level) {
+      var lv = Number(level);
+      if (isNaN(lv) || lv < 0) return 0;
+      if (lv >= 0 && lv <= 9) return 0;
+      if (lv >= 10 && lv <= 19) return 1;
+      if (lv >= 20 && lv <= 29) return 2;
+      if (lv >= 30 && lv <= 39) return 3;
+      if (lv >= 40 && lv <= 49) return 4;
+      if (lv >= 50 && lv <= 59) return 5;
+      if (lv >= 60 && lv <= 69) return 6;
+      if (lv >= 70 && lv <= 79) return 7;
+      if (lv >= 80 && lv <= 89) return 8;
+      if (lv >= 90) return 9;
+      return 0;
+    }
+
     function getSoulComment(level) {
       var lv = Number(level);
       if (isNaN(lv) || lv < 0) return '✦ 输入魂力等级，查看修炼评语 ✦';
@@ -478,7 +577,6 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       return '🌠 神级！你的名字将永远铭刻在斗罗大陆的历史中。';
     }
 
-    // 斗铠品级
     function getArmorGrade(level) {
       var map = {
         '无': { text: '无斗铠', color: '#5a4a30' },
@@ -492,7 +590,6 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       return map[level] || { text: level, color: '#5a4a30' };
     }
 
-    // 魂环颜色
     function getRingColor(year) {
       var map = {
         '十年': '#e8e8e8',
@@ -518,43 +615,29 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       return map[year] || 'white';
     }
 
-    // 斗铠部件
-    var partNames = ['头箍', '胸铠', '护腰', '左臂', '右臂', '左腿', '右腿', '左战靴', '右战靴', '左护肩', '右护肩'];
-    var partState = {};
-    function initParts() {
-      var saved = localStorage.getItem('armor_parts_v3');
-      if (saved) { try { partState = JSON.parse(saved); } catch(_) {} }
-      renderParts();
-    }
-    function renderParts() {
-      armorParts.innerHTML = '';
-      var count = 0;
-      partNames.forEach(function(name) {
-        var done = !!partState[name];
-        if (done) count++;
-        var div = document.createElement('div');
-        div.className = 'part-item' + (done ? ' done' : '');
-        div.innerHTML = '<span class="pcheck">' + (done ? '✓' : '') + '</span><span>' + name + '</span>';
-        div.addEventListener('click', function() {
-          partState[name] = !partState[name];
-          localStorage.setItem('armor_parts_v3', JSON.stringify(partState));
-          renderParts();
-          updateProgress();
-          saveDraft();
-          showSoulLog('斗铠部件「' + name + '」' + (partState[name] ? '✅ 已装配' : '⬜ 已卸下'));
-        });
-        armorParts.appendChild(div);
-      });
-      armorCount.textContent = count;
+    // 特殊能力联动
+    function updateSpecialAbility() {
+      var val = getSel('st');
+      var map = {
+        '海神传承': '海神三叉戟',
+        '修罗传承': '修罗魔剑',
+        '天使传承': '天使圣剑',
+        '罗刹传承': '罗刹魔镰'
+      };
+      if (map[val]) {
+        fields.legendWeapon.value = map[val];
+        showSoulLog('⚡ 传承之力觉醒！传说武器已显形：' + map[val]);
+      }
     }
 
     // 魂环
     var rings = [];
     function initRings() {
-      var saved = localStorage.getItem('soul_rings_v3');
+      var saved = localStorage.getItem('soul_rings_v4');
       if (saved) { try { rings = JSON.parse(saved); } catch(_) {} }
       if (!rings.length) rings = [{ year: '百年', name: '', effect: '' }];
       renderRings();
+      updateRingInfo();
     }
     function renderRings() {
       ringContainer.innerHTML = '';
@@ -582,8 +665,9 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
         el.addEventListener('change', function() {
           var idx = Number(this.dataset.ringYear);
           rings[idx].year = this.value;
-          localStorage.setItem('soul_rings_v3', JSON.stringify(rings));
+          localStorage.setItem('soul_rings_v4', JSON.stringify(rings));
           renderRings();
+          updateRingInfo();
           updateProgress();
           saveDraft();
           showSoulLog('魂环' + (idx + 1) + ' 年份更新为 ' + this.value);
@@ -593,7 +677,7 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
         el.addEventListener('input', function() {
           var idx = Number(this.dataset.ringName);
           rings[idx].name = this.value;
-          localStorage.setItem('soul_rings_v3', JSON.stringify(rings));
+          localStorage.setItem('soul_rings_v4', JSON.stringify(rings));
           saveDraft();
           updatePreview();
         });
@@ -602,7 +686,7 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
         el.addEventListener('input', function() {
           var idx = Number(this.dataset.ringEffect);
           rings[idx].effect = this.value;
-          localStorage.setItem('soul_rings_v3', JSON.stringify(rings));
+          localStorage.setItem('soul_rings_v4', JSON.stringify(rings));
           saveDraft();
         });
       });
@@ -611,16 +695,89 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
           var idx = Number(this.dataset.ringDel);
           if (rings.length <= 1) { showMessage('至少保留一个魂环', true); return; }
           rings.splice(idx, 1);
-          localStorage.setItem('soul_rings_v3', JSON.stringify(rings));
+          localStorage.setItem('soul_rings_v4', JSON.stringify(rings));
           renderRings();
+          updateRingInfo();
           updateProgress();
           saveDraft();
           showSoulLog('已移除一个魂环');
         });
       });
+      updateRingInfo();
     }
 
-    // 更新先天魂力选项（神级武魂联动）
+    function updateRingInfo() {
+      var count = rings.length;
+      var lv = getVal('csr');
+      var expected = getRingCount(lv);
+      var el = document.getElementById('ringCountDisplay');
+      if (el) el.textContent = count;
+      var info = document.getElementById('ringMatchInfo');
+      if (info) {
+        if (lv === '' || lv === undefined) {
+          info.textContent = '';
+        } else if (count === expected) {
+          info.innerHTML = '<span class="match">✅ ' + count + '/' + expected + ' 环匹配</span>';
+        } else if (count < expected) {
+          info.innerHTML = '<span class="mismatch">⚠️ 应配 ' + expected + ' 环，当前 ' + count + ' 环</span>';
+        } else {
+          info.innerHTML = '<span class="mismatch">⚠️ 已超出 ' + expected + ' 环建议</span>';
+        }
+      }
+    }
+
+    function syncRingsToLevel() {
+      var lv = getVal('csr');
+      var expected = getRingCount(lv);
+      if (expected === 0 && rings.length > 0 && rings[0].name === '' && rings[0].effect === '') {
+        // 如果只有空环，可以清空
+        rings = [];
+      } else if (expected > rings.length) {
+        for (var i = rings.length; i < expected; i++) {
+          rings.push({ year: '百年', name: '', effect: '' });
+        }
+      } else if (expected < rings.length && expected > 0) {
+        // 只减到expected，但保留用户已填的
+        rings = rings.slice(0, expected);
+      }
+      localStorage.setItem('soul_rings_v4', JSON.stringify(rings));
+      renderRings();
+      updateRingInfo();
+      updateProgress();
+      saveDraft();
+      showSoulLog('🔄 已同步魂环：' + rings.length + ' 环');
+    }
+
+    // 斗铠部件计数
+    function updateArmorPercent() {
+      var val = Number(armorCountInput.value) || 0;
+      if (val < 0) val = 0;
+      if (val > 11) val = 11;
+      armorCountInput.value = val;
+      var pct = Math.round((val / 11) * 100);
+      armorPercent.textContent = pct + '%';
+    }
+
+    // 机甲等级联动
+    function updateMechaCustom() {
+      if (getSel('mechaLevel') === '红级（自定义）') {
+        fields.mechaCustomWrap.style.display = 'block';
+      } else {
+        fields.mechaCustomWrap.style.display = 'none';
+        fields.mechaCustom.value = '';
+      }
+    }
+
+    function getMechaDisplay() {
+      var level = getSel('mechaLevel');
+      if (level === '红级（自定义）') {
+        var custom = getVal('mechaCustom');
+        return custom ? '红级·' + custom : '红级（未命名）';
+      }
+      return level;
+    }
+
+    // 更新先天魂力选项
     function updateInnateOptions() {
       var isDivine = (getSel('mst') === '神级武魂');
       var select = fields.isp;
@@ -648,7 +805,6 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
         opt.textContent = o.label;
         select.appendChild(opt);
       });
-      // 尝试恢复原值
       var found = false;
       for (var i = 0; i < select.options.length; i++) {
         if (select.options[i].value === currentVal) { select.value = currentVal; found = true; break; }
@@ -659,42 +815,27 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       updateProgress();
     }
 
-    // 联动：武魂→魂师定位
+    // 联动
     function updateRolePosition() {
       var map = {
-        '兽武魂': '强攻系',
-        '器武魂': '强攻系',
-        '植物武魂': '控制系',
-        '元素武魂': '控制系',
-        '辅助武魂': '辅助系',
-        '食物武魂': '食物系',
-        '变异武魂': '敏攻系',
-        '双生武魂': '全能系',
-        '神级武魂': '全能系',
+        '兽武魂': '强攻系', '器武魂': '强攻系', '植物武魂': '控制系',
+        '元素武魂': '控制系', '辅助武魂': '辅助系', '食物武魂': '食物系',
+        '变异武魂': '敏攻系', '双生武魂': '全能系', '神级武魂': '全能系',
         '本体武魂': '强攻系'
       };
       var type = getSel('mst');
       var rp = document.getElementById('rp');
       if (rp && map[type]) {
-        var target = map[type];
         var opts = Array.from(rp.options);
-        var match = opts.find(function(o) { return o.value === target; });
-        if (match) { rp.value = target; }
+        var match = opts.find(function(o) { return o.value === map[type]; });
+        if (match) { rp.value = map[type]; }
       }
     }
-
-    // 联动：出身地→阵营
     function updateCamp() {
       var map = {
-        '史莱克城': '史莱克学院',
-        '天斗城': '天斗帝国',
-        '星罗城': '星罗帝国',
-        '灵波城': '传灵学院',
-        '明都': '星罗帝国',
-        '星斗大森林外围': '自由魂师',
-        '极北之地': '极北之地',
-        '傲来城': '自由魂师',
-        '东海城': '自由魂师'
+        '史莱克城': '史莱克学院', '天斗城': '天斗帝国', '星罗城': '星罗帝国',
+        '灵波城': '传灵学院', '明都': '星罗帝国', '星斗大森林外围': '自由魂师',
+        '极北之地': '极北之地', '傲来城': '自由魂师', '东海城': '自由魂师'
       };
       var origin = getSel('og_select');
       if (origin && map[origin]) {
@@ -704,8 +845,6 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
         if (match) { fc.value = map[origin]; }
       }
     }
-
-    // 联动：魂力→精神力推荐
     function updateSpiritLevel() {
       var lv = Number(getVal('csr'));
       if (isNaN(lv)) return;
@@ -723,28 +862,6 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       if (match) { sp.value = target; }
     }
 
-    // 联动：血脉→特殊能力
-    function updateSpecialAbility() {
-      var map = {
-        '金龙王血脉': '天生神力',
-        '银龙王血脉': '精神感知',
-        '龙族血脉': '龙族感应',
-        '海神血脉': '元素亲和',
-        '修罗血脉': '战斗直觉',
-        '天使血脉': '钢铁意志',
-        '凤凰血脉': '自愈体质',
-        '泰坦血脉': '天生神力'
-      };
-      var blood = getSel('bl');
-      if (blood && map[blood]) {
-        var st = fields.st;
-        var opts = Array.from(st.options);
-        var match = opts.find(function(o) { return o.value === map[blood]; });
-        if (match) { st.value = map[blood]; st.dispatchEvent(new Event('change')); }
-      }
-    }
-
-    // 更新预览
     function updatePreview() {
       var name = getVal('cn') || '你的名字';
       var spirit = getVal('msn') || '你的武魂';
@@ -759,7 +876,6 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       }
     }
 
-    // 魂导日志
     function showSoulLog(text) {
       var logMsg = $('msg');
       if (!logMsg) return;
@@ -768,6 +884,43 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       logMsg.style.display = 'block';
       clearTimeout(logMsg._timer);
       logMsg._timer = setTimeout(function() { logMsg.style.display = 'none'; }, 2500);
+    }
+
+    // 分步导航
+    function goToStep(step) {
+      var maxStep = 4;
+      if (step < 1) step = 1;
+      if (step > maxStep) step = maxStep;
+      currentStep = step;
+      // 更新导航文字
+      document.getElementById('stepCurrent').textContent = step;
+      document.getElementById('stepTotal').textContent = maxStep;
+      document.getElementById('stepName').textContent = stepNames[step - 1];
+      // 更新按钮状态
+      document.getElementById('stepPrev').disabled = (step === 1);
+      var nextBtn = document.getElementById('stepNext');
+      if (step === maxStep) {
+        nextBtn.textContent = '⚔ 觉醒';
+        nextBtn.style.borderColor = 'rgba(200,50,50,.3)';
+        nextBtn.style.color = '#dc6a6a';
+      } else {
+        nextBtn.textContent = '下一项 ▶';
+        nextBtn.style.borderColor = '';
+        nextBtn.style.color = '';
+      }
+      // 切换面板
+      var secs = document.querySelectorAll('.sec');
+      secs.forEach(function(sec, idx) {
+        var details = sec.querySelector('details');
+        if (details) {
+          if (idx + 1 === step) {
+            details.setAttribute('open', 'open');
+            setTimeout(function() { sec.scrollIntoView({ block: 'start', behavior: 'smooth' }); }, 100);
+          } else {
+            details.removeAttribute('open');
+          }
+        }
+      });
     }
 
     // 收集数据
@@ -797,7 +950,7 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       var spVal = getVal('st');
       if (spVal === '自定义') { spVal = getVal('stCustom') || '自定义'; }
       var ringData = rings.map(function(r) { return { "年份": r.year, "魂技名称": r.name || '未命名', "魂技效果": r.effect || '无' }; });
-      var partsDone = partNames.filter(function(n) { return !!partState[n]; });
+      var armorCount = Number(armorCountInput.value) || 0;
       return {
         "基本信息": {
           "姓名": getVal('cn') || '未命名',
@@ -834,15 +987,19 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
           "斗铠等级": getSel('bal'),
           "斗铠侧重": getSel('bat'),
           "斗铠品级": getArmorGrade(getSel('bal')).text,
-          "斗铠部件完成度": partsDone.length + '/' + partNames.length,
+          "斗铠部件完成数": armorCount + '/11',
           "斗铠描述": getVal('badesc') || ''
         },
         "魂骨": {
           "魂骨部位": getSel('bonePart'),
           "魂骨年限": getSel('boneYear')
         },
+        "第二职业": {
+          "职业类型": getSel('secondProf'),
+          "等级": getSel('secondLevel') + '级'
+        },
         "机甲与魂导器": {
-          "机甲等级": getSel('mechaLevel'),
+          "机甲等级": getMechaDisplay(),
           "魂导器名称": getVal('soulDevice') || '',
           "传说武器": getVal('legendWeapon') || ''
         },
@@ -857,9 +1014,8 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       };
     }
 
-    // 更新进度
     function updateProgress() {
-      var fieldIds = ['cn','gd','ag','ht','wt','msn','mst','isp','csr','sp','bl','bll','ssn','sst','ssy','ban','bal','bat','og','fc','fbg','orgIdentity','coreCount','domain','bonePart','boneYear','mechaLevel','soulDevice','legendWeapon','greeting','scenario'];
+      var fieldIds = ['cn','gd','ag','ht','wt','msn','mst','isp','csr','sp','bl','bll','ssn','sst','ssy','ban','bal','bat','og','fc','fbg','orgIdentity','coreCount','domain','bonePart','boneYear','secondProf','secondLevel','mechaLevel','soulDevice','legendWeapon','greeting','scenario'];
       var filled = 0;
       var total = fieldIds.length;
       for (var i = 0; i < fieldIds.length; i++) {
@@ -868,11 +1024,13 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
         if (el && el.value && el.value.trim() !== '' && el.value !== '无' && el.value !== '无斗铠') filled++;
       }
       rings.forEach(function(r) { if (r.name && r.name.trim()) filled++; if (r.effect && r.effect.trim()) filled++; });
-      partNames.forEach(function(n) { if (partState[n]) filled++; });
-      var pctVal = Math.min(100, Math.round((filled / (total + rings.length * 2 + partNames.length)) * 100));
+      var armorCnt = Number(armorCountInput.value) || 0;
+      filled += armorCnt;
+
+      var totalFields = document.getElementById('totalFields');
+      if (totalFields) totalFields.textContent = (total + rings.length * 2 + 11);
+      var pctVal = Math.min(100, Math.round((filled / (total + rings.length * 2 + 11)) * 100));
       pct.textContent = filled;
-      var totalEl = document.getElementById('totalFields');
-      if (totalEl) totalEl.textContent = (total + rings.length * 2 + partNames.length);
       pbar.style.width = pctVal + '%';
       pbar.className = '';
       if (pctVal < 30) pbar.classList.add('pbar-low');
@@ -893,7 +1051,7 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       try {
         var data = collectData();
         data._rings = rings;
-        data._parts = partState;
+        data._armorCount = Number(armorCountInput.value) || 0;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       } catch(_) {}
     }
@@ -905,7 +1063,7 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
         var data = JSON.parse(raw);
         if (!data || typeof data !== 'object') return;
         if (data._rings && Array.isArray(data._rings) && data._rings.length) { rings = data._rings; renderRings(); }
-        if (data._parts && typeof data._parts === 'object') { partState = data._parts; renderParts(); }
+        if (data._armorCount !== undefined) { armorCountInput.value = data._armorCount; updateArmorPercent(); }
         var map = {
           'cn': '基本信息.姓名', 'gd': '基本信息.性别', 'ag': '基本信息.年龄',
           'ht': '基本信息.身高_cm', 'wt': '基本信息.体重_kg',
@@ -951,8 +1109,27 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
           if (data.魂骨.魂骨部位) fields.bonePart.value = data.魂骨.魂骨部位;
           if (data.魂骨.魂骨年限) fields.boneYear.value = data.魂骨.魂骨年限;
         }
+        if (data.第二职业) {
+          if (data.第二职业.职业类型) fields.secondProf.value = data.第二职业.职业类型;
+          if (data.第二职业.等级) {
+            var lv = data.第二职业.等级.replace('级', '');
+            var opts = Array.from(fields.secondLevel.options);
+            var match = opts.find(function(o) { return o.value === lv; });
+            if (match) fields.secondLevel.value = lv;
+          }
+        }
         if (data.机甲与魂导器) {
-          if (data.机甲与魂导器.机甲等级) fields.mechaLevel.value = data.机甲与魂导器.机甲等级;
+          var mech = data.机甲与魂导器.机甲等级 || '';
+          var found = false;
+          var opts = Array.from(fields.mechaLevel.options);
+          for (var i = 0; i < opts.length; i++) {
+            if (opts[i].value === mech) { fields.mechaLevel.value = mech; found = true; break; }
+          }
+          if (!found && mech.startsWith('红级·')) {
+            fields.mechaLevel.value = '红级（自定义）';
+            fields.mechaCustom.value = mech.replace('红级·', '');
+            fields.mechaCustomWrap.style.display = 'block';
+          }
           if (data.机甲与魂导器.魂导器名称) fields.soulDevice.value = data.机甲与魂导器.魂导器名称;
           if (data.机甲与魂导器.传说武器) fields.legendWeapon.value = data.机甲与魂导器.传说武器;
         }
@@ -973,12 +1150,14 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
           fields.stCustomWrap.style.display = 'none';
         }
         updateSoulTitle();
-        updateArmorGrade();
         updateSoulComment();
+        updateArmorGrade();
         toggleDualSoul();
         toggleCustomBlood();
         updateProgress();
         updatePreview();
+        updateRingInfo();
+        goToStep(1);
       } catch(_) {}
     }
 
@@ -987,20 +1166,17 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       var title = getSoulTitle(lv);
       fields.soulTitle.value = title;
     }
-
     function updateSoulComment() {
       var lv = getVal('csr');
       var comment = getSoulComment(lv);
       soulComment.textContent = comment;
       soulComment.className = 'soul-comment' + (getVal('csr') ? ' active' : '');
     }
-
     function updateArmorGrade() {
       var level = getSel('bal');
       var info = getArmorGrade(level);
       fields.armorGrade.innerHTML = '<span style="color:' + info.color + ';font-weight:600;font-size:1.2em;">●</span> ' + info.text;
     }
-
     function toggleDualSoul() { dsf.classList.toggle('ac', getSel('mst') === '双生武魂'); }
     function toggleCustomBlood() { cbg.style.display = (getSel('bl') === '自定血脉') ? 'block' : 'none'; }
 
@@ -1024,9 +1200,9 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       cd.style.position = 'static';
       cd.style.opacity = '1';
       cd.style.width = '100%';
-      cd.style.height = '70px';
+      cd.style.height = '60px';
       cd.style.pointerEvents = 'auto';
-      cd.style.marginTop = '6px';
+      cd.style.marginTop = '4px';
       cd.select();
       try {
         if (document.execCommand('copy')) { if (!silent) showMessage('✅ 已复制！'); }
@@ -1040,10 +1216,9 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
         cd.style.width = '1px';
         cd.style.height = '1px';
         cd.style.pointerEvents = 'none';
-      }, 4000);
+      }, 3000);
     }
 
-    // 生成人设文本
     function generatePersonaText() {
       var d = collectData();
       var v = d.武魂与魂力;
@@ -1107,7 +1282,7 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
         if (d.斗铠.斗铠等级 && d.斗铠.斗铠等级 !== '无') lines.push('- 斗铠等级：' + d.斗铠.斗铠等级);
         if (d.斗铠.斗铠品级) lines.push('- 斗铠品级：' + d.斗铠.斗铠品级);
         if (d.斗铠.斗铠侧重 && d.斗铠.斗铠侧重 !== '不适用') lines.push('- 斗铠侧重：' + d.斗铠.斗铠侧重);
-        if (d.斗铠.斗铠部件完成度) lines.push('- 部件完成度：' + d.斗铠.斗铠部件完成度);
+        if (d.斗铠.斗铠部件完成数) lines.push('- 部件完成度：' + d.斗铠.斗铠部件完成数);
         if (d.斗铠.斗铠描述) lines.push('- 斗铠描述：' + d.斗铠.斗铠描述);
         lines.push('');
       }
@@ -1115,6 +1290,12 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
         lines.push('魂骨：');
         lines.push('- 魂骨部位：' + d.魂骨.魂骨部位);
         if (d.魂骨.魂骨年限 && d.魂骨.魂骨年限 !== '无') lines.push('- 魂骨年限：' + d.魂骨.魂骨年限);
+        lines.push('');
+      }
+      if (d.第二职业 && d.第二职业.职业类型 && d.第二职业.职业类型 !== '无') {
+        lines.push('第二职业：');
+        lines.push('- 职业：' + d.第二职业.职业类型);
+        lines.push('- 等级：' + d.第二职业.等级);
         lines.push('');
       }
       if (d.机甲与魂导器) {
@@ -1141,7 +1322,7 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       if (navigator.vibrate) navigator.vibrate(20);
     }
 
-    // 觉醒动画+金色粒子
+    // 粒子
     function spawnParticles() {
       particlesContainer.innerHTML = '';
       for (var i = 0; i < 30; i++) {
@@ -1162,7 +1343,12 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       setTimeout(function() { particlesContainer.innerHTML = ''; }, 1500);
     }
 
+    // 觉醒动画 + 自动折叠
     function showAwakenAnimation() {
+      // 1. 自动折叠所有条目
+      var secs = document.querySelectorAll('.sec details');
+      secs.forEach(function(d) { d.removeAttribute('open'); });
+      // 2. 弹出动画
       spawnParticles();
       awakenOverlay.classList.add('active');
       var lines = awakenOverlay.querySelectorAll('.line');
@@ -1198,7 +1384,7 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       showMessage('✅ 觉醒档案已铸就！');
     }
 
-    // 天命一键三连
+    // 天命（不随机姓名）
     function randomGenerate() {
       var surnames = ['唐', '李', '王', '张', '刘', '陈', '杨', '赵', '黄', '周', '吴', '徐', '孙', '胡', '朱', '高', '林', '何', '郭', '马'];
       var givenNames = ['舞麟', '小舞', '唐三', '霍雨浩', '王冬', '贝贝', '徐三石', '和菜头', '萧萧', '江楠楠', '戴沐白', '奥斯卡', '朱竹清', '宁荣荣', '凌风', '云岚', '星辰'];
@@ -1206,8 +1392,15 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       var spiritTypes = ['兽武魂', '器武魂', '植物武魂', '元素武魂', '变异武魂'];
       var bloods = ['无特殊血脉', '金龙王血脉', '银龙王血脉', '龙族血脉', '海神血脉', '凤凰血脉', '泰坦血脉'];
       var camps = ['史莱克学院', '唐门', '传灵塔', '星罗帝国', '天斗帝国', '自由魂师', '本体宗', '七宝琉璃宗', '昊天宗'];
+      var specs = ['无', '天生神力', '剑感', '元素亲和', '精神感知', '自愈体质', '龙族感应', '空间感知', '战斗直觉', '钢铁意志'];
 
-      var name = surnames[Math.floor(Math.random() * surnames.length)] + givenNames[Math.floor(Math.random() * givenNames.length)];
+      // 保留姓名
+      var currentName = getVal('cn');
+      if (!currentName) {
+        var name = surnames[Math.floor(Math.random() * surnames.length)] + givenNames[Math.floor(Math.random() * givenNames.length)];
+        fields.cn.value = name;
+      }
+
       var gender = Math.random() > 0.5 ? '男' : '女';
       var age = Math.floor(Math.random() * 20) + 6;
       var height = Math.floor(Math.random() * 60) + 150;
@@ -1218,8 +1411,8 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       var soulLevel = Math.floor(Math.random() * 50) + 10;
       var blood = bloods[Math.floor(Math.random() * bloods.length)];
       var camp = camps[Math.floor(Math.random() * camps.length)];
+      var spec = specs[Math.floor(Math.random() * specs.length)];
 
-      fields.cn.value = name;
       fields.gd.value = gender;
       fields.ag.value = age;
       fields.ht.value = height;
@@ -1231,16 +1424,20 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       fields.bl.value = blood;
       fields.bll.value = ['未觉醒', '初步觉醒', '部分觉醒', '深度觉醒', '完全觉醒'][Math.floor(Math.random() * 5)];
       fields.fc.value = camp;
+      fields.st.value = spec;
+      if (spec === '自定义') { fields.stCustomWrap.style.display = 'block'; } else { fields.stCustomWrap.style.display = 'none'; }
 
+      // 随机魂环
       var ringYears = ['十年', '百年', '百年', '千年', '千年', '万年', '十万年'];
       rings = [];
-      var ringCount = Math.floor(Math.random() * 3) + 1;
+      var ringCount = Math.min(getRingCount(soulLevel), 9);
+      if (ringCount === 0) ringCount = 1;
       var ringNames = ['缠绕', '冲击', '守护', '治愈', '瞬移', '狂暴', '冰封', '烈焰', '雷霆', '破甲', '复苏'];
       for (var i = 0; i < ringCount; i++) {
         var y = ringYears[Math.floor(Math.random() * ringYears.length)];
         rings.push({ year: y, name: ringNames[Math.floor(Math.random() * ringNames.length)] + '魂技', effect: '造成' + (Math.floor(Math.random() * 40) + 20) + '% 魂力伤害' });
       }
-      localStorage.setItem('soul_rings_v3', JSON.stringify(rings));
+      localStorage.setItem('soul_rings_v4', JSON.stringify(rings));
       renderRings();
 
       updateSoulTitle();
@@ -1248,17 +1445,16 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       updateArmorGrade();
       toggleDualSoul();
       toggleCustomBlood();
-      // 触发联动
       updateRolePosition();
       updateCamp();
       updateSpiritLevel();
       updateSpecialAbility();
+      updateRingInfo();
       saveDraft();
       updateProgress();
       updatePreview();
       showSoulLog('🎲 天命已定 · 魂师档案已随机生成');
 
-      // 天命预览弹窗
       var text = generatePersonaText();
       fateBody.textContent = text;
       fateModal.classList.add('active');
@@ -1274,12 +1470,12 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
         }
       }
       fields.stCustomWrap.style.display = 'none';
+      fields.mechaCustomWrap.style.display = 'none';
       rings = [{ year: '百年', name: '', effect: '' }];
-      localStorage.setItem('soul_rings_v3', JSON.stringify(rings));
+      localStorage.setItem('soul_rings_v4', JSON.stringify(rings));
       renderRings();
-      partState = {};
-      localStorage.setItem('armor_parts_v3', JSON.stringify(partState));
-      renderParts();
+      armorCountInput.value = 0;
+      updateArmorPercent();
       localStorage.removeItem(STORAGE_KEY);
       toggleDualSoul();
       toggleCustomBlood();
@@ -1288,11 +1484,12 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       updateArmorGrade();
       updateProgress();
       updatePreview();
+      updateRingInfo();
       showMessage('🗑 已清空');
     }
 
     function bindEvents() {
-      // 单击标题切换全部展开/收起
+      // 标题点击
       document.getElementById('mainTitle').addEventListener('click', function() {
         var first = document.querySelector('.sec details');
         var isOpen = first ? first.hasAttribute('open') : false;
@@ -1301,31 +1498,39 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
         showMessage(isOpen ? '📂 全部收起' : '📂 全部展开');
       });
 
-      // 武魂类型联动
+      // 分步导航
+      document.getElementById('stepPrev').addEventListener('click', function() {
+        if (currentStep > 1) goToStep(currentStep - 1);
+      });
+      document.getElementById('stepNext').addEventListener('click', function() {
+        if (currentStep === 4) {
+          showAwakenAnimation();
+        } else if (currentStep < 4) {
+          goToStep(currentStep + 1);
+        }
+      });
+
+      // 武魂类型
       fields.mst.addEventListener('change', function() {
         toggleDualSoul();
         updateInnateOptions();
         updateRolePosition();
-        if (getSel('mst') === '神级武魂') {
-          fields.isp.value = '20级（神赐）';
-        }
+        if (getSel('mst') === '神级武魂') { fields.isp.value = '20级（神赐）'; }
         saveDraft();
         updateProgress();
         showSoulLog('武魂类型更新：' + getSel('mst'));
       });
 
-      // 血脉联动
+      // 血脉
       fields.bl.addEventListener('change', function() {
         toggleCustomBlood();
         updateSpecialAbility();
         saveDraft();
         updateProgress();
-        if (getSel('bl') !== '无特殊血脉') {
-          showSoulLog('血脉之力：' + getSel('bl') + ' 已觉醒');
-        }
+        if (getSel('bl') !== '无特殊血脉') showSoulLog('血脉之力：' + getSel('bl') + ' 已觉醒');
       });
 
-      // 出身地联动
+      // 出身地
       fields.og_select.addEventListener('change', function() {
         fields.og.value = this.value;
         updateCamp();
@@ -1337,26 +1542,24 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       fields.st.addEventListener('change', function() {
         if (this.value === '自定义') { fields.stCustomWrap.style.display = 'block'; fields.stCustom.focus(); }
         else { fields.stCustomWrap.style.display = 'none'; }
+        updateSpecialAbility();
         saveDraft();
         updateProgress();
       });
 
-      // 魂力等级联动
+      // 魂力
       fields.csr.addEventListener('input', function() {
         updateSoulTitle();
         updateSoulComment();
         updateSpiritLevel();
+        updateRingInfo();
         saveDraft();
         updateProgress();
         var lv = getVal('csr');
-        if (lv) {
-          var title = getSoulTitle(lv);
-          var comment = getSoulComment(lv);
-          showSoulLog('魂力更新：' + lv + '级 → ' + title);
-        }
+        if (lv) showSoulLog('魂力更新：' + lv + '级 → ' + getSoulTitle(lv));
       });
 
-      // 斗铠等级
+      // 斗铠
       fields.bal.addEventListener('change', function() {
         updateArmorGrade();
         saveDraft();
@@ -1365,7 +1568,22 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
         showSoulLog('斗铠品级：' + info.text);
       });
 
-      // 所有字段自动保存+预览
+      // 斗铠部件计数
+      armorCountInput.addEventListener('input', function() {
+        updateArmorPercent();
+        saveDraft();
+        updateProgress();
+      });
+
+      // 机甲等级
+      fields.mechaLevel.addEventListener('change', function() {
+        updateMechaCustom();
+        saveDraft();
+        updateProgress();
+        showSoulLog('机甲等级：' + getMechaDisplay());
+      });
+
+      // 自动保存
       var autoSave = function() { saveDraft(); updateProgress(); updatePreview(); };
       var inputs = document.querySelectorAll('input, textarea, select');
       for (var i = 0; i < inputs.length; i++) {
@@ -1391,11 +1609,15 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       $('btnAddRing').addEventListener('click', function() {
         if (rings.length >= 9) { showMessage('最多9个魂环', true); return; }
         rings.push({ year: '百年', name: '', effect: '' });
-        localStorage.setItem('soul_rings_v3', JSON.stringify(rings));
+        localStorage.setItem('soul_rings_v4', JSON.stringify(rings));
         renderRings();
+        updateRingInfo();
         updateProgress();
         saveDraft();
         showSoulLog('已添加魂环槽位');
+      });
+      $('btnSyncRings').addEventListener('click', function() {
+        syncRingsToLevel();
       });
 
       // 天命弹窗
@@ -1403,9 +1625,7 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
         copyToClipboard(fateBody.textContent);
         showMessage('✅ 已复制天命档案！');
       });
-      $('fateClose').addEventListener('click', function() {
-        fateModal.classList.remove('active');
-      });
+      $('fateClose').addEventListener('click', function() { fateModal.classList.remove('active'); });
       fateModal.addEventListener('click', function(e) {
         if (e.target === fateModal) fateModal.classList.remove('active');
       });
@@ -1428,7 +1648,6 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
 
     function init() {
       updateInnateOptions();
-      initParts();
       initRings();
       loadDraft();
       toggleDualSoul();
@@ -1436,14 +1655,16 @@ input,select,textarea,.bm,.btn-awaken,.btn-export-persona,.sec summary,.part-ite
       updateSoulTitle();
       updateSoulComment();
       updateArmorGrade();
-      // 初始化联动
       updateRolePosition();
       updateCamp();
       updateSpiritLevel();
       updateSpecialAbility();
+      updateMechaCustom();
+      updateArmorPercent();
       bindEvents();
       updateProgress();
       updatePreview();
+      goToStep(1);
       setTimeout(function() { showSoulLog('✦ 魂导终端已启动 · 开始你的觉醒之旅 ✦'); }, 500);
     }
 
