@@ -1,4 +1,4 @@
-// ========== greeting.js - 斗罗大陆III 龙王传说 魂师觉醒 v4.2 FINAL ==========
+// ========== greeting.js - 斗罗大陆III 龙王传说 魂师觉醒 v4.3（完全分步） ==========
 (function(){
 "use strict";
 const styleText=`*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -58,7 +58,8 @@ h1:active{transform:scale(.97);}
 .btn-awaken .particles{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;}
 .btn-awaken .particles span{position:absolute;width:6px;height:6px;background:#ffd700;border-radius:50%;box-shadow:0 0 10px #ffd700;animation:particleFly 1.2s ease-out forwards;opacity:0;}
 @keyframes particleFly{0%{opacity:1;transform:translate(0,0) scale(1);}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0);}}
-.sec{margin:4px 0;}
+/* 完全分步：默认所有 .sec 隐藏，由 goToStep 控制 */
+.sec{display:none;margin:4px 0;}
 .sec details{display:block;border-radius:6px;}
 .sec summary{color:#f0d68a;font-size:.85em;font-weight:500;padding:6px 8px 6px 22px;border-bottom:1px solid rgba(160,110,30,.12);letter-spacing:2px;position:relative;cursor:pointer;user-select:none;transition:background .2s;border-radius:6px;display:flex;align-items:center;gap:6px;list-style:none;min-height:38px;}
 .sec summary::-webkit-details-marker{display:none;}
@@ -177,12 +178,14 @@ const htmlContent=`<div class="soul-app-container"><div id="app"><div id="fieldI
 <div class="step-nav"><button class="step-btn" id="stepPrev">◀ 上一项</button><span class="step-info"><span class="current" id="stepCurrent">1</span> / <span class="total" id="stepTotal">4</span> · <span id="stepName">基础信息</span></span><button class="step-btn" id="stepNext">下一项 ▶</button></div>
 <div class="tb"><div class="p">已填 <span id="pct">0</span>/<span id="totalFields">0</span><div class="pb"><div id="pbar" style="width:0%" class="pbar-low"></div></div></div><div class="tool-group"><button class="bm bm-gold" id="btnRandom">🎲 天命</button><button class="bm bm-danger" id="btnClearAll">🗑 归无</button></div></div>
 <div class="soul-comment" id="soulComment">✦ 输入魂力等级，查看修炼评语 ✦</div>
-<div class="sec" data-step="1" data-stepname="基础信息"><details open><summary><svg class="icon-user" viewBox="0 0 24 24"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg>Ⅰ 刻下你的名字<span class="ar">▼</span></summary><div class="sb"><div class="in">
+<!-- 模块1：基础信息 -->
+<div class="sec" data-step="1" data-stepname="基础信息" style="display:block;"><details open><summary><svg class="icon-user" viewBox="0 0 24 24"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg>Ⅰ 刻下你的名字<span class="ar">▼</span></summary><div class="sb"><div class="in">
 <div class="rw"><div class="fd"><label>姓名</label><input type="text" id="cn" placeholder="你的名字"></div><div class="fd"><label>性别</label><select id="gd"><option value="男">男</option><option value="女">女</option><option value="其他">其他</option></select></div></div>
 <div class="rw"><div class="fd"><label>年龄 <sm>(岁)</sm></label><input type="number" id="ag" min="6" max="200" placeholder="16"></div><div class="fd"><label>身高 <sm>(cm)</sm></label><input type="number" id="ht" min="80" max="280" placeholder="175"></div><div class="fd"><label>体重 <sm>(kg)</sm></label><input type="number" id="wt" min="20" max="200" placeholder="65"></div></div>
 <div class="rw"><div class="fd"><label>出身地</label><select id="og_select"><option value="">-- 你从何处来？ --</option><option value="傲来城">傲来城</option><option value="东海城">东海城</option><option value="史莱克城">史莱克城</option><option value="天斗城">天斗城</option><option value="星罗城">星罗城</option><option value="灵波城">灵波城</option><option value="明都">明都</option><option value="星斗大森林外围">星斗大森林外围</option><option value="极北之地">极北之地</option></select><input type="text" id="og" style="margin-top:3px" placeholder="或手动输入"></div><div class="fd"><label>所属阵营</label><select id="fc"><option value="史莱克学院">史莱克学院</option><option value="史莱克重建">史莱克重建</option><option value="唐门">唐门</option><option value="传灵塔">传灵塔</option><option value="传灵学院">传灵学院</option><option value="战神殿">战神殿</option><option value="血神军团">血神军团</option><option value="星罗帝国">星罗帝国</option><option value="天斗帝国">天斗帝国</option><option value="斗灵帝国">斗灵帝国</option><option value="本体宗">本体宗</option><option value="七宝琉璃宗">七宝琉璃宗</option><option value="昊天宗">昊天宗</option><option value="蓝电霸王龙家族">蓝电霸王龙家族</option><option value="原恩家族">原恩家族</option><option value="星斗大森林">星斗大森林</option><option value="极北之地">极北之地</option><option value="深渊位面">深渊位面</option><option value="自由魂师">自由魂师</option><option value="散修">散修</option><option value="其他">其他</option></select></div></div>
 <div class="rw"><div class="fd"><label>家族血脉</label><select id="fbg"><option value="普通平民">普通平民</option><option value="魂师世家">魂师世家</option><option value="宗门嫡系">宗门嫡系</option><option value="皇室宗亲">皇室宗亲</option><option value="隐世家族">隐世家族</option><option value="孤儿">孤儿</option><option value="魂兽化形">魂兽化形</option><option value="神祇后裔">神祇后裔</option></select></div><div class="fd"><label>组织身份</label><input type="text" id="orgIdentity" placeholder="史莱克七怪 / 传灵塔执法者"></div></div>
 </div></div></details></div>
+<!-- 模块2：武魂与魂力 -->
 <div class="sec" data-step="2" data-stepname="武魂与魂力"><details><summary><svg class="icon-soul" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7z"/></svg>Ⅱ 武魂与魂力<span class="ar">▼</span></summary><div class="sb"><div class="in">
 <div class="rw"><div class="fd"><label>武魂名称</label><input type="text" id="msn" placeholder="如：蓝银草"></div><div class="fd"><label>武魂类型</label><select id="mst"><option value="兽武魂">兽武魂</option><option value="器武魂">器武魂</option><option value="本体武魂">本体武魂</option><option value="植物武魂">植物武魂</option><option value="元素武魂">元素武魂</option><option value="辅助武魂">辅助武魂</option><option value="食物武魂">食物武魂</option><option value="变异武魂">变异武魂</option><option value="双生武魂">双生武魂</option><option value="神级武魂">神级武魂</option></select></div></div>
 <div id="dsf" class="ta"><div class="ib"><div class="rw"><div class="fd"><label>第二武魂名称</label><input type="text" id="sn2" placeholder="第二武魂"></div><div class="fd"><label>第二武魂类型</label><select id="st2"><option value="兽武魂">兽武魂</option><option value="器武魂">器武魂</option><option value="本体武魂">本体武魂</option><option value="植物武魂">植物武魂</option><option value="元素武魂">元素武魂</option><option value="辅助武魂">辅助武魂</option><option value="食物武魂">食物武魂</option><option value="变异武魂">变异武魂</option><option value="神级武魂">神级武魂</option></select></div></div></div></div>
@@ -193,6 +196,7 @@ const htmlContent=`<div class="soul-app-container"><div id="app"><div id="fieldI
 <div id="cbg" style="display:none"><div class="fd"><label>自定血脉名称</label><input type="text" id="cbl"></div></div>
 <div class="rw"><div class="fd"><label>魂核数量</label><select id="coreCount"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div><div class="fd"><label>领域名称</label><input type="text" id="domain" placeholder="如：杀戮领域、金龙领域"></div></div>
 </div></div></details></div>
+<!-- 模块3：装备与战力 -->
 <div class="sec" data-step="3" data-stepname="装备与战力"><details><summary><svg class="icon-shield" viewBox="0 0 24 24"><path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5L12 2zm0 2.18l6 2.25v4.66c0 4.14-2.94 7.99-6 9.01-3.06-1.02-6-4.87-6-9.01V6.43l6-2.25z"/></svg>Ⅲ 装备与战力<span class="ar">▼</span></summary><div class="sb"><div class="in">
 <div class="rw"><div class="fd"><label>斗铠名称</label><input type="text" id="ban" placeholder="如：龙月"></div><div class="fd"><label>斗铠等级</label><select id="bal"><option value="无">无斗铠</option><option value="一字斗铠">一字斗铠</option><option value="二字斗铠">二字斗铠</option><option value="三字斗铠">三字斗铠</option><option value="四字斗铠">四字斗铠</option><option value="五字斗铠（神级）">五字斗铠（神级）</option><option value="六字斗铠（神级）">六字斗铠（神级）</option></select></div></div>
 <div class="rw"><div class="fd"><label>斗铠侧重</label><select id="bat"><option value="均衡型">均衡型</option><option value="力量型">力量型</option><option value="敏捷型">敏捷型</option><option value="防御型">防御型</option><option value="爆发型">爆发型</option><option value="控制型">控制型</option><option value="不适用">不适用</option></select></div><div class="fd"><label>斗铠品级</label><div id="armorGrade" style="padding:4px 8px;border-radius:4px;background:#0d0804;border:1px solid #4a3418;min-height:30px;display:flex;align-items:center;gap:6px;font-size:.75em;color:#b5a080;">选择等级后显示</div></div></div>
@@ -203,6 +207,7 @@ const htmlContent=`<div class="soul-app-container"><div id="app"><div id="fieldI
 <div class="rw"><div class="fd"><label>魂导器</label><input type="text" id="soulDevice" placeholder="如：储物魂导器"></div><div class="fd"><label>传说武器</label><input type="text" id="legendWeapon" placeholder="如：黄金龙枪"></div></div>
 <div class="fd" style="margin-top:4px;"><label>斗铠描述</label><input type="text" id="badesc" placeholder="银甲金纹…"></div>
 </div></div></details></div>
+<!-- 模块4：背景与故事 -->
 <div class="sec" data-step="4" data-stepname="背景与故事"><details><summary><svg class="icon-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Ⅳ 背景与故事<span class="ar">▼</span></summary><div class="sb"><div class="in">
 <div class="fd"><label>性格特质</label><textarea id="pt" rows="2" placeholder="冷静、执着、重情义"></textarea></div>
 <div class="fd"><label>特殊能力</label><div class="special-tier"><span class="tier-tag t1">普通</span><span class="tier-tag t2">稀有</span><span class="tier-tag t3">神级</span></div><select id="st"><option value="无">无</option><option value="天生神力">天生神力</option><option value="剑感">剑感</option><option value="钢铁意志">钢铁意志</option><option value="战斗直觉">战斗直觉</option><option value="元素亲和">元素亲和</option><option value="精神感知">精神感知</option><option value="自愈体质">自愈体质</option><option value="龙族感应">龙族感应</option><option value="空间感知">空间感知</option><option value="海神传承">海神传承</option><option value="修罗传承">修罗传承</option><option value="天使传承">天使传承</option><option value="罗刹传承">罗刹传承</option><option value="自定义">自定义</option></select><div id="stCustomWrap" style="display:none;margin-top:3px;"><input type="text" id="stCustom" placeholder="输入特殊能力名称"></div></div>
@@ -265,7 +270,6 @@ function getLines(id){return getVal(id).split('\n').map(function(s){return s.tri
 function getNum(id){var v=getVal(id);return v?Number(v):null;}
 function getSel(id){var el=fields[id];return el?el.value:'';}
 
-// 辅助函数
 function getSoulTitle(level){var lv=Number(level);if(isNaN(lv)||lv<0)return'未测定';if(lv<=9)return'魂士';if(lv<=19)return'魂师';if(lv<=29)return'大魂师';if(lv<=39)return'魂尊';if(lv<=49)return'魂宗';if(lv<=59)return'魂王';if(lv<=69)return'魂帝';if(lv<=79)return'魂圣';if(lv<=89)return'魂斗罗';if(lv<=99)return'封号斗罗';if(lv<=109)return'超级斗罗';if(lv<=119)return'极限斗罗';return'神级';}
 function getRingCount(level){var lv=Number(level);if(isNaN(lv)||lv<0)return 0;if(lv<=9)return 0;if(lv<=19)return 1;if(lv<=29)return 2;if(lv<=39)return 3;if(lv<=49)return 4;if(lv<=59)return 5;if(lv<=69)return 6;if(lv<=79)return 7;if(lv<=89)return 8;return 9;}
 function getSoulComment(level){var lv=Number(level);if(isNaN(lv)||lv<0)return'✦ 输入魂力等级，查看修炼评语 ✦';if(lv<=9)return'🌱 初出茅庐，你的武魂正在苏醒...';if(lv<=19)return'🌿 魂师之境，根基渐稳，未来可期。';if(lv<=29)return'💪 大魂师！你已踏入修炼的正轨。';if(lv<=39)return'⚔️ 魂尊！足以独当一面的强者。';if(lv<=49)return'🔥 魂宗！你的名字开始被人传颂。';if(lv<=59)return'🌟 魂王！距离传奇只差一步之遥。';if(lv<=69)return'👑 魂帝！一方霸主，威震天下。';if(lv<=79)return'✨ 魂圣！接近半神之体，超凡脱俗。';if(lv<=89)return'💀 魂斗罗！大陆顶尖的存在。';if(lv<=99)return'⚡ 封号斗罗！至强者之名，响彻大陆！';if(lv<=109)return'🌌 超级斗罗！已触碰神之领域。';if(lv<=119)return'🌀 极限斗罗！人间巅峰，半步成神。';return'🌠 神级！你的名字将永远铭刻在斗罗大陆的历史中。';}
@@ -273,13 +277,40 @@ function getArmorGrade(level){var map={'无':{text:'无斗铠',color:'#5a4a30'},
 function getRingColor(year){var map={'十年':'#e8e8e8','百年':'#f0d68a','千年':'#9b6bcc','万年':'#2a2a2a','十万年':'#dc3545','凶兽（二十万年）':'#dc3545','百万年':'#ffd700'};return map[year]||'#5a4a30';}
 function getRingClass(year){var map={'十年':'white','百年':'yellow','千年':'purple','万年':'black','十万年':'red','凶兽（二十万年）':'red','百万年':'gold'};return map[year]||'white';}
 
-// 分步导航（提前定义）
-function goToStep(step){var maxStep=4;if(step<1)step=1;if(step>maxStep)step=maxStep;currentStep=step;document.getElementById('stepCurrent').textContent=step;document.getElementById('stepTotal').textContent=maxStep;document.getElementById('stepName').textContent=stepNames[step-1];document.getElementById('stepPrev').disabled=(step===1);var nextBtn=document.getElementById('stepNext');if(step===maxStep){nextBtn.textContent='⚔ 觉醒';nextBtn.style.borderColor='rgba(200,50,50,.3)';nextBtn.style.color='#dc6a6a';}else{nextBtn.textContent='下一项 ▶';nextBtn.style.borderColor='';nextBtn.style.color='';}var secs=document.querySelectorAll('.sec');secs.forEach(function(sec,idx){var details=sec.querySelector('details');if(details){if(idx+1===step){details.setAttribute('open','open');setTimeout(function(){sec.scrollIntoView({block:'start',behavior:'smooth'});},100);}else{details.removeAttribute('open');}}});}
+// ★★★ 核心修改：完全分步显示/隐藏 ★★★
+function goToStep(step){
+  var maxStep=4;
+  if(step<1)step=1;
+  if(step>maxStep)step=maxStep;
+  currentStep=step;
+  document.getElementById('stepCurrent').textContent=step;
+  document.getElementById('stepTotal').textContent=maxStep;
+  document.getElementById('stepName').textContent=stepNames[step-1];
+  document.getElementById('stepPrev').disabled=(step===1);
+  var nextBtn=document.getElementById('stepNext');
+  if(step===maxStep){
+    nextBtn.textContent='⚔ 觉醒';
+    nextBtn.style.borderColor='rgba(200,50,50,.3)';
+    nextBtn.style.color='#dc6a6a';
+  }else{
+    nextBtn.textContent='下一项 ▶';
+    nextBtn.style.borderColor='';
+    nextBtn.style.color='';
+  }
+  // 完全隐藏/显示 .sec 容器
+  var secs=document.querySelectorAll('.sec');
+  secs.forEach(function(sec,idx){
+    if(idx+1===step){
+      sec.style.display='block';
+      setTimeout(function(){sec.scrollIntoView({block:'start',behavior:'smooth'});},150);
+    }else{
+      sec.style.display='none';
+    }
+  });
+}
 
-// 特殊能力联动
 function updateSpecialAbility(){var val=getSel('st');var map={'海神传承':'海神三叉戟','修罗传承':'修罗魔剑','天使传承':'天使圣剑','罗刹传承':'罗刹魔镰'};if(map[val]){fields.legendWeapon.value=map[val];showSoulLog('⚡ 传承之力觉醒！传说武器已显形：'+map[val]);}}
 
-// 魂环
 var rings=[];
 function initRings(){var saved=localStorage.getItem('soul_rings_v4');if(saved){try{rings=JSON.parse(saved);}catch(_){}}if(!rings.length)rings=[{year:'百年',name:'',effect:''}];renderRings();updateRingInfo();}
 function renderRings(){ringContainer.innerHTML='';rings.forEach(function(ring,idx){var div=document.createElement('div');div.className='ring-item';var dotColor=getRingColor(ring.year);var dotClass=getRingClass(ring.year);div.innerHTML='<span class="dot '+dotClass+'" style="background:'+dotColor+';border-color:'+dotColor+';"></span><select data-ring-year="'+idx+'"><option value="十年"'+(ring.year==='十年'?'selected':'')+'>十年</option><option value="百年"'+(ring.year==='百年'?'selected':'')+'>百年</option><option value="千年"'+(ring.year==='千年'?'selected':'')+'>千年</option><option value="万年"'+(ring.year==='万年'?'selected':'')+'>万年</option><option value="十万年"'+(ring.year==='十万年'?'selected':'')+'>十万年</option><option value="凶兽（二十万年）"'+(ring.year==='凶兽（二十万年）'?'selected':'')+'>凶兽</option><option value="百万年"'+(ring.year==='百万年'?'selected':'')+'>百万年</option></select><input type="text" placeholder="魂技名" value="'+(ring.name||'')+'" data-ring-name="'+idx+'"><input type="text" placeholder="效果" value="'+(ring.effect||'')+'" data-ring-effect="'+idx+'"><button class="bm ring-del" data-ring-del="'+idx+'">✕</button>';ringContainer.appendChild(div);});ringContainer.querySelectorAll('[data-ring-year]').forEach(function(el){el.addEventListener('change',function(){var idx=Number(this.dataset.ringYear);rings[idx].year=this.value;localStorage.setItem('soul_rings_v4',JSON.stringify(rings));renderRings();updateRingInfo();updateProgress();saveDraft();showSoulLog('魂环'+(idx+1)+' 年份更新为 '+this.value);});});ringContainer.querySelectorAll('[data-ring-name]').forEach(function(el){el.addEventListener('input',function(){var idx=Number(this.dataset.ringName);rings[idx].name=this.value;localStorage.setItem('soul_rings_v4',JSON.stringify(rings));saveDraft();updatePreview();});});ringContainer.querySelectorAll('[data-ring-effect]').forEach(function(el){el.addEventListener('input',function(){var idx=Number(this.dataset.ringEffect);rings[idx].effect=this.value;localStorage.setItem('soul_rings_v4',JSON.stringify(rings));saveDraft();});});ringContainer.querySelectorAll('[data-ring-del]').forEach(function(el){el.addEventListener('click',function(){var idx=Number(this.dataset.ringDel);if(rings.length<=1){showMessage('至少保留一个魂环',true);return;}rings.splice(idx,1);localStorage.setItem('soul_rings_v4',JSON.stringify(rings));renderRings();updateRingInfo();updateProgress();saveDraft();showSoulLog('已移除一个魂环');});});updateRingInfo();}
@@ -295,7 +326,6 @@ function updateSpiritLevel(){var lv=Number(getVal('csr'));if(isNaN(lv))return;va
 function updatePreview(){var name=getVal('cn')||'你的名字';var spirit=getVal('msn')||'你的武魂';var greeting=getVal('greeting')||'在这里输入开场白...';previewName.textContent=name;previewSpirit.textContent=spirit;previewGreeting.textContent=greeting;if(name!=='你的名字'||spirit!=='你的武魂'||getVal('greeting')){previewCard.classList.add('show');}else{previewCard.classList.remove('show');}}
 function showSoulLog(text){var logMsg=$('msg');if(!logMsg)return;logMsg.textContent='📟 '+text;logMsg.className='';logMsg.style.display='block';clearTimeout(logMsg._timer);logMsg._timer=setTimeout(function(){logMsg.style.display='none';},2500);}
 
-// 收集数据
 function collectData(){var dual=(getSel('mst')==='双生武魂');var bt=getSel('bl');var fb=(bt==='自定血脉')?getVal('cbl'):bt;var soul;if(dual){soul={"武魂类型":"双生武魂","第一武魂":{"武魂名称":getVal('msn')||'未填写',"武魂类型":"（双生武魂，请参考第二武魂类型）"},"第二武魂":{"武魂名称":getVal('sn2')||'未填写',"武魂类型":getSel('st2')},"先天魂力":getSel('isp'),"当前魂力等级":getVal('csr')?getVal('csr')+'级':'未填写',"魂师称号":getSoulTitle(getVal('csr'))};}else{soul={"武魂名称":getVal('msn')||'未填写',"武魂类型":getSel('mst'),"先天魂力":getSel('isp'),"当前魂力等级":getVal('csr')?getVal('csr')+'级':'未填写',"魂师称号":getSoulTitle(getVal('csr'))};}var spVal=getVal('st');if(spVal==='自定义'){spVal=getVal('stCustom')||'自定义';}var ringData=rings.map(function(r){return{"年份":r.year,"魂技名称":r.name||'未命名',"魂技效果":r.effect||'无'};});var armorCount=Number(armorCountInput.value)||0;return{"基本信息":{"姓名":getVal('cn')||'未命名',"性别":getSel('gd'),"年龄":getNum('ag'),"身高_cm":getNum('ht'),"体重_kg":getNum('wt')},"背景与阵营":{"出身地":getVal('og')||'',"所属阵营":getSel('fc'),"组织身份":getVal('orgIdentity')||'',"家族背景":getSel('fbg')},"武魂与魂力":soul,"精神力":{"精神力等级":getSel('sp')},"血脉传承":{"血脉类型":fb||'',"血脉觉醒程度":getSel('bll')},"魂核与领域":{"魂核数量":getSel('coreCount'),"领域名称":getVal('domain')||''},"魂环":ringData,"魂灵":{"主要魂灵名称":getVal('ssn')||'',"魂灵类型":getSel('sst'),"魂灵年限":getSel('ssy'),"其他魂灵":getLines('ess')},"斗铠":{"斗铠名称":getVal('ban')||'',"斗铠等级":getSel('bal'),"斗铠侧重":getSel('bat'),"斗铠品级":getArmorGrade(getSel('bal')).text,"斗铠部件完成数":armorCount+'/11',"斗铠描述":getVal('badesc')||''},"魂骨":{"魂骨部位":getSel('bonePart'),"魂骨年限":getSel('boneYear')},"第二职业":{"职业类型":getSel('secondProf'),"等级":getSel('secondLevel')+'级'},"机甲与魂导器":{"机甲等级":getMechaDisplay(),"魂导器名称":getVal('soulDevice')||'',"传说武器":getVal('legendWeapon')||''},"性格与特质":{"性格特质":getLines('pt'),"特殊能力":spVal},"开场白与场景":{"开场白":getVal('greeting')||'',"场景设定":getVal('scenario')||''}};}
 function updateProgress(){var fieldIds=['cn','gd','ag','ht','wt','msn','mst','isp','csr','sp','bl','bll','ssn','sst','ssy','ban','bal','bat','og','fc','fbg','orgIdentity','coreCount','domain','bonePart','boneYear','secondProf','secondLevel','mechaLevel','soulDevice','legendWeapon','greeting','scenario'];var filled=0;var total=fieldIds.length;for(var i=0;i<fieldIds.length;i++){var id=fieldIds[i];var el=fields[id];if(el&&el.value&&el.value.trim()!==''&&el.value!=='无'&&el.value!=='无斗铠')filled++;}rings.forEach(function(r){if(r.name&&r.name.trim())filled++;if(r.effect&&r.effect.trim())filled++;});var armorCnt=Number(armorCountInput.value)||0;filled+=armorCnt;var totalFields=document.getElementById('totalFields');if(totalFields)totalFields.textContent=(total+rings.length*2+11);var pctVal=Math.min(100,Math.round((filled/(total+rings.length*2+11))*100));pct.textContent=filled;pbar.style.width=pctVal+'%';pbar.className='';if(pctVal<30)pbar.classList.add('pbar-low');else if(pctVal<70)pbar.classList.add('pbar-mid');else pbar.classList.add('pbar-high');document.querySelectorAll('.sec').forEach(function(sec){var inputs=sec.querySelectorAll('input, textarea, select');var hasVal=false;inputs.forEach(function(inp){if(inp.value&&inp.value.trim()!==''&&inp.value!=='无'&&inp.value!=='无斗铠')hasVal=true;});var dot=sec.querySelector('.dot');if(dot){if(hasVal)dot.classList.add('filled');else dot.classList.remove('filled');}});}
 function saveDraft(){try{var data=collectData();data._rings=rings;data._armorCount=Number(armorCountInput.value)||0;localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}catch(_){}}
@@ -311,23 +341,14 @@ function fallbackCopy(text,silent){cd.value=text;cd.style.position='static';cd.s
 function generatePersonaText(){var d=collectData();var v=d.武魂与魂力;var lines=[];lines.push('【玩家：'+(d.基本信息.姓名||'未命名')+'】');lines.push('');lines.push('基本信息：');lines.push('- 姓名：'+(d.基本信息.姓名||'未命名'));lines.push('- 性别：'+(d.基本信息.性别||'未填写'));if(d.基本信息.年龄)lines.push('- 年龄：'+d.基本信息.年龄+'岁');if(d.基本信息.身高_cm)lines.push('- 身高：'+d.基本信息.身高_cm+'cm');if(d.基本信息.体重_kg)lines.push('- 体重：'+d.基本信息.体重_kg+'kg');lines.push('');if(d.背景与阵营.出身地)lines.push('- 出身地：'+d.背景与阵营.出身地);if(d.背景与阵营.所属阵营)lines.push('- 所属阵营：'+d.背景与阵营.所属阵营);if(d.背景与阵营.组织身份)lines.push('- 组织身份：'+d.背景与阵营.组织身份);if(d.背景与阵营.家族背景)lines.push('- 家族背景：'+d.背景与阵营.家族背景);lines.push('');lines.push('武魂与魂力：');if(v.武魂类型==='双生武魂'){lines.push('- 武魂：'+(v.第一武魂.武魂名称||'未填写')+'（'+v.武魂类型+'）');if(v.第二武魂.武魂名称&&v.第二武魂.武魂名称!=='未填写'){lines.push('- 第二武魂：'+v.第二武魂.武魂名称+'（'+(v.第二武魂.武魂类型||'未填写')+'）');}}else{lines.push('- 武魂：'+(v.武魂名称||'未填写')+'（'+v.武魂类型+'）');}if(v.先天魂力)lines.push('- 先天魂力：'+v.先天魂力);if(v.当前魂力等级&&v.当前魂力等级!=='未填写'){lines.push('- 当前魂力：'+v.当前魂力等级);if(v.魂师称号)lines.push('- 魂师称号：'+v.魂师称号);}lines.push('');if(d.精神力.精神力等级){lines.push('精神力：');lines.push('- 精神力境界：'+d.精神力.精神力等级);lines.push('');}if(d.血脉传承.血脉类型&&d.血脉传承.血脉类型!==''&&d.血脉传承.血脉类型!=='未填写'){lines.push('血脉：');lines.push('- 血脉类型：'+d.血脉传承.血脉类型);if(d.血脉传承.血脉觉醒程度)lines.push('- 觉醒程度：'+d.血脉传承.血脉觉醒程度);lines.push('');}if(d.魂核与领域){if(d.魂核与领域.魂核数量&&d.魂核与领域.魂核数量!=='0')lines.push('- 魂核数量：'+d.魂核与领域.魂核数量);if(d.魂核与领域.领域名称)lines.push('- 领域：'+d.魂核与领域.领域名称);if(lines[lines.length-1].startsWith('- 魂核')||lines[lines.length-1].startsWith('- 领域'))lines.push('');}if(d.魂环&&d.魂环.length){lines.push('魂环配置：');var colorMap={'十年':'白','百年':'黄','千年':'紫','万年':'黑','十万年':'红','凶兽（二十万年）':'红','百万年':'金'};d.魂环.forEach(function(r,idx){lines.push('- 第'+(idx+1)+'魂环：'+r.年份+'（'+(colorMap[r.年份]||'?')+'）· '+r.魂技名称+'：'+r.魂技效果);});lines.push('');}if(d.魂灵.主要魂灵名称&&d.魂灵.主要魂灵名称!==''&&d.魂灵.主要魂灵名称!=='未填写'){lines.push('魂灵：');lines.push('- 主要魂灵：'+d.魂灵.主要魂灵名称+'（'+d.魂灵.魂灵类型+'·'+d.魂灵.魂灵年限+'）');if(d.魂灵.其他魂灵.length){d.魂灵.其他魂灵.forEach(function(s){lines.push('- 其他魂灵：'+s);});}lines.push('');}if(d.斗铠.斗铠名称&&d.斗铠.斗铠名称!==''&&d.斗铠.斗铠名称!=='未填写'){lines.push('斗铠：');lines.push('- 斗铠名称：'+d.斗铠.斗铠名称);if(d.斗铠.斗铠等级&&d.斗铠.斗铠等级!=='无')lines.push('- 斗铠等级：'+d.斗铠.斗铠等级);if(d.斗铠.斗铠品级)lines.push('- 斗铠品级：'+d.斗铠.斗铠品级);if(d.斗铠.斗铠侧重&&d.斗铠.斗铠侧重!=='不适用')lines.push('- 斗铠侧重：'+d.斗铠.斗铠侧重);if(d.斗铠.斗铠部件完成数)lines.push('- 部件完成度：'+d.斗铠.斗铠部件完成数);if(d.斗铠.斗铠描述)lines.push('- 斗铠描述：'+d.斗铠.斗铠描述);lines.push('');}if(d.魂骨&&d.魂骨.魂骨部位&&d.魂骨.魂骨部位!=='无'){lines.push('魂骨：');lines.push('- 魂骨部位：'+d.魂骨.魂骨部位);if(d.魂骨.魂骨年限&&d.魂骨.魂骨年限!=='无')lines.push('- 魂骨年限：'+d.魂骨.魂骨年限);lines.push('');}if(d.第二职业&&d.第二职业.职业类型&&d.第二职业.职业类型!=='无'){lines.push('第二职业：');lines.push('- 职业：'+d.第二职业.职业类型);lines.push('- 等级：'+d.第二职业.等级);lines.push('');}if(d.机甲与魂导器){if(d.机甲与魂导器.机甲等级&&d.机甲与魂导器.机甲等级!=='无')lines.push('- 机甲等级：'+d.机甲与魂导器.机甲等级);if(d.机甲与魂导器.魂导器名称)lines.push('- 魂导器：'+d.机甲与魂导器.魂导器名称);if(d.机甲与魂导器.传说武器)lines.push('- 传说武器：'+d.机甲与魂导器.传说武器);if(lines[lines.length-1].startsWith('- 机甲')||lines[lines.length-1].startsWith('- 魂导器')||lines[lines.length-1].startsWith('- 传说武器'))lines.push('');}if(d.性格与特质.性格特质.length)lines.push('性格特质：'+d.性格与特质.性格特质.join('、'));if(d.性格与特质.特殊能力&&d.性格与特质.特殊能力!=='无'&&d.性格与特质.特殊能力!=='')lines.push('特殊能力：'+d.性格与特质.特殊能力);if(d.开场白与场景.开场白){lines.push('');lines.push('开场白：'+d.开场白与场景.开场白);}if(d.开场白与场景.场景设定)lines.push('场景：'+d.开场白与场景.场景设定);return lines.join('\n');}
 function showExport(){var text=generatePersonaText();exportPreview.value=text;exportArea.classList.add('show');var now=new Date();exportTime.textContent=now.toLocaleString();copyToClipboard(text,true);showMessage('✅ 玩家人设已导出并复制！');if(navigator.vibrate)navigator.vibrate(20);}
 function spawnParticles(){particlesContainer.innerHTML='';for(var i=0;i<30;i++){var span=document.createElement('span');var angle=Math.random()*2*Math.PI;var dist=40+Math.random()*80;var tx=Math.cos(angle)*dist;var ty=Math.sin(angle)*dist-20;span.style.setProperty('--tx',tx+'px');span.style.setProperty('--ty',ty+'px');span.style.left='50%';span.style.top='50%';span.style.animationDelay=(Math.random()*0.3)+'s';span.style.width=(3+Math.random()*5)+'px';span.style.height=span.style.width;particlesContainer.appendChild(span);}setTimeout(function(){particlesContainer.innerHTML='';},1500);}
-
-// ★ 核心修复：觉醒按钮立即复制 JSON，再播放动画
 function showAwakenAnimation(){
-  // 1. 立即生成 JSON 并复制（用户手势内）
   var data=collectData();
   var json=JSON.stringify(data,function(k,v){return Array.isArray(v)&&v.length===0?[]:v;},2);
   copyToClipboard(json);
   showMessage('✅ 觉醒档案已铸就！');
-
-  // 2. 折叠所有面板
   var secs=document.querySelectorAll('.sec details');
   secs.forEach(function(d){d.removeAttribute('open');});
-
-  // 3. 粒子特效
   spawnParticles();
-
-  // 4. 播放觉醒动画
   awakenOverlay.classList.add('active');
   var lines=awakenOverlay.querySelectorAll('.line');
   lines.forEach(function(line){
@@ -339,15 +360,11 @@ function showAwakenAnimation(){
     var hint=document.getElementById('closeHint');
     if(hint)hint.classList.add('show');
   },3200);
-
-  // 5. 自动关闭并提示（不再重复复制）
   var autoClose=setTimeout(function(){
     awakenOverlay.classList.remove('active');
     var hint=document.getElementById('closeHint');
     if(hint)hint.classList.remove('show');
   },5500);
-
-  // 6. 点击关闭
   awakenOverlay.addEventListener('click',function handler(){
     clearTimeout(autoClose);
     awakenOverlay.classList.remove('active');
@@ -356,15 +373,7 @@ function showAwakenAnimation(){
     awakenOverlay.removeEventListener('click',handler);
   });
 }
-
-function exportJson(){ // 保留但不再直接调用，由 showAwakenAnimation 替代
-  var data=collectData();
-  var json=JSON.stringify(data,function(k,v){return Array.isArray(v)&&v.length===0?[]:v;},2);
-  copyToClipboard(json);
-  showMessage('✅ 觉醒档案已铸就！');
-}
-
-// 天命随机
+function exportJson(){var data=collectData();var json=JSON.stringify(data,function(k,v){return Array.isArray(v)&&v.length===0?[]:v;},2);copyToClipboard(json);showMessage('✅ 觉醒档案已铸就！');}
 function randomGenerate(){
   var surnames=['唐','李','王','张','刘','陈','杨','赵','黄','周','吴','徐','孙','胡','朱','高','林','何','郭','马'];
   var givenNames=['舞麟','小舞','唐三','霍雨浩','王冬','贝贝','徐三石','和菜头','萧萧','江楠楠','戴沐白','奥斯卡','朱竹清','宁荣荣','凌风','云岚','星辰'];
@@ -373,13 +382,11 @@ function randomGenerate(){
   var bloods=['无特殊血脉','金龙王血脉','银龙王血脉','龙族血脉','海神血脉','凤凰血脉','泰坦血脉'];
   var camps=['史莱克学院','唐门','传灵塔','星罗帝国','天斗帝国','自由魂师','本体宗','七宝琉璃宗','昊天宗'];
   var specs=['无','天生神力','剑感','元素亲和','精神感知','自愈体质','龙族感应','空间感知','战斗直觉','钢铁意志'];
-
   var currentName=getVal('cn');
   if(!currentName){
     var name=surnames[Math.floor(Math.random()*surnames.length)]+givenNames[Math.floor(Math.random()*givenNames.length)];
     fields.cn.value=name;
   }
-
   var gender=Math.random()>0.5?'男':'女';
   var age=Math.floor(Math.random()*20)+6;
   var height=Math.floor(Math.random()*60)+150;
@@ -391,7 +398,6 @@ function randomGenerate(){
   var blood=bloods[Math.floor(Math.random()*bloods.length)];
   var camp=camps[Math.floor(Math.random()*camps.length)];
   var spec=specs[Math.floor(Math.random()*specs.length)];
-
   fields.gd.value=gender;
   fields.ag.value=age;
   fields.ht.value=height;
@@ -405,7 +411,6 @@ function randomGenerate(){
   fields.fc.value=camp;
   fields.st.value=spec;
   if(spec==='自定义'){fields.stCustomWrap.style.display='block';}else{fields.stCustomWrap.style.display='none';}
-
   var ringYears=['十年','百年','百年','千年','千年','万年','十万年'];
   rings=[];
   var ringCount=Math.min(getRingCount(soulLevel),9);
@@ -417,7 +422,6 @@ function randomGenerate(){
   }
   localStorage.setItem('soul_rings_v4',JSON.stringify(rings));
   renderRings();
-
   updateSoulTitle();
   updateSoulComment();
   updateArmorGrade();
@@ -432,13 +436,10 @@ function randomGenerate(){
   updateProgress();
   updatePreview();
   showSoulLog('🎲 天命已定 · 魂师档案已随机生成');
-
   var text=generatePersonaText();
   fateBody.textContent=text;
   fateModal.classList.add('active');
 }
-
-// 清空
 function clearAll(){
   if(!confirm('确定清空所有字段吗？'))return;
   for(var key in fields){
@@ -465,8 +466,6 @@ function clearAll(){
   updateRingInfo();
   showMessage('🗑 已清空');
 }
-
-// 事件绑定
 function bindEvents(){
   document.getElementById('mainTitle').addEventListener('click',function(){
     var first=document.querySelector('.sec details');
@@ -475,7 +474,6 @@ function bindEvents(){
     details.forEach(function(d){if(isOpen)d.removeAttribute('open');else d.setAttribute('open','open');});
     showMessage(isOpen?'📂 全部收起':'📂 全部展开');
   });
-
   document.getElementById('stepPrev').addEventListener('click',function(){
     if(currentStep>1)goToStep(currentStep-1);
   });
@@ -486,7 +484,6 @@ function bindEvents(){
       goToStep(currentStep+1);
     }
   });
-
   fields.mst.addEventListener('change',function(){
     toggleDualSoul();
     updateInnateOptions();
@@ -496,7 +493,6 @@ function bindEvents(){
     updateProgress();
     showSoulLog('武魂类型更新：'+getSel('mst'));
   });
-
   fields.bl.addEventListener('change',function(){
     toggleCustomBlood();
     updateSpecialAbility();
@@ -504,14 +500,12 @@ function bindEvents(){
     updateProgress();
     if(getSel('bl')!=='无特殊血脉')showSoulLog('血脉之力：'+getSel('bl')+' 已觉醒');
   });
-
   fields.og_select.addEventListener('change',function(){
     fields.og.value=this.value;
     updateCamp();
     saveDraft();
     updateProgress();
   });
-
   fields.st.addEventListener('change',function(){
     if(this.value==='自定义'){fields.stCustomWrap.style.display='block';fields.stCustom.focus();}
     else{fields.stCustomWrap.style.display='none';}
@@ -519,7 +513,6 @@ function bindEvents(){
     saveDraft();
     updateProgress();
   });
-
   fields.csr.addEventListener('input',function(){
     updateSoulTitle();
     updateSoulComment();
@@ -530,7 +523,6 @@ function bindEvents(){
     var lv=getVal('csr');
     if(lv)showSoulLog('魂力更新：'+lv+'级 → '+getSoulTitle(lv));
   });
-
   fields.bal.addEventListener('change',function(){
     updateArmorGrade();
     saveDraft();
@@ -538,27 +530,23 @@ function bindEvents(){
     var info=getArmorGrade(getSel('bal'));
     showSoulLog('斗铠品级：'+info.text);
   });
-
   armorCountInput.addEventListener('input',function(){
     updateArmorPercent();
     saveDraft();
     updateProgress();
   });
-
   fields.mechaLevel.addEventListener('change',function(){
     updateMechaCustom();
     saveDraft();
     updateProgress();
     showSoulLog('机甲等级：'+getMechaDisplay());
   });
-
   var autoSave=function(){saveDraft();updateProgress();updatePreview();};
   var inputs=document.querySelectorAll('input, textarea, select');
   for(var i=0;i<inputs.length;i++){
     inputs[i].addEventListener('input',autoSave);
     inputs[i].addEventListener('change',autoSave);
   }
-
   document.querySelectorAll('input, textarea, select').forEach(function(el){
     el.addEventListener('focus',function(){
       var label=this.closest('.fd');
@@ -566,7 +554,6 @@ function bindEvents(){
       setTimeout(function(){el.scrollIntoView({block:'center',behavior:'smooth'});},300);
     });
   });
-
   $('btnExportPersona').addEventListener('click',showExport);
   $('btnExportJson').addEventListener('click',function(){showAwakenAnimation();});
   $('btnClearAll').addEventListener('click',clearAll);
@@ -583,7 +570,6 @@ function bindEvents(){
     showSoulLog('已添加魂环槽位');
   });
   $('btnSyncRings').addEventListener('click',function(){syncRingsToLevel();});
-
   $('fateCopy').addEventListener('click',function(){
     copyToClipboard(fateBody.textContent);
     showMessage('✅ 已复制天命档案！');
@@ -592,7 +578,6 @@ function bindEvents(){
   fateModal.addEventListener('click',function(e){
     if(e.target===fateModal)fateModal.classList.remove('active');
   });
-
   document.querySelectorAll('.sec details').forEach(function(detail){
     var summary=detail.querySelector('summary');
     if(summary){
@@ -604,10 +589,8 @@ function bindEvents(){
       });
     }
   });
-
   exportPreview.addEventListener('focus',function(){this.select();});
 }
-
 function init(){
   updateInnateOptions();
   initRings();
