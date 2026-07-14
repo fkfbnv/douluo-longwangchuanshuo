@@ -1272,5 +1272,16 @@ function init(){
 }
 
 init();
+
+// ===== 【修复关键】将内联 onclick 所需的函数暴露到全局 =====
+window.goNextStep = goNextStep;
+window.goPrevStep = goPrevStep;
+window.randomGenerate = randomGenerate;
+window.clearAll = clearAll;
+window.showExport = showExport;
+window.switchSpecialTier = switchSpecialTier;
+window.fateCopy = fateCopy;
+window.fateClose = fateClose;
+
 })();
 })();
