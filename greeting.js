@@ -1,4 +1,4 @@
-// ========== greeting.js - 斗罗大陆III 龙王传说 魂师档案 v14.1（完整版）==========
+// ========== greeting.js - 斗罗大陆III 龙王传说 魂师档案 v15.0（完整美化版）==========
 (function() {
     "use strict";
 
@@ -17,6 +17,7 @@
   justify-content:center;
   min-height:100vh;
   position:relative;
+  -webkit-overflow-scrolling:touch;
 }
 .soul-app-container::before{
   content:'';
@@ -38,6 +39,13 @@
 }
 @keyframes starsTwinkle{0%,100%{opacity:0.6;}50%{opacity:1;}}
 
+/* ===== 入场浮现动画 ===== */
+@keyframes archiveRise{
+  0%{opacity:0;transform:translateY(30px) scale(0.96);filter:blur(8px);}
+  60%{opacity:0.6;transform:translateY(-4px) scale(1.002);filter:blur(0);}
+  100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
+}
+
 #app{
   max-width:540px;
   width:100%;
@@ -49,6 +57,9 @@
   position:relative;
   z-index:1;
   backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  transform:translateZ(0);
+  animation:archiveRise 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
 }
 #app::before{
   content:'';
@@ -78,6 +89,8 @@
 .title-ornament span:nth-child(4){animation-delay:1.2s;color:#a29bfe;}
 .title-ornament span:nth-child(5){animation-delay:1.6s;color:#fd79a8;}
 @keyframes ornamentPulse{0%,100%{opacity:.4;transform:scale(0.9);}50%{opacity:1;transform:scale(1.1);}}
+
+/* ===== 鎏金流光标题 ===== */
 h1{
   text-align:center;
   color:#fbbf24;
@@ -96,6 +109,17 @@ h1{
   justify-content:center;
   user-select:none;
   position:relative;
+  background:linear-gradient(135deg,#fbbf24 0%,#fcd34d 25%,#fbbf24 50%,#fcd34d 75%,#fbbf24 100%);
+  background-size:300% 100%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:goldFlow 4s ease-in-out infinite;
+}
+@keyframes goldFlow{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
 }
 h1::after{
   content:'';
@@ -113,6 +137,17 @@ h1::after{
 .title-divider span{display:inline-block;animation:rainbowText 3s linear infinite;}
 @keyframes rainbowText{0%{color:#ff6b6b;}20%{color:#feca57;}40%{color:#48dbfb;}60%{color:#a29bfe;}80%{color:#fd79a8;}100%{color:#ff6b6b;}}
 .subtitle{text-align:center;font-size:.65em;color:#94a3b8;margin:6px 0 12px 0;letter-spacing:6px;font-style:italic;opacity:.7;font-weight:300;}
+
+/* ===== 魂力突破特效 ===== */
+@keyframes breakFlash{
+  0%{box-shadow:0 0 0 rgba(255,215,0,0);background:rgba(255,215,0,0);}
+  20%{box-shadow:0 0 60px rgba(255,215,0,0.3);background:rgba(255,215,0,0.08);}
+  60%{box-shadow:0 0 80px rgba(255,215,0,0.15);background:rgba(255,215,0,0.03);}
+  100%{box-shadow:0 0 0 rgba(255,215,0,0);background:transparent;}
+}
+.break-flash{
+  animation:breakFlash 0.8s ease-out forwards;
+}
 
 /* === Toast === */
 #toast{
@@ -397,7 +432,7 @@ select option{background:#0f1a2e;color:#e2e8f0;}
 }
 .desc-text.show{display:block;}
 
-/* === 魂环 - 增强视觉区分 === */
+/* === 魂环 - 增强视觉区分 + 拖拽支持 === */
 .ring-group{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:2px;}
 .ring-item{
   display:flex;
@@ -409,6 +444,15 @@ select option{background:#0f1a2e;color:#e2e8f0;}
   border-radius:4px;
   background:rgba(255,255,255,0.01);
   flex-wrap:wrap;
+  cursor:grab;
+  transition:transform .2s,box-shadow .2s;
+  touch-action:manipulation;
+}
+.ring-item:active{cursor:grabbing;}
+.ring-item.drag-over{
+  transform:scale(1.05);
+  box-shadow:0 0 20px rgba(255,215,0,0.15);
+  background:rgba(255,215,0,0.04);
 }
 .ring-item .dot{
   width:16px;
@@ -984,6 +1028,13 @@ select option{background:#0f1a2e;color:#e2e8f0;}
   .secondary-grid{grid-template-columns:1fr;}
 }
 
+/* === 性能优化：减少动画（适配安卓低性能） === */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;}
+  #app{animation:none;transform:none;}
+  .ring-item .dot{animation:none;}
+}
+
 input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item select,.ring-item input,.step-btn,.special-tier .tier-tag,.count-input input,.backpack-grid .bp-item,.bm-part,.soul-device-grid .sd-item,.position-selector .pos-opt,.fd .label-row .random-btn,.bm-random{touch-action:manipulation;}
 `;
 
@@ -991,7 +1042,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
     styleEl.textContent = styleText;
     document.head.appendChild(styleEl);
 
-    // ===== HTML 结构 =====
+    // ===== HTML 结构（与原版相同，保留所有功能） =====
     const htmlContent = `
 <div class="soul-app-container">
 <div id="app">
@@ -1483,7 +1534,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
         };
 
         // ★★★ 特殊能力数据 - 6个等级 ★★★
-        // T1: 初醒 (18个, 有副作用)
         var specialDataT1 = [
             { name: '天生神力', desc: '天生拥有远超常人的力量，肉体强度异于常人。', side: '体力消耗加倍' },
             { name: '剑感', desc: '对剑类武器有超乎寻常的感知与亲和力，握剑即知剑意。', side: '对其他武器不熟练' },
@@ -1505,7 +1555,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             { name: '语言通晓', desc: '能快速学习和理解各种语言，通晓各国文字。', side: '母语表达能力略有退化' }
         ];
 
-        // T2: 通灵 (16个)
         var specialDataT2 = [
             { name: '元素亲和', desc: '对火、水、风、土等元素拥有天然掌控力，可引导元素流动。' },
             { name: '龙族感应', desc: '能与龙类武魂/魂兽产生深度共鸣，获得龙族馈赠。' },
@@ -1525,7 +1574,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             { name: '魂力压缩', desc: '可压缩魂力使其爆发力倍增，但消耗也成倍增加。' }
         ];
 
-        // T3: 入微 (15个)
         var specialDataT3 = [
             { name: '元素掌控者', desc: '对元素的掌控达到极致，可元素化自身部分肢体。' },
             { name: '龙神之血', desc: '拥有微弱的龙神血脉，可短暂龙化，获得龙族特性。' },
@@ -1544,7 +1592,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             { name: '元素契约', desc: '与元素之灵签订契约，获得元素之力的永久加持。' }
         ];
 
-        // T4: 融汇 (13个)
         var specialDataT4 = [
             { name: '海神传承', desc: '继承海神神位，掌控海洋之力，号令水族。', weapon: '海神三叉戟' },
             { name: '修罗传承', desc: '继承修罗神位，掌控杀戮与审判之力，杀伐果断。', weapon: '修罗魔剑' },
@@ -1561,7 +1608,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             { name: '元素之神传承', desc: '继承元素神位，掌控一切元素，元素本源。', weapon: '元素神杖' }
         ];
 
-        // T5: 通神 (12个)
         var specialDataT5 = [
             { name: '混沌血脉', desc: '拥有混沌血脉，可吞噬一切能量与物质，万法不侵。' },
             { name: '创世神位传承', desc: '继承创世神位，可创造万物，点石成金。', weapon: '创世神锤' },
@@ -1577,7 +1623,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             { name: '混沌之眼', desc: '可看穿一切虚妄与真实，洞察万物本质。' }
         ];
 
-        // T6: 超脱 (10个)
         var specialDataT6 = [
             { name: '天道化身', desc: '化身天道，代天行罚，不可违逆。' },
             { name: '虚无之体', desc: '身体可化为虚无，免疫一切物理和能量攻击。' },
@@ -2074,16 +2119,13 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             var identities = campIdentityLinks[camp] || ['无'];
             var select = fields.fbg;
             var currentVal = select.value;
-            // 重新构建下拉列表，包含所有通用身份，但优先显示匹配的
             select.innerHTML = '';
-            // 先添加匹配的身份
             identities.forEach(function(id) {
                 var opt = document.createElement('option');
                 opt.value = id;
                 opt.textContent = id;
                 select.appendChild(opt);
             });
-            // 再添加其他通用身份（去重）
             var existing = {};
             for (var i = 0; i < select.options.length; i++) {
                 existing[select.options[i].value] = true;
@@ -2096,7 +2138,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                     select.appendChild(opt);
                 }
             });
-            // 尝试保留当前值
             var found = false;
             for (var i = 0; i < select.options.length; i++) {
                 if (select.options[i].value === currentVal) { select.value = currentVal;
@@ -2108,7 +2149,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
         // ===== 阵营与身份联动过滤背包 =====
         function filterBackpackByIdentity() {
             var identity = getSel('fbg');
-            var filtered = [];
             if (identity === '孤儿') {
                 backpackItems = backpackItems.filter(function(item) {
                     return item.indexOf('徽章') === -1 &&
@@ -2279,11 +2319,15 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             rings.forEach(function(ring, idx) {
                 var div = document.createElement('div');
                 div.className = 'ring-item';
+                div.draggable = true;
+                div.dataset.ringIndex = idx;
                 var dotColor = getRingColor(ring.year);
                 var dotClass = getRingClass(ring.year);
                 div.innerHTML = '<span class="dot ' + dotClass + '" style="background:' + dotColor + ';"></span><select data-ring-year="' + idx + '"><option value="十年"' + (ring.year === '十年' ? 'selected' : '') + '>十年</option><option value="百年"' + (ring.year === '百年' ? 'selected' : '') + '>百年</option><option value="千年"' + (ring.year === '千年' ? 'selected' : '') + '>千年</option><option value="万年"' + (ring.year === '万年' ? 'selected' : '') + '>万年</option><option value="十万年"' + (ring.year === '十万年' ? 'selected' : '') + '>十万年</option><option value="凶兽（二十万年）"' + (ring.year === '凶兽（二十万年）' ? 'selected' : '') + '>凶兽</option><option value="百万年"' + (ring.year === '百万年' ? 'selected' : '') + '>百万年</option></select><button class="bm ring-del" data-ring-del="' + idx + '">✕</button>';
                 ringContainer.appendChild(div);
             });
+
+            // 下拉菜单事件
             ringContainer.querySelectorAll('[data-ring-year]').forEach(function(el) {
                 el.addEventListener('change', function() {
                     var idx = Number(this.dataset.ringYear);
@@ -2297,6 +2341,8 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                     showToast('魂环' + (idx + 1) + ' → ' + this.value);
                 });
             });
+
+            // 删除按钮
             ringContainer.querySelectorAll('[data-ring-del]').forEach(function(el) {
                 el.addEventListener('click', function() {
                     var idx = Number(this.dataset.ringDel);
@@ -2311,6 +2357,42 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                     showToast('已移除魂环');
                 });
             });
+
+            // ===== 魂环拖拽排序 =====
+            ringContainer.querySelectorAll('.ring-item').forEach(function(el) {
+                el.addEventListener('dragstart', function(e) {
+                    e.dataTransfer.setData('text/plain', this.dataset.ringIndex);
+                    this.style.opacity = '0.5';
+                });
+                el.addEventListener('dragend', function(e) {
+                    this.style.opacity = '1';
+                });
+                el.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    this.classList.add('drag-over');
+                });
+                el.addEventListener('dragleave', function(e) {
+                    this.classList.remove('drag-over');
+                });
+                el.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    this.classList.remove('drag-over');
+                    var from = Number(e.dataTransfer.getData('text/plain'));
+                    var to = Number(this.dataset.ringIndex);
+                    if (from !== to && !isNaN(from) && !isNaN(to) && from >= 0 && to >= 0 && from < rings.length && to < rings.length) {
+                        var item = rings.splice(from, 1)[0];
+                        rings.splice(to, 0, item);
+                        localStorage.setItem('soul_rings_v14', JSON.stringify(rings));
+                        renderRings();
+                        updateRingInfo();
+                        validateRings();
+                        updateProgress();
+                        saveDraft();
+                        showToast('🔄 魂环顺序已调整');
+                    }
+                });
+            });
+
             updateRingInfo();
             validateRings();
         }
@@ -2665,7 +2747,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 var match = opts.find(function(o) { return o.value === map[origin]; });
                 if (match) { fc.value = map[origin]; }
             }
-            // 如果阵营变为“无”，自动更新身份
             if (getSel('fc') === '无') {
                 fields.fbg.value = '无';
             }
@@ -3354,20 +3435,16 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 
             $('btnClearAll').addEventListener('click', clearAll);
 
-            // 进入魂师世界
             $('btnEnterWorld').addEventListener('click', enterWorld);
 
-            // 随机出身地
             $('btnRandomOrigin').addEventListener('click', randomOrigin);
 
-            // 导出
             $('btnExportPersona').addEventListener('click', showExport);
             $('btnCopyExport').addEventListener('click', function() {
                 copyToClipboard(exportPreview.value);
                 showToast('已复制！');
             });
 
-            // 神器锁定
             $('btnLockWeapon').addEventListener('click', function() {
                 weaponLocked = !weaponLocked;
                 updateWeaponLock();
@@ -3428,6 +3505,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 saveDraft();
             });
 
+            // ===== 魂力突破特效（美化方案四） =====
             fields.csr.addEventListener('input', function() {
                 updateSoulTitle();
                 updateSpiritLevel();
@@ -3435,6 +3513,18 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 validateRings();
                 saveDraft();
                 updateProgress();
+
+                // 突破特效
+                var prevLevel = this._prevLevel || 0;
+                var currLevel = Number(this.value);
+                if (currLevel > 0 && currLevel % 10 === 0 && currLevel !== prevLevel && currLevel !== 0) {
+                    this.classList.remove('break-flash');
+                    void this.offsetWidth;
+                    this.classList.add('break-flash');
+                    showToast('⚡ 魂力突破 ' + currLevel + ' 级！');
+                }
+                this._prevLevel = currLevel;
+
                 var lv = getVal('csr');
                 if (lv) { showToast('魂力：' + lv + '级 → ' + getSoulTitle(lv)); }
             });
@@ -3547,6 +3637,31 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             exportPreview.addEventListener('focus', function() { this.select(); });
         }
 
+        // ===== 随机赠言彩蛋（美化方案五） =====
+        function setRandomEpithet() {
+            var epithets = [
+                '✦ 命运已在你手中 ✦',
+                '✦ 武魂觉醒，天地共鸣 ✦',
+                '✦ 魂力流转，命运之轮开始转动 ✦',
+                '✦ 当你握紧拳头，世界便在你掌心 ✦',
+                '✦ 星斗大森林的风，正在呼唤你的名字 ✦',
+                '✦ 黄金龙枪的光，将照亮你前行的路 ✦',
+                '✦ 海神湖的水，倒映着你未来的模样 ✦',
+                '✦ 史莱克的钟声，为你而鸣 ✦',
+                '✦ 当魂环升起，你便是这片大陆的传奇 ✦',
+                '✦ 万年的斗罗，今夜因你而闪耀 ✦',
+                '✦ 蓝银草也能长成参天大树 ✦',
+                '✦ 魂力流转之处，即是命运延伸的方向 ✦',
+                '✦ 龙谷的深处，有属于你的传说 ✦',
+                '✦ 每一道魂环，都是一段被铭记的时光 ✦',
+                '✦ 星斗大森林的月光，会记得你的名字 ✦'
+            ];
+            var fb = document.querySelector('.fb span');
+            if (fb) {
+                fb.textContent = epithets[Math.floor(Math.random() * epithets.length)];
+            }
+        }
+
         // ===== 初始化 =====
         function init() {
             populateOriginSelect();
@@ -3560,7 +3675,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             renderBoneParts();
             setupTags();
             updateIdentityByCamp();
-            // 设置默认阵营为“无”
             fields.fc.value = '无';
             fields.fbg.value = '无';
             loadDraft();
@@ -3574,6 +3688,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             updateSecondProfDesc();
             updateSpiritDot();
             updateWeaponLock();
+            setRandomEpithet();
             bindEvents();
             updateProgress();
             if (currentStep === 2) { updateBackpackByCamp();
