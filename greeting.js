@@ -1,4 +1,4 @@
-// ========== greeting.js - 斗罗大陆III 龙王传说 魂师档案 v18.0（最终版）==========
+// ========== greeting.js - 斗罗大陆III 龙王传说 魂师档案 v19.0（最终完善版）==========
 (function() {
     "use strict";
 
@@ -8,18 +8,17 @@
 .soul-app-container::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:radial-gradient(1px 1px at 10% 20%, rgba(255,200,100,0.3), transparent),radial-gradient(1.5px 1.5px at 30% 60%, rgba(255,150,255,0.2), transparent),radial-gradient(1px 1px at 50% 80%, rgba(100,200,255,0.25), transparent),radial-gradient(1.5px 1.5px at 70% 30%, rgba(255,100,100,0.2), transparent),radial-gradient(1px 1px at 90% 70%, rgba(100,255,200,0.2), transparent),radial-gradient(1px 1px at 15% 85%, rgba(255,200,50,0.25), transparent),radial-gradient(1.5px 1.5px at 55% 15%, rgba(200,150,255,0.2), transparent),radial-gradient(1px 1px at 85% 50%, rgba(255,80,80,0.2), transparent);background-size:100% 100%;pointer-events:none;z-index:0;animation:none;opacity:0.6}
 @keyframes archiveRise{0%{opacity:0;transform:translateY(30px) scale(0.96);filter:blur(8px)}60%{opacity:0.6;transform:translateY(-4px) scale(1.002);filter:blur(0)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
 #app{max-width:540px;width:100%;padding:18px 14px 130px 14px;background:linear-gradient(170deg,rgba(10,18,32,0.94),rgba(20,30,50,0.88) 30%,rgba(10,18,32,0.94));border:1px solid rgba(255,215,0,0.15);border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,0.6),0 0 80px rgba(255,215,0,0.04),inset 0 1px 0 rgba(255,215,0,0.06);position:relative;z-index:1;transform:translateZ(0);animation:archiveRise 0.6s cubic-bezier(0.16,1,0.3,1) forwards}
-/* 标题科技感装饰 */
 #app .title-wrap{position:relative;text-align:center;margin-bottom:6px}
-#app .title-wrap::before,#app .title-wrap::after{content:'';position:absolute;top:50%;width:30px;height:2px;background:linear-gradient(90deg,transparent,#00ccff);opacity:0.3}
+#app .title-wrap::before,#app .title-wrap::after{content:'';position:absolute;top:50%;width:30px;height:2px;background:linear-gradient(90deg,transparent,#ff2d2d);opacity:0.2}
 #app .title-wrap::before{left:-10px;transform:translateY(-50%)}
 #app .title-wrap::after{right:-10px;transform:translateY(-50%) rotate(180deg)}
-#app .title-wrap .corner{position:absolute;width:20px;height:20px;border:1px solid rgba(0,204,255,0.2);border-radius:2px;opacity:0.5}
-#app .title-wrap .corner.tl{top:-4px;left:-4px;border-right:none;border-bottom:none}
-#app .title-wrap .corner.tr{top:-4px;right:-4px;border-left:none;border-bottom:none}
-#app .title-wrap .corner.bl{bottom:-4px;left:-4px;border-right:none;border-top:none}
-#app .title-wrap .corner.br{bottom:-4px;right:-4px;border-left:none;border-top:none}
+#app .title-wrap .corner{position:absolute;width:16px;height:16px;border:1px solid rgba(255,45,45,0.2);border-radius:2px;opacity:0.4}
+#app .title-wrap .corner.tl{top:-2px;left:-2px;border-right:none;border-bottom:none}
+#app .title-wrap .corner.tr{top:-2px;right:-2px;border-left:none;border-bottom:none}
+#app .title-wrap .corner.bl{bottom:-2px;left:-2px;border-right:none;border-top:none}
+#app .title-wrap .corner.br{bottom:-2px;right:-2px;border-left:none;border-top:none}
 .title-ornament{font-size:.55em;letter-spacing:10px;opacity:.7;font-weight:300;margin-bottom:2px}
-.title-ornament span{display:inline-block;animation:none;color:#00ccff}
+.title-ornament span{display:inline-block;animation:none;color:#ff2d2d}
 h1{text-align:center;color:#ff2d2d;font-size:2em;font-weight:700;letter-spacing:8px;text-shadow:0 0 20px rgba(255,0,0,0.3),0 0 60px rgba(255,0,0,0.1),0 2px 12px rgba(0,0,0,0.6);font-family:'STKaiti','KaiTi','楷体',serif;min-height:44px;display:flex;align-items:center;justify-content:center;user-select:none;position:relative;background:linear-gradient(135deg,#ff2d2d 0%,#ff6b6b 50%,#ff2d2d 100%);background-size:100% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:none}
 h1::after{content:'';position:absolute;bottom:-4px;width:60%;height:2px;background:linear-gradient(90deg,transparent,#ff2d2d,transparent);opacity:.3;border-radius:2px;animation:none}
 .title-divider{text-align:center;font-size:.3em;letter-spacing:4px;opacity:.4;margin-top:-2px;font-weight:300}
@@ -39,6 +38,9 @@ h1::after{content:'';position:absolute;bottom:-4px;width:60%;height:2px;backgrou
 .step-nav .step-info{font-size:.65em;color:#64748b;letter-spacing:0.5px;flex:1;text-align:center;font-weight:300}
 .step-nav .step-info .current{color:#fbbf24;font-weight:700}
 .step-nav .step-info .total{color:#475569}
+.step-nav .step-status{display:inline-flex;align-items:center;gap:4px;font-size:.55em;color:#4ac9b0;margin-left:4px}
+.step-nav .step-status .dot{width:8px;height:8px;border-radius:50%;display:inline-block;background:#4ac9b0;opacity:0;transition:opacity .3s}
+.step-nav .step-status .dot.done{opacity:1}
 .step-nav .tool-group{display:flex;gap:3px}
 .step-nav .bm-clear{font-size:.55em;padding:2px 8px;border-radius:6px;border:1px solid rgba(200,50,50,0.15);background:rgba(200,50,50,0.05);color:#f87171;cursor:pointer;transition:.2s;touch-action:manipulation;min-height:26px;display:inline-flex;align-items:center;gap:3px}
 .step-nav .bm-clear:hover{background:rgba(200,50,50,0.12);border-color:#f87171}
@@ -234,7 +236,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 <p class="subtitle">—— 斗罗大陆Ⅲ · 龙王传说 ——</p>
 <div class="step-nav">
   <button class="step-btn" id="stepPrev">◀</button>
-  <span class="step-info"><span class="current" id="stepCurrent">1</span>/<span class="total" id="stepTotal">8</span> · <span id="stepName">刻下你的名字</span></span>
+  <span class="step-info"><span class="current" id="stepCurrent">1</span>/<span class="total" id="stepTotal">8</span> · <span id="stepName">刻下你的名字</span><span class="step-status" id="stepStatus"><span class="dot" id="stepDot"></span></span></span>
   <button class="step-btn step-btn-primary" id="stepNext">▶</button>
   <div class="tool-group"><button class="bm-clear" id="btnClearAll">🗑 清空</button></div>
 </div>
@@ -335,6 +337,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
       <button class="bm" id="btnAddRing" style="font-size:.45em;padding:1px 6px;">➕ 添加</button>
       <span style="font-size:.45em;color:#64748b;">当前 <span id="ringCountDisplay">0</span> 环</span>
     </div>
+    <div id="ringEmptyHint" style="font-size:.5em;color:#64748b;margin-top:2px;font-style:italic;display:none;">当前无魂环，点击 ➕ 添加</div>
   </div>
 </div>
 <!-- 步骤6 -->
@@ -403,6 +406,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
           </div>
         </div>
       </div>
+      <div class="fd" style="margin-top:6px;"><label>神器（独立）</label><input type="text" id="legendWeapon" placeholder="如：海神三叉戟"></div>
       <div class="fd" style="margin-top:6px;"><label>开场白与场景</label><textarea id="greeting" rows="3" placeholder="天斗城·清晨｜我的剑，不是为了杀戮而存在的。"></textarea></div>
     </div></div>
   </details>
@@ -473,8 +477,9 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             msg: $('msg'), cd: $('cd'), toast: $('toast'), fieldIndicator: $('fieldIndicator'),
             awakenOverlay: $('awakenOverlay'), fateModal: $('fateModal'), fateBody: $('fateBody'),
             ringGroup: $('ringGroup'), ringContainer: $('ringContainer'), ringCountDisplay: $('ringCountDisplay'),
-            ringMatchInfo: $('ringMatchInfo'),
-            positionSelect: $('positionSelect')
+            ringMatchInfo: $('ringMatchInfo'), ringEmptyHint: $('ringEmptyHint'),
+            positionSelect: $('positionSelect'),
+            legendWeapon: $('legendWeapon')
         };
 
         var dsf = $('dsf'), msg = $('msg'), cd = $('cd'), exportArea = $('exportArea'),
@@ -483,9 +488,10 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             awakenOverlay = $('awakenOverlay'), fateModal = $('fateModal'), fateBody = $('fateBody'),
             soulComment = $('soulComment'), toast = $('toast'), backpackGrid = $('backpackGrid'),
             backpackInput = $('backpackInput'), bonePartsGroup = $('bonePartsGroup'),
-            titleEpithet = $('titleEpithet'), spiritWarn = $('spiritWarn');
+            titleEpithet = $('titleEpithet'), spiritWarn = $('spiritWarn'),
+            ringEmptyHint = $('ringEmptyHint'), stepDot = $('stepDot');
 
-        var STORAGE_KEY = 'soul_archive_v18';
+        var STORAGE_KEY = 'soul_archive_v19';
         var stepNames = ['刻下你的名字', '出身与阵营', '武魂与魂力', '精神力与定位与魂骨', '魂灵与魂环', '斗铠与机甲与第二职业', '特殊能力', '降临与命运+背包'];
         var currentStep = 1, totalSteps = 8;
 
@@ -537,7 +543,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             '无尽山脉入口':['无尽山脉地图','登山工具','野外生存包'],'海神岛':['海神岛通行令牌','海洋图鉴','防水魂导器']
         };
 
-        // ---- 特殊能力数据（完全重设计，非升级版） ----
         var specialDataT1 = [
             { name: '天生神力', desc: '力量远超同体型常人，可徒手碎石。', side: '中等副作用：体力消耗加快，长时间战斗易脱力。' },
             { name: '夜视', desc: '黑暗中可视物如昼，视野无阻碍。', side: '中等副作用：白天强光下畏光，需戴墨镜。' },
@@ -621,7 +626,8 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             { name: '混沌之体', desc: '免疫大部分伤害，但无法主动攻击。', spirit: '混沌兽', artifact: '混沌之心', cost: '逆天时中等代价：维持时自噬生命力，可借神器缓解。' },
             { name: '本源之力', desc: '调用世界本源能量，释放超强一击。', spirit: '源初之灵', artifact: '源初之核', cost: '逆天时中等代价：本源反噬重伤，可借神器缓解。' },
             { name: '轮回之眼', desc: '看到目标的前世今生，洞察弱点。', spirit: '轮回之瞳', artifact: '轮回镜', cost: '逆天时中等代价：使用后双目失明片刻，可借神器缓解。' },
-            { name: '虚无之触', desc: '触摸可让物体短暂“不存在”（消失）。', spirit: '虚无之影', artifact: '虚无之刃', cost: '逆天时中等代价：触碰后自身存在感下降，可借神器缓解。' }
+            { name: '虚无之触', desc: '触摸可让物体短暂“不存在”（消失）。', spirit: '虚无之影', artifact: '虚无之刃', cost: '逆天时中等代价：触碰后自身存在感下降，可借神器缓解。' },
+            { name: '自定义', desc: '自定义超脱能力', spirit: '', artifact: '', cost: '逆天时中等代价，可自定义' }
         ];
 
         var specialData = { 't1': specialDataT1, 't2': specialDataT2, 't3': specialDataT3, 't4': specialDataT4, 't5': specialDataT5, 't6': specialDataT6 };
@@ -694,7 +700,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
         function getMaxRingYearBySpirit(sp){ var map={'灵元境':'百年','灵通境':'千年','灵海境':'万年','灵渊境':'十万年','灵域境':'凶兽','神元境':'凶兽','神王境':'凶兽','未知/未测定':'百年'}; return map[sp]||'百年'; }
         function getRingYearWeight(year){ var weights={'十年':1,'百年':2,'千年':3,'万年':4,'十万年':5,'凶兽（二十万年）':6,'凶兽':6}; return weights[year]||1; }
 
-        // 防抖函数
         function debounce(fn, delay) { var timer; return function(){ var args=arguments; clearTimeout(timer); timer=setTimeout(function(){ fn.apply(this, args); }, delay); }; }
 
         function showToast(text, isError){ toast.textContent = text; toast.className = 'show' + (isError ? ' error' : ''); clearTimeout(toast._timer); toast._timer = setTimeout(function(){ toast.className = ''; }, 2000); }
@@ -714,9 +719,33 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 else { sec.style.display = 'none'; sec.classList.remove('active'); }
             });
             if(n===2){ updateBackpackByCamp(); updateIdentityByCamp(); }
+            updateStepStatus();
         }
         function goNextStep(){ if(currentStep===totalSteps){ showAwakenAnimation(); } else { showPane(currentStep+1); } }
         function goPrevStep(){ if(currentStep>1) showPane(currentStep-1); }
+
+        function updateStepStatus() {
+            var done = false;
+            var step = currentStep;
+            if (step === 1) {
+                done = getVal('cn') !== '' && getVal('ag') !== '' && getVal('ag') !== '0';
+            } else if (step === 2) {
+                done = getVal('og') !== '' || getVal('fc') !== '无';
+            } else if (step === 3) {
+                done = getVal('msn') !== '' && getVal('csr') !== '';
+            } else if (step === 4) {
+                done = getVal('sp') !== '' && getSel('positionSelect') !== '无';
+            } else if (step === 5) {
+                done = true;
+            } else if (step === 6) {
+                done = true;
+            } else if (step === 7) {
+                done = fields.st.options.length > 0 && fields.st.value !== '';
+            } else if (step === 8) {
+                done = true;
+            }
+            if (done) { stepDot.classList.add('done'); } else { stepDot.classList.remove('done'); }
+        }
 
         function setupTags(){
             var container = $('personalityTags');
@@ -731,6 +760,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                     container.querySelectorAll('.bm-tag.active').forEach(function(t){ vals.push(t.dataset.tag); });
                     fields.personality.value = vals.join('、');
                     saveDraft();
+                    updateStepStatus();
                 });
                 container.appendChild(span);
             });
@@ -745,7 +775,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 else tag.classList.remove('active');
             });
         }
-        fields.personality.addEventListener('input', syncPersonalityTags);
+        fields.personality.addEventListener('input', function(){ syncPersonalityTags(); updateStepStatus(); });
 
         function populateOriginSelect(){
             var select = fields.og_select;
@@ -784,7 +814,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 el.addEventListener('click', function(){
                     var idx = Number(this.dataset.bpDel);
                     backpackItems.splice(idx, 1);
-                    localStorage.setItem('backpack_items_v18', JSON.stringify(backpackItems));
+                    localStorage.setItem('backpack_items_v19', JSON.stringify(backpackItems));
                     renderBackpack();
                     saveDraft();
                 });
@@ -795,7 +825,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             item = item.trim();
             if(backpackItems.indexOf(item) === -1){
                 backpackItems.push(item);
-                localStorage.setItem('backpack_items_v18', JSON.stringify(backpackItems));
+                localStorage.setItem('backpack_items_v19', JSON.stringify(backpackItems));
                 renderBackpack();
                 saveDraft();
                 showToast('✅ 已添加：' + item);
@@ -817,14 +847,14 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             var added = 0;
             allPresets.forEach(function(item){ if(backpackItems.indexOf(item)===-1){ backpackItems.push(item); added++; } });
             if(added > 0){
-                localStorage.setItem('backpack_items_v18', JSON.stringify(backpackItems));
+                localStorage.setItem('backpack_items_v19', JSON.stringify(backpackItems));
                 renderBackpack();
                 saveDraft();
                 showToast('🎒 已添加 ' + added + ' 件道具');
             }
         }
         function loadBackpack(){
-            var saved = localStorage.getItem('backpack_items_v18');
+            var saved = localStorage.getItem('backpack_items_v19');
             if(saved){ try{ backpackItems = JSON.parse(saved); } catch(_){} }
             if(!Array.isArray(backpackItems)) backpackItems = [];
             renderBackpack();
@@ -854,7 +884,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
         function updateBoneStats(){ var done=0; bonePartNames.forEach(function(n){ if(boneParts[n]) done++; }); $('boneDoneCount').textContent = done; }
 
         function initRings(){
-            var saved = localStorage.getItem('soul_rings_v18');
+            var saved = localStorage.getItem('soul_rings_v19');
             if(saved){ try{ rings = JSON.parse(saved); } catch(_){} }
             if(!rings || !Array.isArray(rings)) rings = [];
             renderRings();
@@ -862,7 +892,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             validateRings();
         }
         function renderRings(){
-            ringContainer.innerHTML = '';
+            var fragment = document.createDocumentFragment();
             rings.forEach(function(ring, idx){
                 var div = document.createElement('div');
                 div.className = 'ring-item';
@@ -871,13 +901,15 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 var dotClass = getRingClass(ring.year);
                 var optionsHtml = ringYearOptions.map(function(opt){ return '<option value="' + opt + '"' + (ring.year === opt ? ' selected' : '') + '>' + opt + '</option>'; }).join('');
                 div.innerHTML = '<span class="dot ' + dotClass + '" style="background:' + dotColor + ';"></span><select data-ring-year="' + idx + '">' + optionsHtml + '</select><button class="bm ring-del" data-ring-del="' + idx + '">✕</button>';
-                ringContainer.appendChild(div);
+                fragment.appendChild(div);
             });
+            ringContainer.innerHTML = '';
+            ringContainer.appendChild(fragment);
             ringContainer.querySelectorAll('[data-ring-year]').forEach(function(el){
                 el.addEventListener('change', function(){
                     var idx = Number(this.dataset.ringYear);
                     rings[idx].year = this.value;
-                    localStorage.setItem('soul_rings_v18', JSON.stringify(rings));
+                    localStorage.setItem('soul_rings_v19', JSON.stringify(rings));
                     renderRings();
                     updateRingInfo();
                     validateRings();
@@ -889,7 +921,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 el.addEventListener('click', function(){
                     var idx = Number(this.dataset.ringDel);
                     rings.splice(idx, 1);
-                    localStorage.setItem('soul_rings_v18', JSON.stringify(rings));
+                    localStorage.setItem('soul_rings_v19', JSON.stringify(rings));
                     renderRings();
                     updateRingInfo();
                     validateRings();
@@ -899,6 +931,12 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             });
             updateRingInfo();
             validateRings();
+            // 显示空提示
+            if (rings.length === 0) {
+                ringEmptyHint.style.display = 'block';
+            } else {
+                ringEmptyHint.style.display = 'none';
+            }
         }
         function updateRingInfo(){
             var count = rings.length;
@@ -914,6 +952,10 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 else { info.innerHTML = '<span class="mismatch">⚠️ 超限</span>'; }
             }
             validateRings();
+            if (ringEmptyHint) {
+                if (rings.length === 0) ringEmptyHint.style.display = 'block';
+                else ringEmptyHint.style.display = 'none';
+            }
         }
         function validateRings(){
             var spiritLevel = getSel('sp');
@@ -939,6 +981,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             else wrap.style.display = 'none';
             updateTitleEpithet();
             updateSoulComment();
+            updateStepStatus();
         }
         function updateTitleEpithet(){
             var title = getSoulTitle(getVal('csr'));
@@ -1080,6 +1123,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             var ageMatch = stage.age.match(/(\d+)/);
             if(ageMatch) fields.ag.value = ageMatch[0];
             saveDraft();
+            updateStepStatus();
         }
         function onStageEventSelect(){ fields.stageEventDisplay.textContent = fields.stageEventSelect.value; saveDraft(); }
 
@@ -1090,6 +1134,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             });
             renderSpecialOptions();
             saveDraft();
+            updateStepStatus();
         }
         function renderSpecialOptions(){
             var data = specialData[currentTier] || [];
@@ -1107,6 +1152,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             if(!found && select.options.length > 0) select.value = select.options[0].value;
             updateSpecialDesc();
             toggleCustomSpecial();
+            updateStepStatus();
         }
         function toggleCustomSpecial(){
             var name = fields.st.value;
@@ -1166,6 +1212,16 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             return name;
         }
 
+        function validateRequired(){
+            var errors = [];
+            if (getVal('cn') === '') errors.push('姓名');
+            if (getVal('ag') === '' || getVal('ag') === '0') errors.push('年龄');
+            if (getVal('msn') === '') errors.push('武魂名称');
+            if (getVal('csr') === '') errors.push('当前魂力');
+            if (getSel('positionSelect') === '无') errors.push('魂师定位（建议选择）');
+            return errors;
+        }
+
         function collectData(){
             var dual = (getSel('mst') === '双生武魂');
             var soul;
@@ -1214,6 +1270,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 "降临阶段": stage ? { "阶段": stage.id, "名称": stage.name, "年龄": stage.age, "时间": stage.date, "切入事件": eventVal||'' } : null,
                 "背包": backpackItems.slice(),
                 "特殊能力": spVal,
+                "神器": getVal('legendWeapon') || '',
                 "开场白": greeting || '',
                 "场景设定": scene || ''
             };
@@ -1232,7 +1289,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 data._position = getSel('positionSelect');
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
             } catch(_) {}
-        }, 300);
+        }, 500);
 
         function loadDraft(){
             try {
@@ -1271,7 +1328,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                     'sp':'精神力.精神力等级','ssn':'魂灵.主要魂灵名称','sst':'魂灵.魂灵类型','ssy':'魂灵.魂灵年限','ess':'魂灵.其他魂灵',
                     'ban':'斗铠.斗铠名称','bal':'斗铠.斗铠等级','bat':'斗铠.斗铠侧重',
                     'secondProf':'第二职业.职业类型','secondLevel':'第二职业.等级','mechaLevel':'机甲.机甲等级',
-                    'greeting':'开场白'
+                    'greeting':'开场白','legendWeapon':'神器'
                 };
                 function setField(id, path){
                     var el = fields[id];
@@ -1331,6 +1388,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 updateMechaCustom();
                 updateInnateOptions();
                 showPane(1);
+                updateStepStatus();
             } catch(_) {}
         }
 
@@ -1398,6 +1456,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 lines.push('- 等级：' + d.第二职业.等级);
             }
             if(d.机甲.机甲等级 && d.机甲.机甲等级 !== '无') lines.push('- 机甲等级：' + d.机甲.机甲等级);
+            if(d.神器) lines.push('- 神器：' + d.神器);
             if(d.背包 && d.背包.length){ lines.push('- 背包：' + d.背包.join('、')); }
             if(d.降临阶段){
                 lines.push('');
@@ -1415,7 +1474,16 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             return lines.join('\n');
         }
 
-        function showExport(){ refreshExport(); exportArea.classList.add('show'); showToast('✅ 已导出'); }
+        function showExport(){
+            var errors = validateRequired();
+            if (errors.length > 0) {
+                showToast('⚠️ 请先填写：' + errors.join('、'), true);
+                return;
+            }
+            refreshExport();
+            exportArea.classList.add('show');
+            showToast('✅ 已导出');
+        }
         function refreshExport(){ exportPreview.value = generatePersonaText(); var now = new Date(); exportTime.textContent = now.toLocaleString(); }
         function copyToClipboard(text, silent){
             try {
@@ -1504,6 +1572,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             if(d.魂骨.已装备魂骨 && d.魂骨.已装备魂骨 !== '0/7'){ lines.push('【魂骨】已装备 ' + d.魂骨.已装备魂骨); }
             if(d.第二职业.职业类型 && d.第二职业.职业类型 !== '无'){ lines.push('【第二职业】' + d.第二职业.职业类型 + '（' + d.第二职业.等级 + '）'); }
             if(d.机甲.机甲等级 && d.机甲.机甲等级 !== '无'){ lines.push('【机甲】' + d.机甲.机甲等级); }
+            if(d.神器) lines.push('【神器】' + d.神器);
             if(d.特殊能力 && d.特殊能力 !== '无' && d.特殊能力 !== ''){ lines.push('【特殊能力】' + d.特殊能力); }
             if(d.背包 && d.背包.length){ lines.push('【背包】' + d.背包.join('、')); }
             if(d.降临阶段){
@@ -1516,12 +1585,21 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             lines.push('✦ 档案已铸就，降临斗罗大陆 ✦');
             return lines.join('\n');
         }
-        function enterWorld(){ var text = generateGreeting(); copyToClipboard(text); showToast('✦ 档案已铸就，开场白已复制，准备降临斗罗大陆！'); if(navigator.vibrate) navigator.vibrate(30); }
+        function enterWorld(){
+            var errors = validateRequired();
+            if (errors.length > 0) {
+                showToast('⚠️ 请先填写：' + errors.join('、'), true);
+                return;
+            }
+            var text = generateGreeting();
+            copyToClipboard(text);
+            showToast('✦ 档案已铸就，开场白已复制，准备降临斗罗大陆！');
+            if(navigator.vibrate) navigator.vibrate(30);
+        }
 
         function clearAll(){
             if(!confirm('确定清空所有字段吗？')) return;
             for(var key in fields){ if(fields.hasOwnProperty(key) && fields[key]){ if(fields[key].tagName === 'SELECT') fields[key].selectedIndex = 0; else fields[key].value = ''; } }
-            // 重置特殊为默认
             if(fields.mechaCustomWrap) fields.mechaCustomWrap.style.display = 'none';
             if(fields.bloodCustomWrap) fields.bloodCustomWrap.style.display = 'none';
             if(fields.secondProfCustomWrap) fields.secondProfCustomWrap.style.display = 'none';
@@ -1529,10 +1607,10 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             if(fields.specialWeaponWrap) fields.specialWeaponWrap.style.display = 'none';
             if(fields.specialArtifactWrap) fields.specialArtifactWrap.style.display = 'none';
             rings = [];
-            localStorage.setItem('soul_rings_v18', JSON.stringify(rings));
+            localStorage.setItem('soul_rings_v19', JSON.stringify(rings));
             renderRings();
             backpackItems = [];
-            localStorage.setItem('backpack_items_v18', JSON.stringify(backpackItems));
+            localStorage.setItem('backpack_items_v19', JSON.stringify(backpackItems));
             renderBackpack();
             bonePartNames.forEach(function(n){ boneParts[n] = false; });
             renderBoneParts();
@@ -1558,9 +1636,11 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             fields.fc.value = '无';
             fields.fbg.value = '无';
             fields.positionSelect.value = '无';
+            fields.legendWeapon.value = '';
             currentTier = 't1';
             document.querySelectorAll('.special-tier .tier-tag').forEach(function(t){ t.classList.toggle('active', t.dataset.tier === currentTier); });
             renderSpecialOptions();
+            updateStepStatus();
             showToast('🗑 已清空');
         }
 
@@ -1573,8 +1653,8 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             $('btnClearAll').addEventListener('click', clearAll);
 
             fields.og_select.addEventListener('change', function(){ fields.og.value = this.value; updateBackpackByCamp(); saveDraft(); });
-            fields.fc.addEventListener('change', function(){ updateIdentityByCamp(); updateBackpackByCamp(); if(this.value === '无') fields.fbg.value = '无'; saveDraft(); });
-            fields.fbg.addEventListener('change', function(){ updateBackpackByCamp(); saveDraft(); });
+            fields.fc.addEventListener('change', function(){ updateIdentityByCamp(); updateBackpackByCamp(); if(this.value === '无') fields.fbg.value = '无'; saveDraft(); updateStepStatus(); });
+            fields.fbg.addEventListener('change', function(){ updateBackpackByCamp(); saveDraft(); updateStepStatus(); });
 
             fields.stageSelect.addEventListener('change', onStageSelect);
             fields.stageEventSelect.addEventListener('change', onStageEventSelect);
@@ -1582,11 +1662,11 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             document.querySelectorAll('.special-tier .tier-tag').forEach(function(tag){
                 tag.addEventListener('click', function(){ var tier = this.dataset.tier; switchSpecialTier(tier); });
             });
-            fields.st.addEventListener('change', function(){ updateSpecialDesc(); toggleCustomSpecial(); saveDraft(); });
+            fields.st.addEventListener('change', function(){ updateSpecialDesc(); toggleCustomSpecial(); saveDraft(); updateStepStatus(); });
             fields.customSpecialName.addEventListener('input', function(){ updateSpecialDesc(); saveDraft(); });
             fields.customSpecialDesc.addEventListener('input', function(){ updateSpecialDesc(); saveDraft(); });
 
-            fields.mst.addEventListener('change', function(){ toggleDualSoul(); updateInnateOptions(); if(getSel('mst') === '神级武魂') fields.isp.value = '20级（神赐）'; saveDraft(); });
+            fields.mst.addEventListener('change', function(){ toggleDualSoul(); updateInnateOptions(); if(getSel('mst') === '神级武魂') fields.isp.value = '20级（神赐）'; saveDraft(); updateStepStatus(); });
             fields.st2.addEventListener('change', function(){ updateInnateOptions(); saveDraft(); });
 
             var handleCsr = function(){
@@ -1603,13 +1683,14 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 var lv = getVal('csr');
                 if(lv) showToast('魂力：' + lv + '级 → ' + getSoulTitle(lv));
             };
-            fields.csr.addEventListener('input', debounce(handleCsr, 200));
+            fields.csr.addEventListener('input', debounce(handleCsr, 300));
             fields.csr.addEventListener('blur', enforceSoulLevel);
 
             fields.ag.addEventListener('input', debounce(function(){
                 var age = parseInt(getVal('ag'));
                 if(age === 6){ var innate = getSel('isp'); var level = getSoulLevelFromInnate(innate); if(!isNaN(level) && level >= 0) fields.csr.value = level; }
                 saveDraft();
+                updateStepStatus();
             }, 300));
             fields.isp.addEventListener('change', function(){
                 var age = parseInt(getVal('ag'));
@@ -1619,13 +1700,15 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 
             fields.bal.addEventListener('change', function(){ updateArmorGrade(); saveDraft(); });
             fields.mechaLevel.addEventListener('change', function(){ updateMechaCustom(); saveDraft(); });
-            fields.sp.addEventListener('change', function(){ updateSpiritDesc(); validateRings(); saveDraft(); });
+            fields.sp.addEventListener('change', function(){ updateSpiritDesc(); validateRings(); saveDraft(); updateStepStatus(); });
             fields.secondProf.addEventListener('change', function(){ updateSecondProf(); saveDraft(); });
             fields.secondLevel.addEventListener('change', function(){ updateSecondProfDesc(); saveDraft(); });
             fields.secondProfCustom.addEventListener('input', function(){ updateSecondProfDesc(); saveDraft(); });
             fields.ssy.addEventListener('change', function(){ updateSpiritDot(); saveDraft(); });
+            fields.positionSelect.addEventListener('change', function(){ saveDraft(); updateStepStatus(); });
+            fields.legendWeapon.addEventListener('input', function(){ saveDraft(); });
 
-            var autoSave = debounce(function(){ saveDraft(); }, 300);
+            var autoSave = debounce(function(){ saveDraft(); updateStepStatus(); }, 500);
             document.querySelectorAll('input, textarea, select').forEach(function(el){
                 el.addEventListener('input', autoSave);
                 el.addEventListener('change', autoSave);
@@ -1648,7 +1731,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 
             $('btnAddRing').addEventListener('click', function(){
                 rings.push({ year: '百年' });
-                localStorage.setItem('soul_rings_v18', JSON.stringify(rings));
+                localStorage.setItem('soul_rings_v19', JSON.stringify(rings));
                 renderRings();
                 updateRingInfo();
                 validateRings();
