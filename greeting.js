@@ -1,13 +1,14 @@
-// ========== greeting.js - 斗罗大陆III 龙王传说 魂师档案 v20.0（最终完整版）==========
+// ========== greeting.js - 斗罗大陆III 龙王传说 魂师档案 v21.0（滚动根治版）==========
 (function() {
     "use strict";
 
     const styleText = `
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-.soul-app-container{font-family:system-ui,'Microsoft YaHei',sans-serif;background:radial-gradient(ellipse at 50% 20%, #0f1a2e 0%, #0a1220 50%, #060d1a 100%);background-attachment:scroll;color:#e2e8f0;line-height:1.6;padding:12px 8px 24px;display:flex;justify-content:center;min-height:100vh;position:relative;-webkit-overflow-scrolling:touch}
+html,body{height:100%;margin:0;padding:0;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;background:#060d1a}
+.soul-app-container{font-family:system-ui,'Microsoft YaHei',sans-serif;background:radial-gradient(ellipse at 50% 20%, #0f1a2e 0%, #0a1220 50%, #060d1a 100%);background-attachment:scroll;color:#e2e8f0;line-height:1.6;padding:12px 8px 24px;display:flex;justify-content:center;min-height:100%;position:relative;-webkit-overflow-scrolling:touch}
 .soul-app-container::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background-image:radial-gradient(1px 1px at 10% 20%, rgba(255,200,100,0.3), transparent),radial-gradient(1.5px 1.5px at 30% 60%, rgba(255,150,255,0.2), transparent),radial-gradient(1px 1px at 50% 80%, rgba(100,200,255,0.25), transparent),radial-gradient(1.5px 1.5px at 70% 30%, rgba(255,100,100,0.2), transparent),radial-gradient(1px 1px at 90% 70%, rgba(100,255,200,0.2), transparent),radial-gradient(1px 1px at 15% 85%, rgba(255,200,50,0.25), transparent),radial-gradient(1.5px 1.5px at 55% 15%, rgba(200,150,255,0.2), transparent),radial-gradient(1px 1px at 85% 50%, rgba(255,80,80,0.2), transparent);background-size:100% 100%;pointer-events:none;z-index:0;animation:none;opacity:0.6}
-@keyframes archiveRise{0%{opacity:0;transform:translateY(30px) scale(0.96);filter:blur(8px)}60%{opacity:0.6;transform:translateY(-4px) scale(1.002);filter:blur(0)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
-#app{max-width:540px;width:100%;padding:18px 14px 130px 14px;background:linear-gradient(170deg,rgba(10,18,32,0.94),rgba(20,30,50,0.88) 30%,rgba(10,18,32,0.94));border:1px solid rgba(255,215,0,0.15);border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,0.6),0 0 80px rgba(255,215,0,0.04),inset 0 1px 0 rgba(255,215,0,0.06);position:relative;z-index:1;animation:archiveRise 0.6s cubic-bezier(0.16,1,0.3,1) forwards;touch-action:pan-y;min-height:auto}
+@keyframes archiveRise{0%{opacity:0;transform:translateY(20px) scale(0.98);filter:blur(4px)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+#app{max-width:540px;width:100%;padding:18px 14px 130px 14px;background:linear-gradient(170deg,rgba(10,18,32,0.94),rgba(20,30,50,0.88) 30%,rgba(10,18,32,0.94));border:1px solid rgba(255,215,0,0.15);border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,0.6),0 0 80px rgba(255,215,0,0.04),inset 0 1px 0 rgba(255,215,0,0.06);position:relative;z-index:1;touch-action:auto;animation:archiveRise 0.5s cubic-bezier(0.16,1,0.3,1) forwards}
 #app .title-wrap{position:relative;text-align:center;margin-bottom:6px}
 #app .title-wrap::before,#app .title-wrap::after{content:'';position:absolute;top:50%;width:30px;height:2px;background:linear-gradient(90deg,transparent,#ff2d2d);opacity:0.2}
 #app .title-wrap::before{left:-10px;transform:translateY(-50%)}
@@ -45,9 +46,9 @@ h1::after{content:'';position:absolute;bottom:-4px;width:60%;height:2px;backgrou
 .step-nav .bm-clear{font-size:.55em;padding:2px 8px;border-radius:6px;border:1px solid rgba(200,50,50,0.15);background:rgba(200,50,50,0.05);color:#f87171;cursor:pointer;transition:.2s;touch-action:manipulation;min-height:26px;display:inline-flex;align-items:center;gap:3px}
 .step-nav .bm-clear:hover{background:rgba(200,50,50,0.12);border-color:#f87171}
 .step-nav .bm-clear:active{transform:scale(.92)}
-.sec{display:none;margin:2px 0;animation:stepFade .4s ease}
+.sec{display:none;margin:2px 0;animation:stepFade .3s ease}
 .sec.active{display:block}
-@keyframes stepFade{0%{opacity:0;transform:translateY(12px) scale(0.98)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes stepFade{0%{opacity:0;transform:translateY(8px) scale(0.99)}100%{opacity:1;transform:translateY(0) scale(1)}}
 .step-guide{font-size:.6em;color:#94a3b8;font-weight:700;letter-spacing:2px;margin-bottom:10px;padding:6px 12px;background:rgba(255,215,0,0.04);border-radius:8px;border-left:2px solid rgba(255,215,0,0.2);font-style:italic}
 .sec details{display:block;border-radius:8px;margin-bottom:4px;background:rgba(0,0,0,0.2);border:1px solid rgba(255,215,0,0.04)}
 .sec summary{color:#fbbf24;font-size:.75em;font-weight:700;padding:6px 8px 6px 20px;border-bottom:1px solid rgba(255,215,0,0.04);letter-spacing:1px;position:relative;cursor:pointer;user-select:none;transition:.2s;border-radius:8px;display:flex;align-items:center;gap:4px;list-style:none;min-height:32px}
@@ -149,7 +150,7 @@ select option{background:#0f1a2e;color:#e2e8f0}
 .btn-export-persona-bottom:hover{color:#94a3b8;border-color:rgba(255,215,0,0.08)}
 .btn-export-persona-bottom:active{transform:scale(.95)}
 #awakenOverlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;background:rgba(0,0,0,0.94);display:none;justify-content:center;align-items:center;flex-direction:column;padding:20px}
-#awakenOverlay.active{display:flex;animation:ao .5s}
+#awakenOverlay.active{display:flex;animation:ao .3s}
 @keyframes ao{from{opacity:0}to{opacity:1}}
 #awakenOverlay .content{max-width:360px;width:100%;text-align:center}
 #awakenOverlay .title{color:#fbbf24;font-size:1.4em;font-weight:700;letter-spacing:10px;font-family:'STKaiti','KaiTi','楷体',serif;margin-bottom:14px;text-shadow:0 0 40px rgba(255,215,0,0.15)}
@@ -237,7 +238,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
   <div class="tool-group"><button class="bm-clear" id="btnClearAll">🗑 清空</button></div>
 </div>
 <div class="soul-comment" id="soulComment">✦ 输入魂力等级，查看修炼评语 ✦</div>
-<!-- 步骤1 -->
 <div class="sec active" data-step="1">
   <div class="step-guide">✦ 第一步 · 刻下你的名字与灵魂</div>
   <div class="core-group">
@@ -252,7 +252,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
   </div>
   <div class="fd"><label>外貌描述</label><textarea id="appearance" rows="2" placeholder="黑发金瞳，左颊有一道细长疤痕…"></textarea></div>
 </div>
-<!-- 步骤2 -->
 <div class="sec" data-step="2">
   <div class="step-guide">✦ 第二步 · 出身与阵营</div>
   <div class="fd"><label>出身地</label><select id="og_select"><option value="">-- 选择 --</option></select><input type="text" id="og" style="margin-top:2px" placeholder="或手动输入"></div>
@@ -261,7 +260,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
   <div class="rw"><div class="fd"><label>血脉觉醒程度</label><select id="bloodAwaken"><option value="未觉醒">未觉醒</option><option value="初步觉醒">初步觉醒</option><option value="深度觉醒">深度觉醒</option><option value="完全觉醒">完全觉醒</option><option value="返祖/巅峰">返祖/巅峰</option></select></div><div class="fd"><label>血脉选项</label><select id="bloodType"><option value="人族（普通）">人族（普通）</option><option value="人族（魂兽化形）">人族（魂兽化形）</option><option value="龙族（金龙王血脉）">龙族（金龙王血脉）</option><option value="龙族（银龙王血脉）">龙族（银龙王血脉）</option><option value="龙族（普通龙族）">龙族（普通龙族）</option><option value="神祇后裔">神祇后裔</option><option value="本体宗血脉">本体宗血脉</option><option value="昊天宗血脉">昊天宗血脉</option><option value="蓝电霸王龙血脉">蓝电霸王龙血脉</option><option value="自定义">自定义</option></select></div></div>
   <div id="bloodCustomWrap" style="display:none;margin-top:2px;"><div class="fd"><label>自定义血脉名称</label><input type="text" id="bloodCustom" placeholder="如：混沌血脉"></div></div>
 </div>
-<!-- 步骤3 -->
 <div class="sec" data-step="3">
   <div class="step-guide">✦ 第三步 · 觉醒你的武魂与魂力</div>
   <div class="core-group">
@@ -276,7 +274,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
     <div id="titleEpithet" class="title-epithet"></div>
   </div>
 </div>
-<!-- 步骤4 -->
 <div class="sec" data-step="4">
   <div class="step-guide">✦ 第四步 · 精神力、定位与魂骨</div>
   <div class="core-group">
@@ -295,7 +292,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
     <div style="font-size:.5em;color:#64748b;margin-top:2px;">已装备：<span id="boneDoneCount">0</span>/<span id="boneTotalCount">7</span></div>
   </div>
 </div>
-<!-- 步骤5 -->
 <div class="sec" data-step="5">
   <div class="step-guide">✦ 第五步 · 魂灵与魂环</div>
   <div class="hl">
@@ -336,7 +332,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
     <div id="ringEmptyHint" style="font-size:.5em;color:#64748b;margin-top:2px;font-style:italic;display:none;">当前无魂环，点击 ➕ 添加</div>
   </div>
 </div>
-<!-- 步骤6 -->
 <div class="sec" data-step="6">
   <div class="step-guide">✦ 第六步 · 斗铠、机甲与第二职业</div>
   <div class="core-group">
@@ -359,7 +354,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
     </div></div>
   </details>
 </div>
-<!-- 步骤7 -->
 <div class="sec" data-step="7">
   <div class="step-guide">✦ 第七步 · 特殊能力（1~6级）</div>
   <div class="fd"><label>能力等级</label>
@@ -384,7 +378,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
     </div>
   </div>
 </div>
-<!-- 步骤8 -->
 <div class="sec" data-step="8">
   <div class="step-guide">✦ 第八步 · 降临与命运 + 背包</div>
   <details><summary>✦ 降临与命运 <span class="ar">▼</span></summary>
@@ -487,7 +480,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             titleEpithet = $('titleEpithet'), spiritWarn = $('spiritWarn'),
             ringEmptyHint = $('ringEmptyHint'), stepDot = $('stepDot');
 
-        var STORAGE_KEY = 'soul_archive_v20';
+        var STORAGE_KEY = 'soul_archive_v21';
         var stepNames = ['刻下你的名字', '出身与阵营', '武魂与魂力', '精神力与定位与魂骨', '魂灵与魂环', '斗铠与机甲与第二职业', '特殊能力', '降临与命运+背包'];
         var currentStep = 1, totalSteps = 8;
 
@@ -810,7 +803,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 el.addEventListener('click', function(){
                     var idx = Number(this.dataset.bpDel);
                     backpackItems.splice(idx, 1);
-                    localStorage.setItem('backpack_items_v20', JSON.stringify(backpackItems));
+                    localStorage.setItem('backpack_items_v21', JSON.stringify(backpackItems));
                     renderBackpack();
                     saveDraft();
                 });
@@ -821,7 +814,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             item = item.trim();
             if(backpackItems.indexOf(item) === -1){
                 backpackItems.push(item);
-                localStorage.setItem('backpack_items_v20', JSON.stringify(backpackItems));
+                localStorage.setItem('backpack_items_v21', JSON.stringify(backpackItems));
                 renderBackpack();
                 saveDraft();
                 showToast('✅ 已添加：' + item);
@@ -843,14 +836,14 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             var added = 0;
             allPresets.forEach(function(item){ if(backpackItems.indexOf(item)===-1){ backpackItems.push(item); added++; } });
             if(added > 0){
-                localStorage.setItem('backpack_items_v20', JSON.stringify(backpackItems));
+                localStorage.setItem('backpack_items_v21', JSON.stringify(backpackItems));
                 renderBackpack();
                 saveDraft();
                 showToast('🎒 已添加 ' + added + ' 件道具');
             }
         }
         function loadBackpack(){
-            var saved = localStorage.getItem('backpack_items_v20');
+            var saved = localStorage.getItem('backpack_items_v21');
             if(saved){ try{ backpackItems = JSON.parse(saved); } catch(_){} }
             if(!Array.isArray(backpackItems)) backpackItems = [];
             renderBackpack();
@@ -880,7 +873,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
         function updateBoneStats(){ var done=0; bonePartNames.forEach(function(n){ if(boneParts[n]) done++; }); $('boneDoneCount').textContent = done; }
 
         function initRings(){
-            var saved = localStorage.getItem('soul_rings_v20');
+            var saved = localStorage.getItem('soul_rings_v21');
             if(saved){ try{ rings = JSON.parse(saved); } catch(_){} }
             if(!rings || !Array.isArray(rings)) rings = [];
             renderRings();
@@ -905,7 +898,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 el.addEventListener('change', function(){
                     var idx = Number(this.dataset.ringYear);
                     rings[idx].year = this.value;
-                    localStorage.setItem('soul_rings_v20', JSON.stringify(rings));
+                    localStorage.setItem('soul_rings_v21', JSON.stringify(rings));
                     renderRings();
                     updateRingInfo();
                     validateRings();
@@ -917,7 +910,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 el.addEventListener('click', function(){
                     var idx = Number(this.dataset.ringDel);
                     rings.splice(idx, 1);
-                    localStorage.setItem('soul_rings_v20', JSON.stringify(rings));
+                    localStorage.setItem('soul_rings_v21', JSON.stringify(rings));
                     renderRings();
                     updateRingInfo();
                     validateRings();
@@ -1602,10 +1595,10 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             if(fields.specialWeaponWrap) fields.specialWeaponWrap.style.display = 'none';
             if(fields.specialArtifactWrap) fields.specialArtifactWrap.style.display = 'none';
             rings = [];
-            localStorage.setItem('soul_rings_v20', JSON.stringify(rings));
+            localStorage.setItem('soul_rings_v21', JSON.stringify(rings));
             renderRings();
             backpackItems = [];
-            localStorage.setItem('backpack_items_v20', JSON.stringify(backpackItems));
+            localStorage.setItem('backpack_items_v21', JSON.stringify(backpackItems));
             renderBackpack();
             bonePartNames.forEach(function(n){ boneParts[n] = false; });
             renderBoneParts();
@@ -1726,7 +1719,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 
             $('btnAddRing').addEventListener('click', function(){
                 rings.push({ year: '百年' });
-                localStorage.setItem('soul_rings_v20', JSON.stringify(rings));
+                localStorage.setItem('soul_rings_v21', JSON.stringify(rings));
                 renderRings();
                 updateRingInfo();
                 validateRings();
