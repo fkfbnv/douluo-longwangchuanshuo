@@ -1,13 +1,13 @@
-// ========== greeting.js - 斗罗大陆III 龙王传说 魂师档案 v19.0（最终完善版）==========
+// ========== greeting.js - 斗罗大陆III 龙王传说 魂师档案 v20.0（最终完整版）==========
 (function() {
     "use strict";
 
     const styleText = `
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 .soul-app-container{font-family:system-ui,'Microsoft YaHei',sans-serif;background:radial-gradient(ellipse at 50% 20%, #0f1a2e 0%, #0a1220 50%, #060d1a 100%);background-attachment:scroll;color:#e2e8f0;line-height:1.6;padding:12px 8px 24px;display:flex;justify-content:center;min-height:100vh;position:relative;-webkit-overflow-scrolling:touch}
-.soul-app-container::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:radial-gradient(1px 1px at 10% 20%, rgba(255,200,100,0.3), transparent),radial-gradient(1.5px 1.5px at 30% 60%, rgba(255,150,255,0.2), transparent),radial-gradient(1px 1px at 50% 80%, rgba(100,200,255,0.25), transparent),radial-gradient(1.5px 1.5px at 70% 30%, rgba(255,100,100,0.2), transparent),radial-gradient(1px 1px at 90% 70%, rgba(100,255,200,0.2), transparent),radial-gradient(1px 1px at 15% 85%, rgba(255,200,50,0.25), transparent),radial-gradient(1.5px 1.5px at 55% 15%, rgba(200,150,255,0.2), transparent),radial-gradient(1px 1px at 85% 50%, rgba(255,80,80,0.2), transparent);background-size:100% 100%;pointer-events:none;z-index:0;animation:none;opacity:0.6}
+.soul-app-container::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background-image:radial-gradient(1px 1px at 10% 20%, rgba(255,200,100,0.3), transparent),radial-gradient(1.5px 1.5px at 30% 60%, rgba(255,150,255,0.2), transparent),radial-gradient(1px 1px at 50% 80%, rgba(100,200,255,0.25), transparent),radial-gradient(1.5px 1.5px at 70% 30%, rgba(255,100,100,0.2), transparent),radial-gradient(1px 1px at 90% 70%, rgba(100,255,200,0.2), transparent),radial-gradient(1px 1px at 15% 85%, rgba(255,200,50,0.25), transparent),radial-gradient(1.5px 1.5px at 55% 15%, rgba(200,150,255,0.2), transparent),radial-gradient(1px 1px at 85% 50%, rgba(255,80,80,0.2), transparent);background-size:100% 100%;pointer-events:none;z-index:0;animation:none;opacity:0.6}
 @keyframes archiveRise{0%{opacity:0;transform:translateY(30px) scale(0.96);filter:blur(8px)}60%{opacity:0.6;transform:translateY(-4px) scale(1.002);filter:blur(0)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
-#app{max-width:540px;width:100%;padding:18px 14px 130px 14px;background:linear-gradient(170deg,rgba(10,18,32,0.94),rgba(20,30,50,0.88) 30%,rgba(10,18,32,0.94));border:1px solid rgba(255,215,0,0.15);border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,0.6),0 0 80px rgba(255,215,0,0.04),inset 0 1px 0 rgba(255,215,0,0.06);position:relative;z-index:1;transform:translateZ(0);animation:archiveRise 0.6s cubic-bezier(0.16,1,0.3,1) forwards}
+#app{max-width:540px;width:100%;padding:18px 14px 130px 14px;background:linear-gradient(170deg,rgba(10,18,32,0.94),rgba(20,30,50,0.88) 30%,rgba(10,18,32,0.94));border:1px solid rgba(255,215,0,0.15);border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,0.6),0 0 80px rgba(255,215,0,0.04),inset 0 1px 0 rgba(255,215,0,0.06);position:relative;z-index:1;animation:archiveRise 0.6s cubic-bezier(0.16,1,0.3,1) forwards;touch-action:pan-y;min-height:auto}
 #app .title-wrap{position:relative;text-align:center;margin-bottom:6px}
 #app .title-wrap::before,#app .title-wrap::after{content:'';position:absolute;top:50%;width:30px;height:2px;background:linear-gradient(90deg,transparent,#ff2d2d);opacity:0.2}
 #app .title-wrap::before{left:-10px;transform:translateY(-50%)}
@@ -142,10 +142,6 @@ select option{background:#0f1a2e;color:#e2e8f0}
 .soul-comment.active{color:#fbbf24;opacity:1;font-weight:700}
 .title-epithet{font-size:.55em;color:#94a3b8;text-align:center;margin-top:2px;padding:4px 8px;background:rgba(255,215,0,0.04);border-radius:6px;border-left:2px solid rgba(255,215,0,0.1);font-style:italic;min-height:24px;display:none}
 .title-epithet.show{display:block}
-.position-selector{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0}
-.position-selector .pos-opt{font-size:.55em;padding:2px 10px;border-radius:12px;border:1px solid rgba(255,215,0,0.08);background:rgba(255,215,0,0.02);color:#94a3b8;cursor:pointer;transition:.2s;touch-action:manipulation}
-.position-selector .pos-opt:hover{background:rgba(255,215,0,0.06);border-color:rgba(255,215,0,0.15)}
-.position-selector .pos-opt.active{background:rgba(255,215,0,0.12);border-color:#fbbf24;color:#fbbf24}
 .btn-row{position:fixed;bottom:0;left:0;right:0;z-index:100;background:linear-gradient(180deg,transparent 0%,rgba(10,18,32,0.98) 25%,#0a1220 100%);padding:6px 16px 10px 16px;display:flex;flex-direction:row;align-items:center;gap:8px;border-top:1px solid rgba(255,215,0,0.04)}
 .btn-row .btn-wrap{flex:1}
 .btn-row .btn-wrap-small{flex:0 0 auto}
@@ -212,10 +208,10 @@ select option{background:#0f1a2e;color:#e2e8f0}
 .bm-enter{font-size:.7em;padding:8px 0;border-color:rgba(255,215,0,0.2);color:#fbbf24;background:rgba(255,215,0,0.08);min-height:44px;width:100%;justify-content:center;font-weight:700;letter-spacing:3px}
 .bm-enter:hover{background:rgba(255,215,0,0.18);border-color:rgba(255,215,0,0.35);color:#fcd34d}
 .bm-enter:active{transform:scale(.97)}
-@media(max-width:480px){#app{padding:12px 10px 110px 10px;border-radius:14px}h1{font-size:1.4em;letter-spacing:5px;min-height:34px}.title-ornament{font-size:.4em;letter-spacing:4px}.title-divider{font-size:.25em;letter-spacing:3px}.subtitle{font-size:.55em;letter-spacing:4px}.step-nav{padding:4px 6px;gap:3px}.step-nav .step-btn{font-size:.55em;padding:2px 8px;min-height:24px}.step-nav .step-info{font-size:.55em}.rw{flex-direction:column;gap:2px}.rw .fd.half{flex:1}input,textarea,select{font-size:.72em;padding:4px 8px;min-height:28px}.bm{font-size:.5em;padding:2px 5px;min-height:22px;min-width:22px}.btn-row{padding:4px 8px 8px 8px;gap:4px}.ring-item{font-size:.5em;padding:1px 3px}.ring-item select{font-size:.6em;min-height:20px;padding:1px 3px}.ring-item .dot{width:14px;height:14px}.fd label{font-size:.65em}.soul-comment{font-size:.45em;min-height:16px}.secondary-grid{grid-template-columns:1fr 1fr;gap:3px}.sec summary{font-size:.7em;min-height:28px;padding:4px 6px 4px 16px}.sec summary::before{font-size:.35em;left:4px}.core-group{padding:4px 6px}.step-guide{font-size:.5em;padding:4px 8px}#toast{font-size:.65em;padding:5px 14px}.special-tier .tier-tag{font-size:.45em;padding:2px 8px}.backpack-grid .bp-item{font-size:.45em;padding:1px 6px}.stage-detail-card .stage-meta{font-size:.6em}.stage-detail-card .stage-events .event-select select{font-size:.6em}.ring-legend .legend-item{font-size:.4em}.bm-part{font-size:.45em;padding:1px 5px;min-height:20px}.title-epithet{font-size:.5em;padding:3px 6px}.desc-text{font-size:.5em}.position-selector .pos-opt{font-size:.5em;padding:1px 8px}.bm-enter{font-size:.6em;padding:6px 0;min-height:38px}.btn-export-persona-bottom{font-size:.4em;padding:2px 6px;min-height:22px}.fd .label-row .random-btn{font-size:.4em;padding:1px 6px}}
+@media(max-width:480px){#app{padding:12px 10px 110px 10px;border-radius:14px}h1{font-size:1.4em;letter-spacing:5px;min-height:34px}.title-ornament{font-size:.4em;letter-spacing:4px}.title-divider{font-size:.25em;letter-spacing:3px}.subtitle{font-size:.55em;letter-spacing:4px}.step-nav{padding:4px 6px;gap:3px}.step-nav .step-btn{font-size:.55em;padding:2px 8px;min-height:24px}.step-nav .step-info{font-size:.55em}.rw{flex-direction:column;gap:2px}.rw .fd.half{flex:1}input,textarea,select{font-size:.72em;padding:4px 8px;min-height:28px}.bm{font-size:.5em;padding:2px 5px;min-height:22px;min-width:22px}.btn-row{padding:4px 8px 8px 8px;gap:4px}.ring-item{font-size:.5em;padding:1px 3px}.ring-item select{font-size:.6em;min-height:20px;padding:1px 3px}.ring-item .dot{width:14px;height:14px}.fd label{font-size:.65em}.soul-comment{font-size:.45em;min-height:16px}.secondary-grid{grid-template-columns:1fr 1fr;gap:3px}.sec summary{font-size:.7em;min-height:28px;padding:4px 6px 4px 16px}.sec summary::before{font-size:.35em;left:4px}.core-group{padding:4px 6px}.step-guide{font-size:.5em;padding:4px 8px}#toast{font-size:.65em;padding:5px 14px}.special-tier .tier-tag{font-size:.45em;padding:2px 8px}.backpack-grid .bp-item{font-size:.45em;padding:1px 6px}.stage-detail-card .stage-meta{font-size:.6em}.stage-detail-card .stage-events .event-select select{font-size:.6em}.ring-legend .legend-item{font-size:.4em}.bm-part{font-size:.45em;padding:1px 5px;min-height:20px}.title-epithet{font-size:.5em;padding:3px 6px}.desc-text{font-size:.5em}.bm-enter{font-size:.6em;padding:6px 0;min-height:38px}.btn-export-persona-bottom{font-size:.4em;padding:2px 6px;min-height:22px}.fd .label-row .random-btn{font-size:.4em;padding:1px 6px}}
 @media(max-width:380px){.step-nav .step-btn{font-size:.5em;padding:1px 6px;min-height:20px}.secondary-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}#app{animation:none;transform:none}.ring-item .dot{animation:none}}
-input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item select,.ring-item input,.step-btn,.special-tier .tier-tag,.backpack-grid .bp-item,.bm-part,.position-selector .pos-opt{touch-action:manipulation}
+input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item select,.ring-item input,.step-btn,.special-tier .tier-tag,.backpack-grid .bp-item,.bm-part{touch-action:manipulation}
 `;
 
     const styleEl = document.createElement('style');
@@ -491,7 +487,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             titleEpithet = $('titleEpithet'), spiritWarn = $('spiritWarn'),
             ringEmptyHint = $('ringEmptyHint'), stepDot = $('stepDot');
 
-        var STORAGE_KEY = 'soul_archive_v19';
+        var STORAGE_KEY = 'soul_archive_v20';
         var stepNames = ['刻下你的名字', '出身与阵营', '武魂与魂力', '精神力与定位与魂骨', '魂灵与魂环', '斗铠与机甲与第二职业', '特殊能力', '降临与命运+背包'];
         var currentStep = 1, totalSteps = 8;
 
@@ -814,7 +810,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 el.addEventListener('click', function(){
                     var idx = Number(this.dataset.bpDel);
                     backpackItems.splice(idx, 1);
-                    localStorage.setItem('backpack_items_v19', JSON.stringify(backpackItems));
+                    localStorage.setItem('backpack_items_v20', JSON.stringify(backpackItems));
                     renderBackpack();
                     saveDraft();
                 });
@@ -825,7 +821,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             item = item.trim();
             if(backpackItems.indexOf(item) === -1){
                 backpackItems.push(item);
-                localStorage.setItem('backpack_items_v19', JSON.stringify(backpackItems));
+                localStorage.setItem('backpack_items_v20', JSON.stringify(backpackItems));
                 renderBackpack();
                 saveDraft();
                 showToast('✅ 已添加：' + item);
@@ -847,14 +843,14 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             var added = 0;
             allPresets.forEach(function(item){ if(backpackItems.indexOf(item)===-1){ backpackItems.push(item); added++; } });
             if(added > 0){
-                localStorage.setItem('backpack_items_v19', JSON.stringify(backpackItems));
+                localStorage.setItem('backpack_items_v20', JSON.stringify(backpackItems));
                 renderBackpack();
                 saveDraft();
                 showToast('🎒 已添加 ' + added + ' 件道具');
             }
         }
         function loadBackpack(){
-            var saved = localStorage.getItem('backpack_items_v19');
+            var saved = localStorage.getItem('backpack_items_v20');
             if(saved){ try{ backpackItems = JSON.parse(saved); } catch(_){} }
             if(!Array.isArray(backpackItems)) backpackItems = [];
             renderBackpack();
@@ -884,7 +880,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
         function updateBoneStats(){ var done=0; bonePartNames.forEach(function(n){ if(boneParts[n]) done++; }); $('boneDoneCount').textContent = done; }
 
         function initRings(){
-            var saved = localStorage.getItem('soul_rings_v19');
+            var saved = localStorage.getItem('soul_rings_v20');
             if(saved){ try{ rings = JSON.parse(saved); } catch(_){} }
             if(!rings || !Array.isArray(rings)) rings = [];
             renderRings();
@@ -909,7 +905,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 el.addEventListener('change', function(){
                     var idx = Number(this.dataset.ringYear);
                     rings[idx].year = this.value;
-                    localStorage.setItem('soul_rings_v19', JSON.stringify(rings));
+                    localStorage.setItem('soul_rings_v20', JSON.stringify(rings));
                     renderRings();
                     updateRingInfo();
                     validateRings();
@@ -921,7 +917,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 el.addEventListener('click', function(){
                     var idx = Number(this.dataset.ringDel);
                     rings.splice(idx, 1);
-                    localStorage.setItem('soul_rings_v19', JSON.stringify(rings));
+                    localStorage.setItem('soul_rings_v20', JSON.stringify(rings));
                     renderRings();
                     updateRingInfo();
                     validateRings();
@@ -931,7 +927,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             });
             updateRingInfo();
             validateRings();
-            // 显示空提示
             if (rings.length === 0) {
                 ringEmptyHint.style.display = 'block';
             } else {
@@ -1607,10 +1602,10 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             if(fields.specialWeaponWrap) fields.specialWeaponWrap.style.display = 'none';
             if(fields.specialArtifactWrap) fields.specialArtifactWrap.style.display = 'none';
             rings = [];
-            localStorage.setItem('soul_rings_v19', JSON.stringify(rings));
+            localStorage.setItem('soul_rings_v20', JSON.stringify(rings));
             renderRings();
             backpackItems = [];
-            localStorage.setItem('backpack_items_v19', JSON.stringify(backpackItems));
+            localStorage.setItem('backpack_items_v20', JSON.stringify(backpackItems));
             renderBackpack();
             bonePartNames.forEach(function(n){ boneParts[n] = false; });
             renderBoneParts();
@@ -1731,7 +1726,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 
             $('btnAddRing').addEventListener('click', function(){
                 rings.push({ year: '百年' });
-                localStorage.setItem('soul_rings_v19', JSON.stringify(rings));
+                localStorage.setItem('soul_rings_v20', JSON.stringify(rings));
                 renderRings();
                 updateRingInfo();
                 validateRings();
