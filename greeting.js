@@ -1,4 +1,4 @@
-// ========== greeting.js - 斗罗大陆III 龙王传说 魂师档案 v17.0（最终修复版）==========
+// ========== greeting.js - 斗罗大陆III 龙王传说 魂师档案 v18.0（最终版）==========
 (function() {
     "use strict";
 
@@ -7,13 +7,21 @@
 .soul-app-container{font-family:system-ui,'Microsoft YaHei',sans-serif;background:radial-gradient(ellipse at 50% 20%, #0f1a2e 0%, #0a1220 50%, #060d1a 100%);background-attachment:scroll;color:#e2e8f0;line-height:1.6;padding:12px 8px 24px;display:flex;justify-content:center;min-height:100vh;position:relative;-webkit-overflow-scrolling:touch}
 .soul-app-container::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:radial-gradient(1px 1px at 10% 20%, rgba(255,200,100,0.3), transparent),radial-gradient(1.5px 1.5px at 30% 60%, rgba(255,150,255,0.2), transparent),radial-gradient(1px 1px at 50% 80%, rgba(100,200,255,0.25), transparent),radial-gradient(1.5px 1.5px at 70% 30%, rgba(255,100,100,0.2), transparent),radial-gradient(1px 1px at 90% 70%, rgba(100,255,200,0.2), transparent),radial-gradient(1px 1px at 15% 85%, rgba(255,200,50,0.25), transparent),radial-gradient(1.5px 1.5px at 55% 15%, rgba(200,150,255,0.2), transparent),radial-gradient(1px 1px at 85% 50%, rgba(255,80,80,0.2), transparent);background-size:100% 100%;pointer-events:none;z-index:0;animation:none;opacity:0.6}
 @keyframes archiveRise{0%{opacity:0;transform:translateY(30px) scale(0.96);filter:blur(8px)}60%{opacity:0.6;transform:translateY(-4px) scale(1.002);filter:blur(0)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
-#app{max-width:540px;width:100%;padding:18px 14px 130px 14px;background:linear-gradient(170deg,rgba(10,18,32,0.94),rgba(20,30,50,0.88) 30%,rgba(10,18,32,0.94));border:1px solid rgba(255,215,0,0.15);border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,0.6),0 0 80px rgba(255,215,0,0.04),inset 0 1px 0 rgba(255,215,0,0.06);position:relative;z-index:1;transform:translateZ(0);animation:archiveRise 0.9s cubic-bezier(0.16,1,0.3,1) forwards}
-#app::before{content:'';position:absolute;top:-1px;left:-10%;right:-10%;height:2px;background:linear-gradient(90deg,transparent,#fbbf24,transparent);opacity:0.3;border-radius:50%;animation:none}
-.title-wrap{text-align:center;margin-bottom:6px;position:relative}
+#app{max-width:540px;width:100%;padding:18px 14px 130px 14px;background:linear-gradient(170deg,rgba(10,18,32,0.94),rgba(20,30,50,0.88) 30%,rgba(10,18,32,0.94));border:1px solid rgba(255,215,0,0.15);border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,0.6),0 0 80px rgba(255,215,0,0.04),inset 0 1px 0 rgba(255,215,0,0.06);position:relative;z-index:1;transform:translateZ(0);animation:archiveRise 0.6s cubic-bezier(0.16,1,0.3,1) forwards}
+/* 标题科技感装饰 */
+#app .title-wrap{position:relative;text-align:center;margin-bottom:6px}
+#app .title-wrap::before,#app .title-wrap::after{content:'';position:absolute;top:50%;width:30px;height:2px;background:linear-gradient(90deg,transparent,#00ccff);opacity:0.3}
+#app .title-wrap::before{left:-10px;transform:translateY(-50%)}
+#app .title-wrap::after{right:-10px;transform:translateY(-50%) rotate(180deg)}
+#app .title-wrap .corner{position:absolute;width:20px;height:20px;border:1px solid rgba(0,204,255,0.2);border-radius:2px;opacity:0.5}
+#app .title-wrap .corner.tl{top:-4px;left:-4px;border-right:none;border-bottom:none}
+#app .title-wrap .corner.tr{top:-4px;right:-4px;border-left:none;border-bottom:none}
+#app .title-wrap .corner.bl{bottom:-4px;left:-4px;border-right:none;border-top:none}
+#app .title-wrap .corner.br{bottom:-4px;right:-4px;border-left:none;border-top:none}
 .title-ornament{font-size:.55em;letter-spacing:10px;opacity:.7;font-weight:300;margin-bottom:2px}
-.title-ornament span{display:inline-block;animation:none;color:#fbbf24}
-h1{text-align:center;color:#fbbf24;font-size:2em;font-weight:700;letter-spacing:8px;text-shadow:0 0 10px rgba(255,215,0,0.15),0 0 30px rgba(255,215,0,0.08),0 2px 12px rgba(0,0,0,0.6),0 0 60px rgba(255,200,100,0.05);font-family:'STKaiti','KaiTi','楷体',serif;min-height:44px;display:flex;align-items:center;justify-content:center;user-select:none;position:relative;background:linear-gradient(135deg,#fbbf24 0%,#fcd34d 50%,#fbbf24 100%);background-size:100% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:none}
-h1::after{content:'';position:absolute;bottom:-4px;width:50%;height:2px;background:linear-gradient(90deg,transparent,#fbbf24,transparent);opacity:.3;border-radius:2px;animation:none}
+.title-ornament span{display:inline-block;animation:none;color:#00ccff}
+h1{text-align:center;color:#ff2d2d;font-size:2em;font-weight:700;letter-spacing:8px;text-shadow:0 0 20px rgba(255,0,0,0.3),0 0 60px rgba(255,0,0,0.1),0 2px 12px rgba(0,0,0,0.6);font-family:'STKaiti','KaiTi','楷体',serif;min-height:44px;display:flex;align-items:center;justify-content:center;user-select:none;position:relative;background:linear-gradient(135deg,#ff2d2d 0%,#ff6b6b 50%,#ff2d2d 100%);background-size:100% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:none}
+h1::after{content:'';position:absolute;bottom:-4px;width:60%;height:2px;background:linear-gradient(90deg,transparent,#ff2d2d,transparent);opacity:.3;border-radius:2px;animation:none}
 .title-divider{text-align:center;font-size:.3em;letter-spacing:4px;opacity:.4;margin-top:-2px;font-weight:300}
 .title-divider span{display:inline-block;animation:none;color:#94a3b8}
 .subtitle{text-align:center;font-size:.65em;color:#94a3b8;margin:6px 0 12px 0;letter-spacing:6px;font-style:italic;opacity:.7;font-weight:300}
@@ -31,9 +39,13 @@ h1::after{content:'';position:absolute;bottom:-4px;width:50%;height:2px;backgrou
 .step-nav .step-info{font-size:.65em;color:#64748b;letter-spacing:0.5px;flex:1;text-align:center;font-weight:300}
 .step-nav .step-info .current{color:#fbbf24;font-weight:700}
 .step-nav .step-info .total{color:#475569}
-.sec{display:none;margin:2px 0;animation:stepFade .5s ease}
+.step-nav .tool-group{display:flex;gap:3px}
+.step-nav .bm-clear{font-size:.55em;padding:2px 8px;border-radius:6px;border:1px solid rgba(200,50,50,0.15);background:rgba(200,50,50,0.05);color:#f87171;cursor:pointer;transition:.2s;touch-action:manipulation;min-height:26px;display:inline-flex;align-items:center;gap:3px}
+.step-nav .bm-clear:hover{background:rgba(200,50,50,0.12);border-color:#f87171}
+.step-nav .bm-clear:active{transform:scale(.92)}
+.sec{display:none;margin:2px 0;animation:stepFade .4s ease}
 .sec.active{display:block}
-@keyframes stepFade{0%{opacity:0;transform:translateY(18px) scale(0.97)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes stepFade{0%{opacity:0;transform:translateY(12px) scale(0.98)}100%{opacity:1;transform:translateY(0) scale(1)}}
 .step-guide{font-size:.6em;color:#94a3b8;font-weight:700;letter-spacing:2px;margin-bottom:10px;padding:6px 12px;background:rgba(255,215,0,0.04);border-radius:8px;border-left:2px solid rgba(255,215,0,0.2);font-style:italic}
 .sec details{display:block;border-radius:8px;margin-bottom:4px;background:rgba(0,0,0,0.2);border:1px solid rgba(255,215,0,0.04)}
 .sec summary{color:#fbbf24;font-size:.75em;font-weight:700;padding:6px 8px 6px 20px;border-bottom:1px solid rgba(255,215,0,0.04);letter-spacing:1px;position:relative;cursor:pointer;user-select:none;transition:.2s;border-radius:8px;display:flex;align-items:center;gap:4px;list-style:none;min-height:32px}
@@ -214,7 +226,8 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 <div id="fieldIndicator"></div>
 <div id="toast"></div>
 <div class="title-wrap">
-  <div class="title-ornament"><span>✦</span> <span>❖</span> <span>✦</span> <span>❖</span> <span>✦</span></div>
+  <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+  <div class="title-ornament"><span>◈</span> <span>❖</span> <span>◈</span> <span>❖</span> <span>◈</span></div>
   <h1 id="mainTitle">魂 师 绝 密 档 案</h1>
   <div class="title-divider"><span>━</span><span>━</span><span>━</span> <span>✦</span> <span>━</span><span>━</span><span>━</span></div>
 </div>
@@ -223,6 +236,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
   <button class="step-btn" id="stepPrev">◀</button>
   <span class="step-info"><span class="current" id="stepCurrent">1</span>/<span class="total" id="stepTotal">8</span> · <span id="stepName">刻下你的名字</span></span>
   <button class="step-btn step-btn-primary" id="stepNext">▶</button>
+  <div class="tool-group"><button class="bm-clear" id="btnClearAll">🗑 清空</button></div>
 </div>
 <div class="soul-comment" id="soulComment">✦ 输入魂力等级，查看修炼评语 ✦</div>
 <!-- 步骤1 -->
@@ -275,16 +289,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
   </div>
   <div class="core-group">
     <div class="core-label">◈ 魂师定位</div>
-    <div class="position-selector" id="positionSelector">
-      <span class="pos-opt" data-tag="强攻系">强攻系</span>
-      <span class="pos-opt" data-tag="控制系">控制系</span>
-      <span class="pos-opt" data-tag="敏攻系">敏攻系</span>
-      <span class="pos-opt" data-tag="防御系">防御系</span>
-      <span class="pos-opt" data-tag="辅助系">辅助系</span>
-      <span class="pos-opt" data-tag="食物系">食物系</span>
-      <span class="pos-opt" data-tag="治疗系">治疗系</span>
-      <span class="pos-opt" data-tag="全能系">全能系</span>
-    </div>
+    <div class="fd"><select id="positionSelect"><option value="无">无</option><option value="强攻系">强攻系</option><option value="控制系">控制系</option><option value="敏攻系">敏攻系</option><option value="防御系">防御系</option><option value="辅助系">辅助系</option><option value="食物系">食物系</option><option value="治疗系">治疗系</option><option value="全能系">全能系</option></select></div>
   </div>
   <div class="core-group">
     <div class="core-label">◈ 魂骨</div>
@@ -298,12 +303,13 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
   <div class="hl">
     <div class="hl-title">✦ 魂灵配置</div>
     <div class="fd"><label>主要魂灵</label><input type="text" id="ssn" placeholder="如：草蛇"></div>
-    <div class="rw"><div class="fd"><label>魂灵类型</label><select id="sst"><option value="战斗型">战斗型</option><option value="辅助型">辅助型</option><option value="防御型">防御型</option><option value="治疗型">治疗型</option><option value="特殊型">特殊型</option><option value="无魂灵">无魂灵</option></select></div><div class="fd"><label>年限</label>
+    <div class="fd"><label>魂灵类型</label><select id="sst"><option value="战斗型">战斗型</option><option value="辅助型">辅助型</option><option value="防御型">防御型</option><option value="治疗型">治疗型</option><option value="特殊型">特殊型</option><option value="无魂灵">无魂灵</option></select></div>
+    <div class="fd"><label>年限</label>
       <div class="spirit-year-select">
         <span class="spirit-dot s-white" id="spiritDot"></span>
         <select id="ssy"><option value="十年">十年</option><option value="百年">百年</option><option value="千年">千年</option><option value="万年">万年</option><option value="十万年">十万年</option><option value="凶兽">凶兽</option></select>
       </div>
-    </div></div>
+    </div>
     <div class="fd"><label>其他魂灵 <sm>(每行一个)</sm></label><textarea id="ess" rows="2"></textarea></div>
     <div class="ring-legend" style="margin-top:2px;">
       <span class="legend-item"><span class="legend-dot l-white"></span>十年</span>
@@ -467,7 +473,8 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             msg: $('msg'), cd: $('cd'), toast: $('toast'), fieldIndicator: $('fieldIndicator'),
             awakenOverlay: $('awakenOverlay'), fateModal: $('fateModal'), fateBody: $('fateBody'),
             ringGroup: $('ringGroup'), ringContainer: $('ringContainer'), ringCountDisplay: $('ringCountDisplay'),
-            ringMatchInfo: $('ringMatchInfo')
+            ringMatchInfo: $('ringMatchInfo'),
+            positionSelect: $('positionSelect')
         };
 
         var dsf = $('dsf'), msg = $('msg'), cd = $('cd'), exportArea = $('exportArea'),
@@ -478,7 +485,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             backpackInput = $('backpackInput'), bonePartsGroup = $('bonePartsGroup'),
             titleEpithet = $('titleEpithet'), spiritWarn = $('spiritWarn');
 
-        var STORAGE_KEY = 'soul_archive_v17';
+        var STORAGE_KEY = 'soul_archive_v18';
         var stepNames = ['刻下你的名字', '出身与阵营', '武魂与魂力', '精神力与定位与魂骨', '魂灵与魂环', '斗铠与机甲与第二职业', '特殊能力', '降临与命运+背包'];
         var currentStep = 1, totalSteps = 8;
 
@@ -530,91 +537,91 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             '无尽山脉入口':['无尽山脉地图','登山工具','野外生存包'],'海神岛':['海神岛通行令牌','海洋图鉴','防水魂导器']
         };
 
-        // ---- 特殊能力数据（数量：15,14,13,12,10,9） ----
+        // ---- 特殊能力数据（完全重设计，非升级版） ----
         var specialDataT1 = [
-            { name: '天生神力', desc: '拥有远超常人的力量，肉体强度异于常人。', side: '中等副作用：体力消耗较快，长时间战斗易疲惫。' },
-            { name: '剑感', desc: '对剑类武器有超乎寻常的感知与亲和力。', side: '中等副作用：对其他武器不熟练。' },
-            { name: '钢铁意志', desc: '拥有坚不可摧的精神意志，不易被动摇。', side: '中等副作用：情感表达稍显迟钝。' },
-            { name: '战斗直觉', desc: '在战斗中拥有敏锐的预判能力。', side: '中等副作用：过度依赖直觉，忽略细节。' },
-            { name: '快速愈合', desc: '伤口愈合速度远超常人。', side: '中等副作用：愈合消耗大量营养。' },
-            { name: '元素感知', desc: '能模糊感知周围环境中的元素波动。', side: '中等副作用：对极端环境敏感。' },
-            { name: '龙族亲和', desc: '与龙类魂兽/武魂有天然的亲近感。', side: '中等副作用：被龙族天敌仇视。' },
-            { name: '夜视', desc: '在黑暗中拥有超常的视力。', side: '中等副作用：白天畏光。' },
-            { name: '水性精通', desc: '在水中行动自如，水性远超常人。', side: '中等副作用：陆地适应力略降。' },
-            { name: '攀爬者', desc: '拥有超常的攀爬能力，如履平地。', side: '中等副作用：平地行走稳定性稍差。' },
-            { name: '野兽直觉', desc: '拥有类似野兽的危险预知能力。', side: '中等副作用：容易应激，对突然声响过度反应。' },
-            { name: '铁胃', desc: '对毒素和劣质食物有极强的耐受性。', side: '中等副作用：味觉迟钝，难以享受美食。' },
-            { name: '听力超常', desc: '能听到极远处的细微声响。', side: '中等副作用：容易被噪音干扰和刺痛。' },
-            { name: '嗅觉灵敏', desc: '嗅觉远超常人，可追踪气味。', side: '中等副作用：对强烈异味极其敏感。' },
-            { name: '平衡大师', desc: '在任何地形上都能保持完美平衡。', side: '中等副作用：静止时会有轻微不安感。' }
+            { name: '天生神力', desc: '力量远超同体型常人，可徒手碎石。', side: '中等副作用：体力消耗加快，长时间战斗易脱力。' },
+            { name: '夜视', desc: '黑暗中可视物如昼，视野无阻碍。', side: '中等副作用：白天强光下畏光，需戴墨镜。' },
+            { name: '快速愈合', desc: '轻伤数分钟愈合，骨折数天恢复。', side: '中等副作用：愈合过程消耗大量营养和能量。' },
+            { name: '毒性抗性', desc: '对大多数神经毒素和烈性毒药免疫。', side: '中等副作用：对特定迷幻类药物反而敏感。' },
+            { name: '铁胃', desc: '可消化任何有机物，包括变质食物。', side: '中等副作用：味觉迟钝，难以分辨精细风味。' },
+            { name: '嗅觉灵敏', desc: '可追踪气味残留长达数天。', side: '中等副作用：对恶臭极度敏感，易眩晕。' },
+            { name: '听觉超常', desc: '可听到百米外的窃窃私语。', side: '中等副作用：噪音环境下易头痛、耳鸣。' },
+            { name: '攀爬者', desc: '可徒手攀爬垂直光滑表面。', side: '中等副作用：在平地行走时平衡感略差。' },
+            { name: '水性精通', desc: '水中憋气可达一刻钟，游速如鱼。', side: '中等副作用：在干燥环境中皮肤易开裂。' },
+            { name: '平衡大师', desc: '在任何地形上保持完美平衡，永不摔倒。', side: '中等副作用：静止站立时会有轻微眩晕感。' },
+            { name: '伪装天赋', desc: '可模仿周围环境颜色和纹理，融入背景。', side: '中等副作用：长期伪装导致自我认知模糊。' },
+            { name: '野兽直觉', desc: '能预判危险，对敌意有超前感知。', side: '中等副作用：对突然声响或惊吓过度反应。' },
+            { name: '战斗直觉', desc: '在近战中能预判对手出招方向。', side: '中等副作用：过度依赖直觉，忽略战术细节。' },
+            { name: '剑感', desc: '持剑时能感知剑的“呼吸”与意志。', side: '中等副作用：对非剑类武器掌握笨拙。' },
+            { name: '语言通晓', desc: '可快速掌握任何语言，理解其文化逻辑。', side: '中等副作用：母语表达能力偶尔退化。' }
         ];
         var specialDataT2 = [
-            { name: '元素亲和', desc: '对火、水、风、土等元素拥有天然掌控力。', side: '轻微副作用：长时间操控元素会感到精神疲劳。' },
-            { name: '龙族感应', desc: '能与龙类武魂/魂兽产生深度共鸣。', side: '轻微副作用：与龙族过于亲近易受其情绪影响。' },
-            { name: '空间感知', desc: '对空间波动有敏锐的直觉，可感知空间结构。', side: '轻微副作用：在狭小空间内容易眩晕。' },
-            { name: '生命亲和', desc: '可感知生命能量，与植物沟通。', side: '轻微副作用：对枯萎或死亡事物过度敏感。' },
-            { name: '血脉压制', desc: '对低阶魂兽和武魂有天然的压制力。', side: '轻微副作用：被压制者可能产生怨恨。' },
-            { name: '蓝银领域（雏形）', desc: '领域内可感知生命迹象，可初步伪装魂环颜色。', side: '轻微副作用：维持领域需持续消耗魂力。' },
-            { name: '极致之力', desc: '力量属性达到极致，可越级挑战。', side: '轻微副作用：攻击后短暂防御下降。' },
-            { name: '元素掌控', desc: '可同时操控多种元素进行战斗。', side: '轻微副作用：对元素精纯度要求较高。' },
-            { name: '暗影潜行', desc: '可在阴影中隐匿身形，移动无声。', side: '轻微副作用：在强光下效果大幅减弱。' },
-            { name: '风之翼', desc: '可凝聚风元素形成翅膀飞行，持续约10分钟。', side: '轻微副作用：飞行后需要休息恢复。' },
-            { name: '治愈之触', desc: '通过接触可加速伤口愈合，缓解痛苦。', side: '轻微副作用：治疗过程会消耗自身精力。' },
-            { name: '灵犀之心', desc: '能与魂兽进行心灵沟通。', side: '轻微副作用：容易受到魂兽情绪冲击。' },
-            { name: '星辰指引', desc: '可通过星辰判断方位，在夜晚获得感知加成。', side: '轻微副作用：白天感知能力下降。' },
-            { name: '伪装天赋', desc: '擅长隐藏自身气息和存在感，可融入环境。', side: '轻微副作用：长期伪装导致难以建立信任。' }
+            { name: '元素亲和', desc: '与火、水、风、土等元素产生微弱共鸣，可引导其流动。', side: '轻微副作用：长时间操控后精神疲劳。' },
+            { name: '生命亲和', desc: '可感知植物情绪，与草木沟通，促进植物生长。', side: '轻微副作用：对枯萎植物产生强烈悲伤。' },
+            { name: '龙族亲和', desc: '龙形魂兽或龙类武魂不会主动攻击你。', side: '轻微副作用：被龙族天敌（如屠龙者）仇视。' },
+            { name: '灵犀之心', desc: '可与魂兽进行心灵对话，建立信任。', side: '轻微副作用：容易受魂兽情绪冲击。' },
+            { name: '星辰指引', desc: '夜间通过星辰辨认方位，并获得微弱的运势提升。', side: '轻微副作用：白天方向感下降。' },
+            { name: '危险预知', desc: '对即将发生的危险产生模糊警示（如冷汗、心悸）。', side: '轻微副作用：预知过于频繁会导致神经衰弱。' },
+            { name: '读心', desc: '可感知他人表层情绪和意图。', side: '轻微副作用：无法屏蔽大量人群的杂念涌入。' },
+            { name: '空间感知', desc: '可感知周围空间的扭曲和折叠，发现隐藏通道。', side: '轻微副作用：在狭小空间内容易眩晕。' },
+            { name: '灵魂嗅觉', desc: '可通过气味感知他人灵魂的纯净度或邪恶程度。', side: '轻微副作用：对灵魂肮脏者会产生生理厌恶。' },
+            { name: '天气感知', desc: '可通过空气湿度、气压预判未来数小时天气。', side: '轻微副作用：对极端天气变化敏感，易偏头痛。' },
+            { name: '物体记忆', desc: '触摸物体可感知其经历过的强烈情感片段。', side: '轻微副作用：容易受物体残留情绪干扰。' },
+            { name: '相位偏移', desc: '短暂将自己部分身体虚化，穿透薄层障碍。', side: '轻微副作用：消耗精神，且不能全身虚化。' },
+            { name: '能量嗅觉', desc: '可感知魂力波动的强弱和属性。', side: '轻微副作用：对高浓度魂力环境会感到压迫。' },
+            { name: '回声定位', desc: '通过发出声波感知周围地形，如蝙蝠。', side: '轻微副作用：在嘈杂环境中效果大减。' }
         ];
         var specialDataT3 = [
-            { name: '元素掌控者', desc: '对元素的掌控达到极致，可元素化自身部分肢体。' },
-            { name: '龙神之血（微量）', desc: '拥有微弱的龙神血脉，可短暂龙化。' },
-            { name: '时空感知', desc: '能感知到时间和空间的细微波动。' },
-            { name: '生命之泉', desc: '体内蕴含生命能量，可治愈他人。' },
-            { name: '魂力吞噬', desc: '可主动吞噬对手魂力并转化，效率约30%。' },
-            { name: '武魂真身（伪）', desc: '可短暂凝聚武魂真身，大幅提升战力，持续约3分钟。' },
-            { name: '领域掌控（伪）', desc: '可构建小型领域，获得一定加成。' },
-            { name: '魂灵契约增强', desc: '可同时与多个魂灵深度链接。' },
-            { name: '暗影之王', desc: '可操控阴影进行攻击和防御。' },
-            { name: '风暴之眼', desc: '可制造局部风暴，影响战场环境。' },
-            { name: '永愈之体（初）', desc: '拥有较强的再生能力，断肢需数月重生。' },
-            { name: '锻造精通', desc: '锻造技艺远超同侪，可打造精品装备。' },
-            { name: '机甲操控', desc: '对机甲有天然的操控天赋，驾驶机甲如臂使指。' }
+            { name: '元素掌控', desc: '可同时操控两种以上元素进行战斗或辅助。' },
+            { name: '暗影潜行', desc: '融入阴影，可在暗处移动且不易被发现。' },
+            { name: '风之翼', desc: '凝聚风元素成翼，持续飞行约10分钟。' },
+            { name: '治愈之触', desc: '通过接触治愈轻度伤口，缓解痛苦。' },
+            { name: '魂力吞噬', desc: '主动吸收他人外放的魂力，转化率约30%。' },
+            { name: '永愈之体', desc: '伤口自动再生，断肢重生需数月。' },
+            { name: '精神屏障', desc: '构建精神护盾，抵御精神攻击和幻术。' },
+            { name: '念动力', desc: '用意念移动小物体（不超过10公斤）。' },
+            { name: '分子级伪装', desc: '改变自身肤色、纹理，模拟周围环境。' },
+            { name: '温度调节', desc: '自身可适应极端温度（-50℃～80℃）。' },
+            { name: '磁场感知', desc: '感知金属矿物或机械内部结构。' },
+            { name: '梦境预知', desc: '在梦中预见未来片段，模糊但可指向。' },
+            { name: '吸收转化', desc: '吸收外部能量（如火焰、雷电）转化为魂力。' }
         ];
         var specialDataT4 = [
-            { name: '海神传承（初级）', desc: '获得海神部分权柄，掌控海洋之力。', weapon: '海神三叉戟（投影）' },
-            { name: '修罗传承（初级）', desc: '获得修罗神部分权柄，掌控杀戮之力。', weapon: '修罗魔剑（投影）' },
-            { name: '天使传承（初级）', desc: '获得天使神部分权柄，掌控神圣之力。', weapon: '天使圣剑（投影）' },
-            { name: '金龙王血脉（觉醒）', desc: '继承金龙王破灭之力，肉体极致。', weapon: '黄金龙枪（投影）' },
-            { name: '银龙王血脉（觉醒）', desc: '继承银龙王元素掌控，九大元素。', weapon: '白银龙枪（投影）' },
-            { name: '情绪之神传承（初级）', desc: '获得情绪神部分权柄，操控情感。', weapon: '情绪神杖（投影）' },
-            { name: '昊天血脉（觉醒）', desc: '拥有昊天宗的顶级力量系血脉。', weapon: '昊天锤（投影）' },
-            { name: '毁灭之神传承（初级）', desc: '获得毁灭神部分权柄。', weapon: '毁灭神戟（投影）' },
-            { name: '生命之神传承（初级）', desc: '获得生命神部分权柄。', weapon: '生命神杖（投影）' },
-            { name: '蓝银皇血脉（觉醒）', desc: '蓝银皇的顶级控制系血脉。', weapon: '蓝银皇（投影）' },
-            { name: '七杀剑血脉（觉醒）', desc: '七杀剑武魂，剑意通神。', weapon: '七杀剑（投影）' },
-            { name: '白虎血脉（觉醒）', desc: '白虎武魂，兽中之王。', weapon: '白虎（投影）' }
+            { name: '金龙王之力', desc: '爆发全力时力量翻倍，肉体短暂化为金色。' },
+            { name: '银龙王之力', desc: '元素操控力大幅提升，可同时使用四大元素。' },
+            { name: '蓝银皇控制', desc: '操控植物生长，制造藤蔓牢笼。' },
+            { name: '七杀剑意', desc: '剑意外放形成剑气，可远程攻击。' },
+            { name: '昊天锤重击', desc: '凝聚力量发动毁灭性一击。' },
+            { name: '白虎变', desc: '短暂兽化，力量敏捷大幅度提升。' },
+            { name: '九心海棠治愈', desc: '可治愈群体，范围十米内所有创伤。' },
+            { name: '火凤凰涅槃', desc: '受到致命伤时燃烧重生，每日一次。' },
+            { name: '冰凤凰霜冻', desc: '释放寒冰领域，冻结范围内敌人。' },
+            { name: '九尾狐魅惑', desc: '精神控制，使敌人短暂听从指令。' },
+            { name: '泰坦之力', desc: '获得大地之力，防御和体重剧增。' },
+            { name: '时空锚点', desc: '可标记一个位置，瞬移回该点（距离有限）。' }
         ];
         var specialDataT5 = [
-            { name: '昊天斗罗血脉', desc: '拥有昊天宗最强力量系武魂——昊天锤。', weapon: '昊天锤', cost: '逆天时轻微代价：魂力透支，可逆。' },
-            { name: '蓝银皇血脉', desc: '拥有蓝银皇的顶级控制系武魂——蓝银皇。', weapon: '蓝银皇', cost: '逆天时轻微代价：精神疲劳，可逆。' },
-            { name: '七杀剑血脉', desc: '拥有七杀剑武魂，剑意通神。', weapon: '七杀剑', cost: '逆天时轻微代价：剑气反噬，可逆。' },
-            { name: '白虎血脉', desc: '拥有白虎武魂，兽中之王。', weapon: '白虎', cost: '逆天时轻微代价：体力透支，可逆。' },
-            { name: '九心海棠血脉', desc: '拥有九心海棠武魂，极致治疗。', weapon: '九心海棠', cost: '逆天时轻微代价：生命能量消耗，可逆。' },
-            { name: '黄金龙血脉', desc: '拥有黄金龙武魂，力量与防御并重。', weapon: '黄金龙', cost: '逆天时轻微代价：防御力短暂下降，可逆。' },
-            { name: '九尾狐血脉', desc: '拥有九尾狐武魂，精神控制与幻术。', weapon: '九尾狐', cost: '逆天时轻微代价：精神力震荡，可逆。' },
-            { name: '火凤凰血脉', desc: '拥有火凤凰武魂，极致火焰。', weapon: '火凤凰', cost: '逆天时轻微代价：火焰反噬，可逆。' },
-            { name: '冰凤凰血脉', desc: '拥有冰凤凰武魂，极致寒冰。', weapon: '冰凤凰', cost: '逆天时轻微代价：寒气侵体，可逆。' },
-            { name: '自定义', desc: '自定义通神能力', weapon: '', cost: '' }
+            { name: '时间加速', desc: '自身时间流速加快，获得两倍速度，持续10秒。', spirit: '时间之翼', cost: '日常无代价，逆天时轻微代价：使用后虚弱一天。' },
+            { name: '空间跳跃', desc: '瞬间移动至视线内任意地点，距离限制50米。', spirit: '虚空行者', cost: '日常无代价，逆天时轻微代价：使用后精神恍惚。' },
+            { name: '因果偏转', desc: '改变一次小概率事件的结果（如箭矢偏转）。', spirit: '命运丝线', cost: '日常无代价，逆天时轻微代价：使用后运气低迷数小时。' },
+            { name: '情绪操控', desc: '改变周围人的情绪倾向（愤怒→平静）。', spirit: '情感之灵', cost: '日常无代价，逆天时轻微代价：使用后自身情感麻木片刻。' },
+            { name: '命运之线', desc: '窥探他人命运线的走向，预判其行为。', spirit: '命运之眼', cost: '日常无代价，逆天时轻微代价：过度使用会导致视物模糊。' },
+            { name: '灵魂出窍', desc: '神识离体，可查看远处场景但无法互动。', spirit: '魂灵之影', cost: '日常无代价，逆天时轻微代价：离体超过一分钟会头晕。' },
+            { name: '元素化', desc: '将身体转化为元素形态，免疫物理攻击。', spirit: '元素之心', cost: '日常无代价，逆天时轻微代价：维持状态消耗大量魂力。' },
+            { name: '虚实转化', desc: '使自己或物体暂时虚化，穿透障碍。', spirit: '虚实之镜', cost: '日常无代价，逆天时轻微代价：转化时无法攻击。' },
+            { name: '复制', desc: '短暂复制他人一个魂技，威力减半。', spirit: '镜面之魂', cost: '日常无代价，逆天时轻微代价：使用后自身魂力紊乱。' },
+            { name: '重力操控', desc: '改变小范围重力方向或大小。', spirit: '重力核心', cost: '日常无代价，逆天时轻微代价：使用后腿部酸麻。' }
         ];
         var specialDataT6 = [
-            { name: '海神传承（完整）', desc: '完全继承海神神位，掌控海洋。', weapon: '海神三叉戟', artifact: '海神之心', cost: '逆天时中等代价：折寿十年，可借神器减轻。' },
-            { name: '修罗传承（完整）', desc: '完全继承修罗神位，掌控杀戮与审判。', weapon: '修罗魔剑', artifact: '修罗神装', cost: '逆天时中等代价：杀气侵体，可借神器减轻。' },
-            { name: '天使传承（完整）', desc: '完全继承天使神位，掌控神圣与光明。', weapon: '天使圣剑', artifact: '天使神装', cost: '逆天时中等代价：圣力枯竭，可借神器减轻。' },
-            { name: '金龙王传承（完整）', desc: '继承金龙王全部力量，肉身无敌。', weapon: '黄金龙枪', artifact: '金龙鳞甲', cost: '逆天时中等代价：肉体崩裂，可借神器减轻。' },
-            { name: '银龙王传承（完整）', desc: '继承银龙王全部力量，元素之主。', weapon: '白银龙枪', artifact: '银龙鳞甲', cost: '逆天时中等代价：元素失控，可借神器减轻。' },
-            { name: '情绪之神传承（完整）', desc: '完全继承情绪神位。', weapon: '情绪神杖', artifact: '情绪之冠', cost: '逆天时中等代价：情感紊乱，可借神器减轻。' },
-            { name: '毁灭之神传承（完整）', desc: '完全继承毁灭神位。', weapon: '毁灭神戟', artifact: '毁灭之环', cost: '逆天时中等代价：毁灭反噬，可借神器减轻。' },
-            { name: '生命之神传承（完整）', desc: '完全继承生命神位。', weapon: '生命神杖', artifact: '生命之冠', cost: '逆天时中等代价：生命流失，可借神器减轻。' },
-            { name: '自定义', desc: '自定义超脱能力', weapon: '', artifact: '', cost: '' }
+            { name: '法则豁免', desc: '暂时无视一种法则（如重力、温度、时间流）。', spirit: '法则圣体', artifact: '法则之环', cost: '逆天时中等代价：豁免后身体崩裂，可借神器缓解。' },
+            { name: '因果重塑', desc: '改写过去5秒内发生的一次事件结果。', spirit: '因果之轮', artifact: '因果沙漏', cost: '逆天时中等代价：重塑后自身记忆混乱，可借神器缓解。' },
+            { name: '时间回溯', desc: '将自身状态回退到10秒前（不包括记忆）。', spirit: '时光龙', artifact: '时光之眼', cost: '逆天时中等代价：回溯后虚弱数天，可借神器缓解。' },
+            { name: '空间折叠', desc: '折叠空间，将两点距离压缩为零。', spirit: '空间之主', artifact: '空间之门', cost: '逆天时中等代价：折叠后空间紊乱，可借神器缓解。' },
+            { name: '命运编织', desc: '主动编织一条命运线，引导未来走向。', spirit: '命运女神', artifact: '命运纺锤', cost: '逆天时中等代价：编织后自身运势枯竭，可借神器缓解。' },
+            { name: '混沌之体', desc: '免疫大部分伤害，但无法主动攻击。', spirit: '混沌兽', artifact: '混沌之心', cost: '逆天时中等代价：维持时自噬生命力，可借神器缓解。' },
+            { name: '本源之力', desc: '调用世界本源能量，释放超强一击。', spirit: '源初之灵', artifact: '源初之核', cost: '逆天时中等代价：本源反噬重伤，可借神器缓解。' },
+            { name: '轮回之眼', desc: '看到目标的前世今生，洞察弱点。', spirit: '轮回之瞳', artifact: '轮回镜', cost: '逆天时中等代价：使用后双目失明片刻，可借神器缓解。' },
+            { name: '虚无之触', desc: '触摸可让物体短暂“不存在”（消失）。', spirit: '虚无之影', artifact: '虚无之刃', cost: '逆天时中等代价：触碰后自身存在感下降，可借神器缓解。' }
         ];
 
         var specialData = { 't1': specialDataT1, 't2': specialDataT2, 't3': specialDataT3, 't4': specialDataT4, 't5': specialDataT5, 't6': specialDataT6 };
@@ -687,6 +694,9 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
         function getMaxRingYearBySpirit(sp){ var map={'灵元境':'百年','灵通境':'千年','灵海境':'万年','灵渊境':'十万年','灵域境':'凶兽','神元境':'凶兽','神王境':'凶兽','未知/未测定':'百年'}; return map[sp]||'百年'; }
         function getRingYearWeight(year){ var weights={'十年':1,'百年':2,'千年':3,'万年':4,'十万年':5,'凶兽（二十万年）':6,'凶兽':6}; return weights[year]||1; }
 
+        // 防抖函数
+        function debounce(fn, delay) { var timer; return function(){ var args=arguments; clearTimeout(timer); timer=setTimeout(function(){ fn.apply(this, args); }, delay); }; }
+
         function showToast(text, isError){ toast.textContent = text; toast.className = 'show' + (isError ? ' error' : ''); clearTimeout(toast._timer); toast._timer = setTimeout(function(){ toast.className = ''; }, 2000); }
 
         function showPane(n) {
@@ -700,7 +710,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             if(n===totalSteps){ nextBtn.style.display = 'none'; } else { nextBtn.style.display = 'flex'; nextBtn.textContent = '▶'; }
             var secs = document.querySelectorAll('.sec');
             secs.forEach(function(sec, idx){
-                if(idx+1===n){ sec.style.display = 'block'; sec.classList.add('active'); if(n===1){ setTimeout(function(){ window.scrollTo({top:0,behavior:'smooth'}); }, 100); } }
+                if(idx+1===n){ sec.style.display = 'block'; sec.classList.add('active'); if(n===1){ setTimeout(function(){ window.scrollTo(0, 0); }, 100); } }
                 else { sec.style.display = 'none'; sec.classList.remove('active'); }
             });
             if(n===2){ updateBackpackByCamp(); updateIdentityByCamp(); }
@@ -725,13 +735,6 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 container.appendChild(span);
             });
             syncPersonalityTags();
-            document.querySelectorAll('#positionSelector .pos-opt').forEach(function(opt){
-                opt.addEventListener('click', function(){
-                    document.querySelectorAll('#positionSelector .pos-opt').forEach(function(o){ o.classList.remove('active'); });
-                    this.classList.add('active');
-                    saveDraft();
-                });
-            });
         }
         function syncPersonalityTags(){
             var val = fields.personality.value;
@@ -781,7 +784,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 el.addEventListener('click', function(){
                     var idx = Number(this.dataset.bpDel);
                     backpackItems.splice(idx, 1);
-                    localStorage.setItem('backpack_items_v17', JSON.stringify(backpackItems));
+                    localStorage.setItem('backpack_items_v18', JSON.stringify(backpackItems));
                     renderBackpack();
                     saveDraft();
                 });
@@ -792,7 +795,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             item = item.trim();
             if(backpackItems.indexOf(item) === -1){
                 backpackItems.push(item);
-                localStorage.setItem('backpack_items_v17', JSON.stringify(backpackItems));
+                localStorage.setItem('backpack_items_v18', JSON.stringify(backpackItems));
                 renderBackpack();
                 saveDraft();
                 showToast('✅ 已添加：' + item);
@@ -814,14 +817,14 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             var added = 0;
             allPresets.forEach(function(item){ if(backpackItems.indexOf(item)===-1){ backpackItems.push(item); added++; } });
             if(added > 0){
-                localStorage.setItem('backpack_items_v17', JSON.stringify(backpackItems));
+                localStorage.setItem('backpack_items_v18', JSON.stringify(backpackItems));
                 renderBackpack();
                 saveDraft();
                 showToast('🎒 已添加 ' + added + ' 件道具');
             }
         }
         function loadBackpack(){
-            var saved = localStorage.getItem('backpack_items_v17');
+            var saved = localStorage.getItem('backpack_items_v18');
             if(saved){ try{ backpackItems = JSON.parse(saved); } catch(_){} }
             if(!Array.isArray(backpackItems)) backpackItems = [];
             renderBackpack();
@@ -851,9 +854,9 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
         function updateBoneStats(){ var done=0; bonePartNames.forEach(function(n){ if(boneParts[n]) done++; }); $('boneDoneCount').textContent = done; }
 
         function initRings(){
-            var saved = localStorage.getItem('soul_rings_v17');
+            var saved = localStorage.getItem('soul_rings_v18');
             if(saved){ try{ rings = JSON.parse(saved); } catch(_){} }
-            if(!rings || !rings.length) rings = [{ year: '百年' }];
+            if(!rings || !Array.isArray(rings)) rings = [];
             renderRings();
             updateRingInfo();
             validateRings();
@@ -874,7 +877,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 el.addEventListener('change', function(){
                     var idx = Number(this.dataset.ringYear);
                     rings[idx].year = this.value;
-                    localStorage.setItem('soul_rings_v17', JSON.stringify(rings));
+                    localStorage.setItem('soul_rings_v18', JSON.stringify(rings));
                     renderRings();
                     updateRingInfo();
                     validateRings();
@@ -885,9 +888,8 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             ringContainer.querySelectorAll('[data-ring-del]').forEach(function(el){
                 el.addEventListener('click', function(){
                     var idx = Number(this.dataset.ringDel);
-                    if(rings.length <= 1){ showToast('至少保留一个魂环', true); return; }
                     rings.splice(idx, 1);
-                    localStorage.setItem('soul_rings_v17', JSON.stringify(rings));
+                    localStorage.setItem('soul_rings_v18', JSON.stringify(rings));
                     renderRings();
                     updateRingInfo();
                     validateRings();
@@ -1134,12 +1136,12 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 descText = '📖 ' + found.desc + sideText;
                 if(currentTier === 't5'){
                     fields.specialWeaponWrap.style.display = 'block';
-                    fields.specialWeapon.value = found.weapon || '';
+                    fields.specialWeapon.value = found.spirit || '';
                     fields.specialArtifactWrap.style.display = 'none';
                     fields.costDesc.textContent = '日常无代价，逆天时轻微代价（可逆）';
                 } else if(currentTier === 't6'){
                     fields.specialWeaponWrap.style.display = 'block';
-                    fields.specialWeapon.value = found.weapon || '';
+                    fields.specialWeapon.value = found.spirit || '';
                     fields.specialArtifactWrap.style.display = 'block';
                     fields.specialArtifact.value = found.artifact || '';
                     fields.costDesc.textContent = '逆天时中等代价，可借神器减轻';
@@ -1190,8 +1192,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                     greeting = parts.slice(1).join('｜').trim() || lines.slice(1).join('\n');
                 } else { scene = first; greeting = lines.slice(1).join('\n'); }
             }
-            var pos = '';
-            document.querySelectorAll('#positionSelector .pos-opt.active').forEach(function(t){ pos = t.dataset.tag; });
+            var pos = getSel('positionSelect');
             var bloodType = getSel('bloodType');
             if(bloodType === '自定义') bloodType = getVal('bloodCustom') || '自定义血脉';
             var secondProfName = getSel('secondProf');
@@ -1218,7 +1219,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             };
         }
 
-        function saveDraft(){
+        var saveDraft = debounce(function(){
             try {
                 var data = collectData();
                 data._rings = rings;
@@ -1228,17 +1229,18 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 data._backpack = backpackItems;
                 data._stageId = getVal('stageSelect');
                 data._stageEvent = fields.stageEventSelect.value;
-                data._position = document.querySelector('#positionSelector .pos-opt.active') ? document.querySelector('#positionSelector .pos-opt.active').dataset.tag : '';
+                data._position = getSel('positionSelect');
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
             } catch(_) {}
-        }
+        }, 300);
+
         function loadDraft(){
             try {
                 var raw = localStorage.getItem(STORAGE_KEY);
                 if(!raw) return;
                 var data = JSON.parse(raw);
                 if(!data || typeof data !== 'object') return;
-                if(data._rings && Array.isArray(data._rings) && data._rings.length){ rings = data._rings; renderRings(); }
+                if(data._rings && Array.isArray(data._rings)){ rings = data._rings; renderRings(); }
                 if(data._boneParts){ Object.keys(data._boneParts).forEach(function(k){ if(bonePartNames.indexOf(k) > -1) boneParts[k] = data._boneParts[k]; }); }
                 renderBoneParts();
                 if(data._specialTier){
@@ -1259,14 +1261,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                         }
                     }, 100);
                 }
-                if(data._position){
-                    setTimeout(function(){
-                        document.querySelectorAll('#positionSelector .pos-opt').forEach(function(t){
-                            if(t.dataset.tag === data._position) t.classList.add('active');
-                            else t.classList.remove('active');
-                        });
-                    }, 100);
-                }
+                if(data._position){ fields.positionSelect.value = data._position; }
                 var map = {
                     'cn':'基本信息.姓名','gd':'基本信息.性别','ag':'基本信息.年龄','personality':'基本信息.性格','appearance':'基本信息.外貌',
                     'og':'出身与阵营.出身地','fc':'出身与阵营.所属阵营','fbg':'出身与阵营.阵营身份','orgIdentity':'出身与阵营.组织身份',
@@ -1368,7 +1363,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             if(v.当前魂力等级 && v.当前魂力等级 !== '未填写'){ lines.push('- 当前魂力：' + v.当前魂力等级); if(v.魂师称号) lines.push('- 魂师称号：' + v.魂师称号); if(v.封号名称) lines.push('- 封号名称：' + v.封号名称); }
             lines.push('');
             if(d.精神力.精神力等级){ lines.push('精神力：'); lines.push('- 精神力境界：' + d.精神力.精神力等级); lines.push(''); }
-            if(d.魂师定位) lines.push('魂师定位：' + d.魂师定位);
+            if(d.魂师定位 && d.魂师定位 !== '无') lines.push('魂师定位：' + d.魂师定位);
             if(d.魂环 && d.魂环.length){
                 lines.push('');
                 lines.push('魂环配置：');
@@ -1487,7 +1482,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             lines.push('【魂师称号】' + (v.魂师称号 || '未测定'));
             if(v.封号名称) lines.push('【封号】' + v.封号名称);
             lines.push('【精神力】' + (d.精神力.精神力等级 || '未填写'));
-            if(d.魂师定位) lines.push('【魂师定位】' + d.魂师定位);
+            if(d.魂师定位 && d.魂师定位 !== '无') lines.push('【魂师定位】' + d.魂师定位);
             var bg = d.出身与阵营;
             if(bg.出身地) lines.push('【出身地】' + bg.出身地);
             if(bg.所属阵营 && bg.所属阵营 !== '无') lines.push('【所属阵营】' + bg.所属阵营);
@@ -1526,21 +1521,21 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
         function clearAll(){
             if(!confirm('确定清空所有字段吗？')) return;
             for(var key in fields){ if(fields.hasOwnProperty(key) && fields[key]){ if(fields[key].tagName === 'SELECT') fields[key].selectedIndex = 0; else fields[key].value = ''; } }
+            // 重置特殊为默认
             if(fields.mechaCustomWrap) fields.mechaCustomWrap.style.display = 'none';
             if(fields.bloodCustomWrap) fields.bloodCustomWrap.style.display = 'none';
             if(fields.secondProfCustomWrap) fields.secondProfCustomWrap.style.display = 'none';
             if(fields.customSpecialWrap) fields.customSpecialWrap.style.display = 'none';
             if(fields.specialWeaponWrap) fields.specialWeaponWrap.style.display = 'none';
             if(fields.specialArtifactWrap) fields.specialArtifactWrap.style.display = 'none';
-            rings = [{ year: '百年' }];
-            localStorage.setItem('soul_rings_v17', JSON.stringify(rings));
+            rings = [];
+            localStorage.setItem('soul_rings_v18', JSON.stringify(rings));
             renderRings();
             backpackItems = [];
-            localStorage.setItem('backpack_items_v17', JSON.stringify(backpackItems));
+            localStorage.setItem('backpack_items_v18', JSON.stringify(backpackItems));
             renderBackpack();
             bonePartNames.forEach(function(n){ boneParts[n] = false; });
             renderBoneParts();
-            document.querySelectorAll('#positionSelector .pos-opt').forEach(function(t){ t.classList.remove('active'); });
             localStorage.removeItem(STORAGE_KEY);
             toggleDualSoul();
             updateSoulTitle();
@@ -1562,6 +1557,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             fields.ag.value = '6';
             fields.fc.value = '无';
             fields.fbg.value = '无';
+            fields.positionSelect.value = '无';
             currentTier = 't1';
             document.querySelectorAll('.special-tier .tier-tag').forEach(function(t){ t.classList.toggle('active', t.dataset.tier === currentTier); });
             renderSpecialOptions();
@@ -1574,6 +1570,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             $('btnEnterWorld').addEventListener('click', enterWorld);
             $('btnExportPersona').addEventListener('click', showExport);
             $('btnCopyExport').addEventListener('click', function(){ copyToClipboard(exportPreview.value); showToast('已复制！'); });
+            $('btnClearAll').addEventListener('click', clearAll);
 
             fields.og_select.addEventListener('change', function(){ fields.og.value = this.value; updateBackpackByCamp(); saveDraft(); });
             fields.fc.addEventListener('change', function(){ updateIdentityByCamp(); updateBackpackByCamp(); if(this.value === '无') fields.fbg.value = '无'; saveDraft(); });
@@ -1592,7 +1589,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             fields.mst.addEventListener('change', function(){ toggleDualSoul(); updateInnateOptions(); if(getSel('mst') === '神级武魂') fields.isp.value = '20级（神赐）'; saveDraft(); });
             fields.st2.addEventListener('change', function(){ updateInnateOptions(); saveDraft(); });
 
-            fields.csr.addEventListener('input', function(){
+            var handleCsr = function(){
                 enforceSoulLevel();
                 var prev = this._prevLevel || 0;
                 var curr = Number(this.value);
@@ -1605,14 +1602,15 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 this._prevLevel = curr;
                 var lv = getVal('csr');
                 if(lv) showToast('魂力：' + lv + '级 → ' + getSoulTitle(lv));
-            });
+            };
+            fields.csr.addEventListener('input', debounce(handleCsr, 200));
             fields.csr.addEventListener('blur', enforceSoulLevel);
 
-            fields.ag.addEventListener('input', function(){
+            fields.ag.addEventListener('input', debounce(function(){
                 var age = parseInt(getVal('ag'));
                 if(age === 6){ var innate = getSel('isp'); var level = getSoulLevelFromInnate(innate); if(!isNaN(level) && level >= 0) fields.csr.value = level; }
                 saveDraft();
-            });
+            }, 300));
             fields.isp.addEventListener('change', function(){
                 var age = parseInt(getVal('ag'));
                 if(age === 6){ var level = getSoulLevelFromInnate(this.value); if(!isNaN(level) && level >= 0) fields.csr.value = level; }
@@ -1627,7 +1625,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             fields.secondProfCustom.addEventListener('input', function(){ updateSecondProfDesc(); saveDraft(); });
             fields.ssy.addEventListener('change', function(){ updateSpiritDot(); saveDraft(); });
 
-            var autoSave = function(){ saveDraft(); };
+            var autoSave = debounce(function(){ saveDraft(); }, 300);
             document.querySelectorAll('input, textarea, select').forEach(function(el){
                 el.addEventListener('input', autoSave);
                 el.addEventListener('change', autoSave);
@@ -1649,9 +1647,8 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             });
 
             $('btnAddRing').addEventListener('click', function(){
-                if(rings.length >= 9){ showToast('最多9个魂环', true); return; }
                 rings.push({ year: '百年' });
-                localStorage.setItem('soul_rings_v17', JSON.stringify(rings));
+                localStorage.setItem('soul_rings_v18', JSON.stringify(rings));
                 renderRings();
                 updateRingInfo();
                 validateRings();
@@ -1710,7 +1707,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
             enforceSoulLevel();
             bindEvents();
             showPane(1);
-            setTimeout(function(){ window.scrollTo({ top: 0, behavior: 'smooth' }); showToast('✦ 魂导终端已启动 · 开始你的觉醒之旅 ✦'); }, 600);
+            setTimeout(function(){ window.scrollTo(0, 0); showToast('✦ 魂导终端已启动 · 开始你的觉醒之旅 ✦'); }, 600);
         }
 
         init();
