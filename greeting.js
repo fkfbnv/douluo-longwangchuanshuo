@@ -1546,7 +1546,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 
 
 
-      <div class="fd" style="margin-top:6px;"><label>开场白与场景</label><textarea id="greeting" rows="3" placeholder="天斗城·清晨｜我的剑，不是为了杀戮而存在的。"></textarea></div>
+      <div class="fd" style="margin-top:6px;"><label>开场白与场景 <sm style="color:#64748b;">第1行写场景（地点·时间·氛围），｜后或换行写你的开场白</sm></label><textarea id="greeting" rows="6" placeholder="第1行：场景——地点·时间·氛围（例：天斗城·清晨｜晨雾将散）&#10;第2行起：以第一人称写下你此刻的行动、处境与想说的话&#10;例：晨雾未散的天斗城门下，我握着刚觉醒的蓝银草，抬头望向城楼——&#10;&#10;留空则只发档案，由 AI 为你起局"></textarea></div>
 
 
 
@@ -4538,34 +4538,13 @@ function getSpecialDisplay(){
         }
 
         function validateRequired(){
-
-
-
-
             var errors = [];
-
-
-
             if (getVal('cn') === '') errors.push('姓名');
-
-
-
             if (getVal('ag') === '' || getVal('ag') === '0') errors.push('年龄');
-
-
-
             if (getVal('msn') === '') errors.push('武魂名称');
-
-
-
             if (getVal('csr') === '') errors.push('当前魂力');
-
-
-
+            if (!getVal('greeting') || !String(getVal('greeting')).trim()) errors.push('开场白与场景');
             return errors;
-
-
-
         }
 
 
@@ -5799,216 +5778,78 @@ function getSpecialDisplay(){
 
 
         function generateGreeting(){
-
-
-
             var d = collectData();
-
-
-
-            var lines = [];
-
-
-
-            lines.push('【姓名】' + (d.基本信息.姓名 || '未命名'));
-
-
-
-            lines.push('【性别】' + (d.基本信息.性别 || '未填写'));
-
-
-
-            lines.push('【年龄】' + (d.基本信息.年龄 || '未填写') + '岁');
-
-
-
-            lines.push('【性格】' + (d.基本信息.性格 || '未填写'));
-
-
-
-            lines.push('【外貌】' + (d.基本信息.外貌 || '未填写'));
-
-
-
-            lines.push('');
-
-
-
-            var v = d.武魂与魂力;
-
-
-
-            if(v.武魂类型 === '双生武魂'){
-
-
-
-                lines.push('【武魂】' + (v.第一武魂.武魂名称 || '未填写') + '（双生武魂）');
-
-
-
-                if(v.第二武魂.武魂名称 && v.第二武魂.武魂名称 !== '未填写'){ lines.push('【第二武魂】' + v.第二武魂.武魂名称 + '（' + (v.第二武魂.武魂类型 || '未填写') + '）'); }
-
-
-
-            } else { lines.push('【武魂】' + (v.武魂名称 || '未填写') + '（' + v.武魂类型 + '）'); }
-
-
-
-            lines.push('【先天魂力】' + (v.先天魂力 || '未填写'));
-
-
-
-            lines.push('【当前魂力】' + (v.当前魂力等级 || '未填写'));
-
-
-
-            lines.push('【魂师称号】' + (v.魂师称号 || '未测定'));
-
-
-
-            if(v.封号名称) lines.push('【封号】' + v.封号名称);
-
-
-
-            lines.push('【精神力】' + (d.精神力.精神力等级 || '未填写'));
-
-
-
-            if(d.魂师定位 && d.魂师定位 !== '无') lines.push('【魂师定位】' + d.魂师定位);
-
-
-
-            var bg = d.出身与阵营;
-
-
-
-            if(bg.出身地) lines.push('【出身地】' + bg.出身地);
-
-
-
-            if(bg.所属阵营 && bg.所属阵营 !== '无') lines.push('【所属阵营】' + bg.所属阵营);
-
-
-
-            if(bg.阵营身份 && bg.阵营身份 !== '无') lines.push('【阵营身份】' + bg.阵营身份);
-
-
-
-            if(bg.组织身份) lines.push('【组织身份】' + bg.组织身份);
-
-
-
-            
-
-
-
-            if(d.魂环 && d.魂环.length){
-
-
-
+            var L = [];
+            var b = d.基本信息, v = d.武魂与魂力, bg = d.出身与阵营;
+
+            // ===== ① 魂师档案（紧凑段：让 AI 认识你是谁，不堆砌标签）=====
+            L.push('【魂师档案 · ' + (b.姓名 || '未命名') + '】');
+            var row1 = [];
+            row1.push('性别' + (b.性别 || '未填写'));
+            if (b.年龄) row1.push('年龄' + b.年龄 + '岁');
+            if (b.性格) row1.push('性格' + b.性格);
+            if (b.外貌) row1.push('外貌' + b.外貌);
+            L.push('· ' + row1.join('｜'));
+
+            var row2 = [];
+            if (v.武魂类型 === '双生武魂') {
+                row2.push('武魂' + (v.第一武魂.武魂名称 || '未填写') + '（双生）');
+                if (v.第二武魂.武魂名称 && v.第二武魂.武魂名称 !== '未填写') row2.push('第二武魂' + v.第二武魂.武魂名称 + '（' + (v.第二武魂.武魂类型 || '未填写') + '）');
+            } else {
+                row2.push('武魂' + (v.武魂名称 || '未填写') + '（' + v.武魂类型 + '）');
+            }
+            if (v.先天魂力) row2.push('先天魂力' + v.先天魂力);
+            if (v.当前魂力等级 && v.当前魂力等级 !== '未填写') row2.push('当前魂力' + v.当前魂力等级);
+            if (v.魂师称号) row2.push('称号' + v.魂师称号);
+            if (v.封号名称) row2.push('封号' + v.封号名称);
+            if (d.精神力 && d.精神力.精神力等级 && d.精神力.精神力等级 !== '未填写') row2.push('精神力' + d.精神力.精神力等级);
+            if (d.魂师定位 && d.魂师定位 !== '无') row2.push('定位' + d.魂师定位);
+            if (d.魂环 && d.魂环.length) {
                 var colorMap = {'十年':'白','百年':'黄','千年':'紫','万年':'黑','十万年':'红','凶兽（二十万年）':'橙金','凶兽':'橙金'};
-
-
-
-                var ringStr = d.魂环.map(function(r){ return r.年份 + '（' + (colorMap[r.年份]||'?') + '）'; }).join('、');
-
-
-
-                lines.push('【魂环】' + ringStr);
-
-
-
+                row2.push('魂环' + d.魂环.map(function(r){ return r.年份 + '(' + (colorMap[r.年份]||'?') + ')'; }).join('、'));
             }
+            L.push('· ' + row2.join('｜'));
 
-
-
-            if(d.魂灵.主要魂灵名称 && d.魂灵.主要魂灵名称 !== '未填写' && d.魂灵.主要魂灵名称 !== ''){
-
-
-
-                var sc = {'十年':'白','百年':'黄','千年':'紫','万年':'黑','十万年':'红','凶兽':'橙金'};
-
-
-
-                lines.push('【主要魂灵】' + d.魂灵.主要魂灵名称 + '（' + d.魂灵.魂灵年限 + '）');
-
-
-
-                if(d.魂灵.其他魂灵.length){ lines.push('【其他魂灵】' + d.魂灵.其他魂灵.join('、')); }
-
-
-
+            var row3 = [];
+            if (bg.出身地) row3.push('出身' + bg.出身地);
+            if (bg.所属阵营 && bg.所属阵营 !== '无') row3.push('阵营' + bg.所属阵营);
+            if (bg.阵营身份 && bg.阵营身份 !== '无') row3.push('身份' + bg.阵营身份);
+            if (bg.组织身份) row3.push('组织' + bg.组织身份);
+            if (d.魂灵 && d.魂灵.主要魂灵名称 && d.魂灵.主要魂灵名称 !== '未填写' && d.魂灵.主要魂灵名称 !== '') {
+                row3.push('魂灵' + d.魂灵.主要魂灵名称 + '(' + d.魂灵.魂灵年限 + ')');
+                if (d.魂灵.其他魂灵 && d.魂灵.其他魂灵.length) row3.push('其他魂灵' + d.魂灵.其他魂灵.join('、'));
             }
+            if (d.斗铠 && d.斗铠.斗铠名称 && d.斗铠.斗铠名称 !== '未填写' && d.斗铠.斗铠名称 !== '') row3.push('斗铠' + d.斗铠.斗铠名称 + '(' + d.斗铠.斗铠等级 + ')');
+            if (d.魂骨 && d.魂骨.已装备魂骨 && d.魂骨.已装备魂骨 !== '0/7') row3.push('魂骨' + d.魂骨.已装备魂骨);
+            if (d.第二职业 && d.第二职业.职业类型 && d.第二职业.职业类型 !== '无') row3.push('第二职业' + d.第二职业.职业类型 + '(' + d.第二职业.等级 + ')');
+            if (d.机甲 && d.机甲.机甲等级 && d.机甲.机甲等级 !== '无') row3.push('机甲' + d.机甲.机甲等级);
+            if (d.特殊能力 && d.特殊能力 !== '无' && d.特殊能力 !== '') row3.push('特殊能力' + d.特殊能力);
+            if (d.背包 && d.背包.length) row3.push('背包' + d.背包.join('、'));
+            if (row3.length) L.push('· ' + row3.join('｜'));
 
-
-
-            if(d.斗铠.斗铠名称 && d.斗铠.斗铠名称 !== '未填写' && d.斗铠.斗铠名称 !== ''){ lines.push('【斗铠】' + d.斗铠.斗铠名称 + '（' + d.斗铠.斗铠等级 + '）'); }
-
-
-
-            if(d.魂骨.已装备魂骨 && d.魂骨.已装备魂骨 !== '0/7'){ lines.push('【魂骨】已装备 ' + d.魂骨.已装备魂骨); }
-
-
-
-            if(d.第二职业.职业类型 && d.第二职业.职业类型 !== '无'){ lines.push('【第二职业】' + d.第二职业.职业类型 + '（' + d.第二职业.等级 + '）'); }
-
-
-
-            if(d.机甲.机甲等级 && d.机甲.机甲等级 !== '无'){ lines.push('【机甲】' + d.机甲.机甲等级); }
-
-
-
-            if(d.特殊能力 && d.特殊能力 !== '无' && d.特殊能力 !== ''){ lines.push('【特殊能力】' + d.特殊能力); }
-
+            // ===== ② 天生异禀段（5/6级专属背景叙述）=====
             var originText2 = getSpecialOriginText();
             var greetingFilled2 = d.开场白 && d.开场白.indexOf('天生异禀') > -1;
-            if(originText2 && !greetingFilled2){ lines.push(''); lines.push(originText2); }
+            if (originText2 && !greetingFilled2) { L.push(''); L.push(originText2); }
 
-
-
-            if(d.背包 && d.背包.length){ lines.push('【背包】' + d.背包.join('、')); }
-
-
-
-            if(d.降临阶段){
-
-
-
-                lines.push('【降临阶段】' + d.降临阶段.阶段 + ' · ' + d.降临阶段.名称);
-
-
-
-                if(d.降临阶段.切入事件) lines.push('【切入事件】' + d.降临阶段.切入事件);
-
-
-
+            // ===== ③ 降临锚点（时间线定位）=====
+            if (d.降临阶段) {
+                L.push('');
+                L.push('【降临】' + d.降临阶段.阶段 + ' · ' + d.降临阶段.名称);
+                if (d.降临阶段.切入事件) L.push('【切入】' + d.降临阶段.切入事件);
             }
 
+            // ===== ④ 此刻（场景 + 开场白正文）=====
+            var hasScene = d.场景设定 && String(d.场景设定).trim();
+            var hasGreet = d.开场白 && String(d.开场白).trim();
+            if (hasScene || hasGreet) {
+                L.push('');
+                if (hasScene) L.push('【场景】' + String(d.场景设定).trim());
+                if (hasGreet) L.push('【此刻】' + String(d.开场白).trim());
+            }
 
-
-            if(d.场景设定){ lines.push(''); lines.push('【场景】' + d.场景设定); }
-
-
-
-            if(d.开场白){ lines.push(''); lines.push('【开场白】' + d.开场白); }
-
-
-
-            lines.push('');
-
-
-
-            lines.push('✦ 档案已铸就，降临斗罗大陆 ✦');
-
-
-
-            return lines.join('\n');
-
-
-
+            return L.join('\n');
         }
-
-
 
         function enterWorld(){
 
