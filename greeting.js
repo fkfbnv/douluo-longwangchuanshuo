@@ -171,6 +171,10 @@ h1::after{content:'';position:absolute;bottom:-4px;width:60%;height:2px;backgrou
 
 
 .step-nav .step-status .dot.done{opacity:1}
+.step-nav .step-info .step-badge{display:inline-block;margin-left:5px;padding:1px 7px;border-radius:8px;font-size:.85em;font-weight:700;background:rgba(74,201,176,0.12);border:1px solid rgba(74,201,176,0.25);color:#4ac9b0}
+.step-nav .step-info .step-badge.warn{background:rgba(251,191,36,0.1);border-color:rgba(251,191,36,0.3);color:#fbbf24}
+#greetPreview .pv-sec{color:#fbbf24;font-weight:700}
+#greetPreview .pv-dim{color:#64748b}
 
 
 
@@ -1555,6 +1559,8 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 
       <div class="fd" style="margin-top:6px;"><label>开场白与场景 <sm style="color:#64748b;">第1行写场景（地点·时间·氛围），｜后或换行写第一人称正文；留空自动生成首帧画面</sm></label><textarea id="greeting" rows="6" placeholder="第1行：场景——地点·时间·氛围（例：海神湖畔·清晨｜晨雾未散）&#10;第2行起：以第一人称写下你此刻的行动、处境与想说的话&#10;例：晨雾未散的海神湖畔，我攥着刚觉醒的武魂，抬头望向湖心岛——&#10;&#10;留空：以所选「降临阶段」自动生成首帧画面"></textarea></div>
 
+      <div class="fd" style="margin-top:6px;"><label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;"><span>预览开场白 <sm style="color:#64748b;">与复制内容一致</sm></span><sm id="greetPreviewToggle" style="color:#fbbf24;font-weight:700;">展开 ▾</sm></label><div id="greetPreview" style="display:none;margin-top:4px;padding:8px 10px;background:rgba(0,0,0,0.28);border:1px solid rgba(255,215,0,0.12);border-radius:8px;font-size:.6em;line-height:1.8;color:#cbd5e1;white-space:pre-wrap;word-break:break-word;max-height:280px;overflow-y:auto;">（尚未生成）</div></div>
+
 
 
     </div></div>
@@ -1771,7 +1777,7 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 
 
 
-            greeting: $('greeting'), stageSelect: $('stageSelect'), stageDetail: $('stageDetail'),
+            greeting: $('greeting'), greetPreview: $('greetPreview'), greetPreviewToggle: $('greetPreviewToggle'), stageSelect: $('stageSelect'), stageDetail: $('stageDetail'),
 
 
 
@@ -2741,6 +2747,34 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 
 
             if (done) { stepDot.classList.add('done'); } else { stepDot.classList.remove('done'); }
+
+            // ===== P2-3: 全局进度徽章（x/8 已完成）=====
+            var _checks = {
+                1: function(){ return getVal('cn') !== '' && getVal('ag') !== '' && getVal('ag') !== '0'; },
+                2: function(){ return getVal('og') !== '' || getVal('fc') !== '无'; },
+                3: function(){ return fields.st.options.length > 0 && fields.st.value !== ''; },
+                4: function(){ return getVal('msn') !== '' && getVal('csr') !== ''; },
+                5: function(){ return getVal('sp') !== '' && getSel('positionSelect') !== '无'; },
+                6: function(){ return true; },
+                7: function(){ return true; },
+                8: function(){ return true; }
+            };
+            var _doneCount = 0;
+            for(var _s = 1; _s <= totalSteps; _s++){ if(_checks[_s]()) _doneCount++; }
+            var _badge = document.getElementById('stepBadge');
+            if(!_badge){
+                _badge = document.createElement('span');
+                _badge.id = 'stepBadge';
+                _badge.className = 'step-badge';
+                var _info = document.querySelector('.step-nav .step-info');
+                if(_info) _info.appendChild(_badge);
+            }
+            if(_badge){
+                _badge.textContent = _doneCount + '/' + totalSteps;
+                if(_doneCount >= totalSteps){ _badge.classList.remove('warn'); _badge.textContent = '✓ 就绪'; }
+                else if(_doneCount <= 2){ _badge.classList.add('warn'); }
+                else { _badge.classList.remove('warn'); }
+            }
 
 
 
@@ -6370,6 +6404,32 @@ function getSpecialDisplay(){
 
 
             var autoSave = debounce(function(){ saveDraft(); updateStepStatus(); }, 500);
+
+            // ===== P2-1: 开场白实时预览 =====
+            var _greetPreviewOpen = false;
+            var renderGreetPreview = debounce(function(){
+                if(!fields.greetPreview) return;
+                try {
+                    var text = generateGreeting();
+                    var empty = !text || !text.trim();
+                    if(empty){ fields.greetPreview.innerHTML = '<span class="pv-dim">（填写姓名/年龄/武魂后自动生成）</span>'; return; }
+                    var html = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                    html = html.replace(/^(【[^】]+】[^\r\n]*)$/gm, '<span class="pv-sec">$1</span>');
+                    html = html.replace(/^(【[A-C]\. [^】]+】\/.*)$/gm, '<span style="color:#4ac9b0;">$1</span>');
+                    fields.greetPreview.innerHTML = html;
+                } catch(e) { fields.greetPreview.innerHTML = '<span class="pv-dim">（预览生成中…）</span>';
+                }
+            }, 400);
+            if(fields.greetPreviewToggle){
+                fields.greetPreviewToggle.addEventListener('click', function(){
+                    _greetPreviewOpen = !_greetPreviewOpen;
+                    fields.greetPreview.style.display = _greetPreviewOpen ? 'block' : 'none';
+                    this.textContent = _greetPreviewOpen ? '收起 ▴' : '展开 ▾';
+                    if(_greetPreviewOpen) renderGreetPreview();
+                });
+            }
+            if(fields.greeting) fields.greeting.addEventListener('input', renderGreetPreview);
+            if(fields.stageGoal) fields.stageGoal.addEventListener('input', renderGreetPreview);
 
 
 
