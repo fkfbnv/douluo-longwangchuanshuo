@@ -750,6 +750,34 @@ select option{background:#0f1a2e;color:#e2e8f0}
 .custom-wrap{border:1px dashed rgba(255,255,255,0.14);border-radius:12px;padding:10px 12px 4px;background:rgba(255,255,255,0.04)}
 .custom-wrap .custom-title{font-size:.7em;color:#a5b4fc;font-weight:700;margin-bottom:8px;letter-spacing:1px}
 .custom-wrap .fd label{font-size:.65em;color:#94a3b8;margin-bottom:3px}
+/* ===== P3: AI扩写按钮 + AI设置面板 + 底部分页 + 第9步预览页 ===== */
+.ai-exp-btn{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:8px;border:1px solid rgba(74,201,176,0.35);background:rgba(74,201,176,0.08);color:#4ac9b0;font-size:.55em;font-weight:700;cursor:pointer;vertical-align:middle}
+.ai-exp-btn:hover{background:rgba(74,201,176,0.18);border-color:#4ac9b0}
+.ai-exp-btn:active{transform:scale(.95)}
+.ai-exp-btn.busy{opacity:.6;pointer-events:none}
+.ai-cog-btn{font-size:.55em;padding:2px 8px;border-radius:6px;border:1px solid rgba(148,163,184,0.25);background:rgba(148,163,184,0.06);color:#94a3b8;cursor:pointer}
+.ai-cog-btn:hover{background:rgba(148,163,184,0.14);color:#e2e8f0}
+.ai-panel{display:none;margin-top:6px;padding:8px 10px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,215,0,0.15);border-radius:10px}
+.ai-panel.open{display:block}
+.ai-panel .fd{margin-bottom:5px}
+.ai-panel label{font-size:.58em;color:#94a3b8;font-weight:700;display:block;margin-bottom:2px}
+.ai-panel input{width:100%;font-size:.65em;min-height:28px;padding:4px 8px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.08);border-radius:6px;color:#e2e8f0}
+.ai-panel .ai-hint{font-size:.52em;color:#64748b;line-height:1.7;margin:4px 0 6px 0}
+.ai-panel .ai-actions{display:flex;gap:6px;align-items:center}
+.ai-panel .ai-save{padding:3px 14px;border-radius:8px;border:1px solid rgba(255,215,0,0.35);background:rgba(255,215,0,0.1);color:#fbbf24;font-size:.6em;font-weight:700;cursor:pointer}
+.ai-panel .ai-save:hover{background:rgba(255,215,0,0.2)}
+.ai-status{font-size:.5em;color:#4ac9b0;margin-left:8px}
+.ai-status.err{color:#f87171}
+#bottomPager{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;z-index:900;display:flex;align-items:center;gap:8px;padding:6px 12px;background:rgba(6,13,26,0.92);border:1px solid rgba(255,215,0,0.22);border-radius:24px;box-shadow:0 4px 18px rgba(0,0,0,0.55);backdrop-filter:blur(6px)}
+#bottomPager .bp-btn{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,215,0,0.25);background:rgba(255,215,0,0.06);color:#fbbf24;font-size:.9em;cursor:pointer;display:flex;align-items:center;justify-content:center}
+#bottomPager .bp-btn:disabled{opacity:.2;pointer-events:none}
+#bottomPager .bp-btn:active{transform:scale(.92)}
+#bottomPager .bp-num{font-size:.7em;color:#fbbf24;font-weight:700;letter-spacing:1px;min-width:44px;text-align:center}
+#bottomPager .bp-name{font-size:.55em;color:#94a3b8;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pv-page{white-space:pre-wrap;word-break:break-word;font-size:.68em;line-height:2;color:#cbd5e1;background:rgba(0,0,0,0.3);border:1px solid rgba(255,215,0,0.15);border-radius:12px;padding:14px 14px;min-height:180px;max-height:52vh;overflow-y:auto}
+.pv-page .pv-sec{color:#fbbf24;font-weight:700}
+.pv-empty{color:#64748b;font-style:italic}
+@media(max-width:480px){#bottomPager{bottom:8px;padding:5px 10px;gap:6px}#bottomPager .bp-btn{width:30px;height:30px}#bottomPager .bp-name{max-width:64px}}
 @media(max-width:480px){.blood-row .rw{grid-template-columns:1fr}}
 
 {background:rgba(255,107,107,0.12);border-color:#ff6b6b;color:#ff8a8a}
@@ -1016,7 +1044,14 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 
 
 
-  <div class="fd"><label>外貌描述</label><textarea id="appearance" rows="2" placeholder="黑发金瞳，左颊有一道细长疤痕…"></textarea></div>
+  <div class="fd"><label>外貌描述</label><button type="button" class="ai-exp-btn" id="btnAiExpand">✨AI扩写</button><button type="button" class="ai-cog-btn" id="btnAiCfg" title="AI设置">⚙️</button><textarea id="appearance" rows="2" placeholder="黑发金瞳，左颊有一道细长疤痕…"></textarea></div>
+<div class="ai-panel" id="aiPanel">
+  <div class="ai-hint">扩写用 AI：可自定义任何 OpenAI 兼容接口（中转站/本地），也可留空直接使用酒馆当前连接的 API。数据只存本机浏览器。</div>
+  <div class="fd"><label>接口地址 base_url（如 https://api.example.com/v1）</label><input type="text" id="aiBaseUrl" placeholder="https://api.example.com/v1" autocomplete="off"></div>
+  <div class="fd"><label>API Key（可选，本地保存）</label><input type="password" id="aiApiKey" placeholder="sk-..." autocomplete="off"></div>
+  <div class="fd"><label>模型名称（如 gemini-3.1-pro / deepseek-v4）</label><input type="text" id="aiModel" placeholder="模型 id" autocomplete="off"></div>
+  <div class="ai-actions"><button type="button" class="ai-save" id="btnAiSave">💾 保存</button><span class="ai-status" id="aiStatus"></span></div>
+</div>
 
 
 
@@ -1595,6 +1630,22 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 
 
 
+<div class="sec" data-step="9">
+
+  <div class="step-guide">✦ 第九步 · 降临预览（最终确认）</div>
+
+  <div class="sb"><div class="in">
+    <div class="fd"><label style="display:flex;align-items:center;justify-content:space-between;"><span>开场白全文 <sm style="color:#64748b;">与复制内容一致</sm></span><span><button type="button" class="ai-exp-btn" id="btnPreviewRefresh">↻ 刷新</button> <button type="button" class="ai-cog-btn" id="btnPreviewCopy">📋 复制</button></span></label>
+    <div class="pv-page" id="pvPage"><span class="pv-empty">（填写姓名/年龄/武魂后自动生成）</span></div></div>
+    <div class="fd"><label>进入世界</label>
+    <div class="enter-world-wrap" style="margin-top:4px;">
+      <div class="enter-hint">✦ 确认无误，复制开场白进入斗罗大陆 ✦</div>
+      <button class="bm bm-enter" id="btnEnterWorldFinal">✦ 复制并进入魂师世界 ✦</button>
+    </div></div>
+  </div></div>
+
+</div>
+
 <div id="exportArea" class="export-area">
 
 
@@ -1647,6 +1698,12 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 
 
 
+<div id="bottomPager">
+  <button class="bp-btn" id="bpPrev">◀</button>
+  <span class="bp-num" id="bpNum">1/9</span>
+  <span class="bp-name" id="bpName">刻下你的名字</span>
+  <button class="bp-btn" id="bpNext">▶</button>
+</div>
 <div id="msg"></div><textarea id="cd"></textarea>
 
 
@@ -1876,11 +1933,11 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 
 
 
-        var stepNames = ['刻下你的名字', '出身与阵营', '特殊能力', '武魂与魂力', '精神力、定位与魂骨', '魂灵与魂环', '斗铠、机甲与第二职业', '降临与命运'];
+        var stepNames = ['刻下你的名字', '出身与阵营', '特殊能力', '武魂与魂力', '精神力、定位与魂骨', '魂灵与魂环', '斗铠、机甲与第二职业', '降临与命运', '降临预览'];
 
 
 
-        var currentStep = 1, totalSteps = 8;
+        var currentStep = 1, totalSteps = 9;
 
 
 
@@ -2646,6 +2703,17 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 
 
 
+
+            // ===== P3: 底部分页同步 =====
+            var _bpNum = document.getElementById('bpNum');
+            var _bpName = document.getElementById('bpName');
+            var _bpPrev = document.getElementById('bpPrev');
+            var _bpNext = document.getElementById('bpNext');
+            if(_bpNum) _bpNum.textContent = n + '/' + totalSteps;
+            if(_bpName) _bpName.textContent = stepNames[n-1] || '';
+            if(_bpPrev) _bpPrev.disabled = (n <= 1);
+            if(_bpNext) _bpNext.disabled = (n >= totalSteps);
+            if(n === 9 && typeof renderPvPage === 'function') renderPvPage();
             updateStepStatus();
 
 
@@ -2740,6 +2808,12 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
 
                 done = true;
 
+                } else if (step === 9) {
+
+                    done = true;
+
+
+
 
 
             }
@@ -2757,7 +2831,8 @@ input,select,textarea,.bm,.btn-export-persona-bottom,.sec summary,.ring-item sel
                 5: function(){ return getVal('sp') !== '' && getSel('positionSelect') !== '无'; },
                 6: function(){ return true; },
                 7: function(){ return true; },
-                8: function(){ return true; }
+                8: function(){ return true; },
+                9: function(){ return true; }
             };
             var _doneCount = 0;
             for(var _s = 1; _s <= totalSteps; _s++){ if(_checks[_s]()) _doneCount++; }
@@ -5899,10 +5974,14 @@ function getSpecialDisplay(){
             }
 
             // ===== ⑤ 情境选项（降世界门槛：给玩家入口）=====
-            var opts = d.降临阶段 && d.降临阶段.选项 && d.降临阶段.选项.length ? d.降临阶段.选项 : null;
-            if (opts) {
+            var opts = d.降临阶段 && d.降临阶段.选项 && d.降临阶段.选项.length ? d.降临阶段.选项.slice() : null;
+            if (opts && opts.length) {
+                // P3-5: 洗牌随机取3（池扩容后自动适配）
+                for (var _i = opts.length - 1; _i > 0; _i--) { var _j = Math.floor(Math.random() * (_i + 1)); var _t = opts[_i]; opts[_i] = opts[_j]; opts[_j] = _t; }
+                opts = opts.slice(0, 3);
+                while (opts.length < 3) opts.push(['静观其变', '转身离开', '另寻他路'][opts.length - 1] || '静观其变');
                 L.push('');
-                L.push('【A. ' + opts[0] + '】/【B. ' + (opts[1]||'静观其变') + '】/【C. ' + (opts[2]||'转身离开') + '】');
+                L.push('【A. ' + opts[0] + '】/【B. ' + opts[1] + '】/【C. ' + opts[2] + '】');
             }
             return L.join('\n');
         }
@@ -6158,6 +6237,33 @@ function getSpecialDisplay(){
 
 
             $('btnEnterWorld').addEventListener('click', enterWorld);
+
+
+            // ===== P3: 第9页 + 底部分页 + AI扩写 绑定 =====
+            var _bpPrev = document.getElementById('bpPrev');
+            var _bpNext = document.getElementById('bpNext');
+            if(_bpPrev) _bpPrev.addEventListener('click', goPrevStep);
+            if(_bpNext) _bpNext.addEventListener('click', goNextStep);
+            var _btnFinal = $('btnEnterWorldFinal');
+            if(_btnFinal) _btnFinal.addEventListener('click', function(){ enterWorld(); if(typeof showAwakenAnimation === 'function'){ showAwakenAnimation(); } });
+            var _pvRefresh = $('btnPreviewRefresh');
+            if(_pvRefresh) _pvRefresh.addEventListener('click', function(){ renderPvPage(); showToast('↻ 预览已刷新'); });
+            var _pvCopy = $('btnPreviewCopy');
+            if(_pvCopy) _pvCopy.addEventListener('click', function(){ try { copyToClipboard(generateGreeting()); showToast('📋 已复制开场白'); } catch(e) { showToast('复制失败', true); } });
+            var _btnCfg = $('btnAiCfg');
+            if(_btnCfg) _btnCfg.addEventListener('click', function(){ var p = $('aiPanel'); if(p) p.classList.toggle('open'); });
+            var _btnAiSave = $('btnAiSave');
+            if(_btnAiSave) _btnAiSave.addEventListener('click', function(){
+                try {
+                    localStorage.setItem('dlgh_ai_base', ($('aiBaseUrl')||{}).value || '');
+                    localStorage.setItem('dlgh_ai_key', ($('aiApiKey')||{}).value || '');
+                    localStorage.setItem('dlgh_ai_model', ($('aiModel')||{}).value || '');
+                    var st = $('aiStatus');
+                    if(st){ st.textContent = '✓ 已保存'; st.className = 'ai-status'; setTimeout(function(){ st.textContent = ''; }, 2000); }
+                } catch(e) {}
+            });
+            var _btnAi = $('btnAiExpand');
+            if(_btnAi) _btnAi.addEventListener('click', function(){ aiExpandAppearance(_btnAi); });
 
 
 
@@ -6429,6 +6535,94 @@ function getSpecialDisplay(){
                 });
             }
             if(fields.greeting) fields.greeting.addEventListener('input', renderGreetPreview);
+
+
+            // ===== P3-2: 第9页全页预览 =====
+            var renderPvPage = debounce(function(){
+                var pv = document.getElementById('pvPage');
+                if(!pv) return;
+                try {
+                    var text = generateGreeting();
+                    if(!text || !text.trim()){ pv.innerHTML = '<span class="pv-empty">（填写姓名/年龄/武魂后自动生成）</span>'; return; }
+                    var html = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                    html = html.replace(/^(【[^】]+】[^\r\n]*)$/gm, '<span class="pv-sec">$1</span>');
+                    html = html.replace(/^(【[A-C]\. [^】]+】\/.*)$/gm, '<span style="color:#4ac9b0;">$1</span>');
+                    pv.innerHTML = html;
+                } catch(e) { pv.innerHTML = '<span class="pv-empty">（生成中…）</span>'; }
+            }, 300);
+
+            // ===== P3-3: AI 设置（自定义 OpenAI 兼容接口 / 留空走酒馆） =====
+            function loadAiCfg(){
+                var c = { base:'', key:'', model:'' };
+                try {
+                    c.base = localStorage.getItem('dlgh_ai_base') || '';
+                    c.key = localStorage.getItem('dlgh_ai_key') || '';
+                    c.model = localStorage.getItem('dlgh_ai_model') || '';
+                } catch(e) {}
+                return c;
+            }
+            (function restoreAiCfg(){
+                try {
+                    var c = loadAiCfg();
+                    var eb = document.getElementById('aiBaseUrl'), ek = document.getElementById('aiApiKey'), em = document.getElementById('aiModel');
+                    if(eb) eb.value = c.base;
+                    if(ek) ek.value = c.key;
+                    if(em) em.value = c.model;
+                } catch(e) {}
+            })();
+
+            // ===== P3-4: 外貌 AI 扩写（OpenAI 兼容 chat/completions；无自定义则走酒馆 TavernHelper） =====
+            function aiExpandAppearance(btn){
+                var ta = $('appearance');
+                if(!ta) return;
+                var brief = (ta.value || '').trim();
+                if(!brief){ showToast('先写几个字的外貌，再点扩写', true); return; }
+                var c = loadAiCfg();
+                var sys = '你是斗罗大陆世界观下的角色外貌扩写助手。把用户提供的简短外貌描述扩写成80-150字的完整外貌描写：保留用户给出的全部特征（发色/瞳色/特征标记等一字不改），补充发型、五官、肤色、身形气质等细节。文风干净直接，只输出扩写后的描写正文，不要任何解释、引号或前缀。';
+                var usr = '简短描述：' + brief;
+                btn.classList.add('busy');
+                var oldTxt = btn.textContent;
+                btn.textContent = '⏳ 扩写中…';
+                var done = function(ok, text, errMsg){
+                    btn.classList.remove('busy');
+                    btn.textContent = oldTxt;
+                    if(!ok){ showToast(errMsg || 'AI扩写失败', true); return; }
+                    ta.value = text.trim();
+                    try { saveDraft(); updateStepStatus(); } catch(e) {}
+                    showToast('✨ 外貌已扩写');
+                };
+                if(c.base && c.model){
+                    // 自定义 OpenAI 兼容接口
+                    var body = JSON.stringify({ model: c.model, messages: [ {role:'system', content: sys}, {role:'user', content: usr} ], temperature: 0.8, max_tokens: 400 });
+                    var headers = { 'Content-Type': 'application/json' };
+                    if(c.key) headers['Authorization'] = 'Bearer ' + c.key;
+                    fetch(c.base.replace(/\/$/, '') + '/chat/completions', { method: 'POST', headers: headers, body: body })
+                        .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+                        .then(function(j){
+                            var t = j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content || '';
+                            if(!t) throw new Error('空回复');
+                            done(true, t);
+                        })
+                        .catch(function(e){ done(false, null, '自定义AI: ' + e.message); });
+                } else {
+                    // 走酒馆当前连接（TavernHelper / JS-Slash-Runner）
+                    try {
+                        if(typeof TavernHelper !== 'undefined' && TavernHelper.generate){
+                            TavernHelper.generate({ prompts: [ {role:'system', content: sys}, {role:'user', content: usr} ], stream: false })
+                                .then(function(t){ done(true, String(t)); })
+                                .catch(function(e){ done(false, null, '酒馆AI: ' + (e && e.message || e)); });
+                        } else if (typeof window.TavernHelper !== 'undefined' && window.TavernHelper.generate) {
+                            window.TavernHelper.generate({ prompts: [ {role:'system', content: sys}, {role:'user', content: usr} ], stream: false })
+                                .then(function(t){ done(true, String(t)); })
+                                .catch(function(e){ done(false, null, '酒馆AI: ' + (e && e.message || e)); });
+                        } else {
+                            done(false, null, '未配置自定义AI，且酒馆助手(TavernHelper)不可用');
+                        }
+                    } catch(e) {
+                        done(false, null, '酒馆助手调用异常: ' + e.message);
+                    }
+                }
+            }
             if(fields.stageGoal) fields.stageGoal.addEventListener('input', renderGreetPreview);
 
 
